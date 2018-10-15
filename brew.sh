@@ -41,7 +41,7 @@ brew install gnupg
 # Install more recent versions of some macOS tools.
 brew install vim --with-override-system-vi
 brew install grep
-brew install openssh
+#brew install openssh # keep macOS default openssh because of the UseKeychain Option which cannot be provided by brew openssh
 brew install screen
 #brew install homebrew/php/php56 --with-gmp
 
