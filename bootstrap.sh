@@ -11,11 +11,13 @@ function doIt() {
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
-		--exclude ".macos" \
-		--exclude "brew.sh" \
-		--exclude "init/" \
-		--exclude "bin/" \
 		-avh --no-perms . ~;
+	# clean up
+	rm -r "${HOME}/bin";
+	rm -r "${HOME}/init";
+	rm "${HOME}/.macos";
+	rm "${HOME}/brew.sh";
+	# load new config
 	source ~/.bash_profile;
 }
 
