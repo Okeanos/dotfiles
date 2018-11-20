@@ -7,7 +7,9 @@ git pull origin master;
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
+		--exclude ".macos" \
 		--exclude ".osx" \
+		--exclude "brew.sh" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
@@ -15,8 +17,6 @@ function doIt() {
 	# clean up
 	rm -r "${HOME}/bin";
 	rm -r "${HOME}/init";
-	rm "${HOME}/.macos";
-	rm "${HOME}/brew.sh";
 	# load new config
 	source ~/.bash_profile;
 }
