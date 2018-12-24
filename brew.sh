@@ -43,7 +43,8 @@ brew install vim --with-override-system-vi
 brew install grep
 #brew install openssh # keep macOS default openssh because of the UseKeychain Option which cannot be provided by brew openssh
 brew install screen
-#brew install homebrew/php/php56 --with-gmp
+#brew install php
+#brew install gmp
 
 # Install font tools.
 brew tap bramstein/webfonttools
