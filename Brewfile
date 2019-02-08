@@ -16,14 +16,14 @@ brew 'gnu-sed' #, args: ['with-default-names‘] #this option is not supported a
 brew 'bash'
 brew 'bash-completion2'
 
-# Install `wget` with IRI support.
-brew 'wget', args: ['with-iri']
+# Install `wget`.
+brew 'wget'
 
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'
 
 # Install more recent versions of some macOS tools.
-brew 'vim', args: ['override-system-vi']
+brew 'vim'
 brew 'grep'
 #brew 'openssh' # keep macOS default openssh because of the UseKeychain Option which cannot be provided by brew openssh
 brew 'screen'
@@ -56,20 +56,20 @@ brew 'sqlmap'
 brew 'tcpflow'
 brew 'tcpreplay'
 brew 'tcptrace'
-brew 'ucspi-tcp '# `tcpserver` etc.
+brew 'ucspi-tcp' # `tcpserver` etc.
 brew 'xpdf'
 brew 'xz'
 
 # Install other useful binaries.
 brew 'ack'
-brew 'atop'
 brew 'buku'
 brew 'composer'
+brew 'curl'
 #brew install exiv2
 brew 'git'
 brew 'git-lfs'
 brew 'htop'
-brew 'imagemagick', args:['with-webp']
+brew 'imagemagick'
 brew 'jq'
 brew 'lua'
 brew 'lynx'
