@@ -14,7 +14,7 @@ brew 'gnu-sed' #, args: ['with-default-names‘] #this option is not supported a
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
 brew 'bash'
-brew 'bash-completion2'
+brew 'bash-completion@2'
 
 # Install `wget`.
 brew 'wget'
