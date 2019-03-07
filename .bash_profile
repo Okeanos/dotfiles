@@ -26,11 +26,14 @@ for option in autocd globstar; do
 done;
 
 # Add tab completion for many Bash commands
-if which brew &> /dev/null && [ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]; then
- 	# Ensure existing Homebrew v1 completions continue to work
- 	export BASH_COMPLETION_COMPAT_DIR="$(brew --prefix)/etc/bash_completion.d"
+if which brew &> /dev/null; then
+	brew_prefix=$(brew --prefix);
+	if [ -f "${brew_prefix}/etc/profile.d/bash_completion.sh" ]; then
+		# Ensure existing Homebrew v1 completions continue to work
+		export BASH_COMPLETION_COMPAT_DIR="${brew_prefix}/etc/bash_completion.d";
 
-  	source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+		source "${brew_prefix}/etc/profile.d/bash_completion.sh";
+	fi
 elif [ -f /usr/share/bash-completion/bash_completion ]; then
 	source /usr/share/bash-completion/bash_completion;
 elif [ -f /etc/bash_completion ]; then
