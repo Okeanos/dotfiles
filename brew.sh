@@ -11,14 +11,15 @@ fi;
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
 
-# Make sure we’re using the latest Homebrew.
-brew update
-
 # Upgrade any already-installed formulae.
 brew upgrade
 
 # Install everything inside Brewfile
 brew bundle
+echo 'Be sure to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.'
+echo 'Add `$(brew --prefix findutils)/libexec/gnubin` to `$PATH` if you would prefer these be the defaults.'
+echo 'Be sure to add `$(brew --prefix gnu-sed)/libexec/gnubin` to `$PATH`.'
+echo 'If you would like to map vi so it opens the brew-installed vim: ln -s /usr/local/bin/vim /usr/local/bin/vi'
 
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
@@ -27,6 +28,3 @@ if ! fgrep -q "${BREW_PREFIX}/bin/bash" /etc/shells; then
   echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
   chsh -s "${BREW_PREFIX}/bin/bash";
 fi;
-
-# Remove outdated versions from the cellar.
-brew cleanup
