@@ -61,6 +61,26 @@ prompt_git() {
 	fi;
 }
 
+prompt_k8s() {
+	if [ $(kubectl config current-context &>/dev/null; echo "${?}") == '0' ]; then
+		local cluster=$(kubectl config current-context);
+		local format="${bold}";
+		case "$(echo -n ${cluster} | cut -d '-' -f2)" in
+			"dev")
+				;;
+			"int")
+				format+="${yellow}";
+				;;
+			"prod")
+				format+="${red}";
+				;;
+		esac
+		echo -e "${format}${cluster}${reset} ";
+	else
+		return;
+	fi;
+}
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
@@ -117,6 +137,7 @@ PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git r
 PS1+="\[${white}\] at ";
 PS1+="\[${orange}\]\D{%F %T}";
 PS1+="\n";
+PS1+="\[${reset}\]\$(prompt_k8s)";
 PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
 export PS1;
 
