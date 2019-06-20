@@ -63,10 +63,11 @@ prompt_git() {
 
 prompt_k8s() {
 	if [ $(kubectl config current-context &>/dev/null; echo "${?}") == '0' ]; then
-		local cluster=$(kubectl config current-context);
+		local cluster="$(kubectl config current-context)";
 		local format="${bold}";
 		case "$(echo -n ${cluster} | cut -d '-' -f2)" in
 			"dev")
+				format+="${green}";
 				;;
 			"int")
 				format+="${yellow}";
@@ -75,7 +76,7 @@ prompt_k8s() {
 				format+="${red}";
 				;;
 		esac
-		echo -e "${format}${cluster}${reset} ";
+		echo -e "${1} ${format}${cluster}";
 	else
 		return;
 	fi;
@@ -136,8 +137,8 @@ PS1+="\[${green}\]\w"; # working directory full path
 PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
 PS1+="\[${white}\] at ";
 PS1+="\[${orange}\]\D{%F %T}";
+PS1+="\$(prompt_k8s \"\[${white}\] using\")";
 PS1+="\n";
-PS1+="\[${reset}\]\$(prompt_k8s)";
 PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
 export PS1;
 
