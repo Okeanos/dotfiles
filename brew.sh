@@ -15,7 +15,7 @@ BREW_PREFIX=$(brew --prefix)
 brew upgrade
 
 # Install everything inside Brewfile
-brew bundle
+brew bundle install
 echo 'Be sure to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.'
 echo 'Add `$(brew --prefix findutils)/libexec/gnubin` to `$PATH` if you would prefer these be the defaults.'
 echo 'Be sure to add `$(brew --prefix gnu-sed)/libexec/gnubin` to `$PATH`.'

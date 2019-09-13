@@ -10,7 +10,7 @@ brew 'moreutils'
 brew 'findutils'
 # Install GNU `sed`, overwriting the built-in `sed`.
 brew 'gnu-sed' #, args: ['with-default-names‘] #this option is not supported anymore
-# Install Bash 4.
+# Install a modern version of Bash.
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before
 # running `chsh`.
 brew 'bash'
@@ -68,6 +68,7 @@ brew 'curl'
 #brew install exiv2
 brew 'git'
 brew 'git-lfs'
+brew 'gs'
 brew 'htop'
 brew 'imagemagick'
 brew 'jq'
