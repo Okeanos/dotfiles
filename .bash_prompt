@@ -83,7 +83,13 @@ if tput setaf 1 &> /dev/null; then
 	bold=$(tput bold);
 	reset=$(tput sgr0);
 	# Solarized colors, taken from http://git.io/solarized-colors.
-	black=$(tput setaf 0);
+	brblack=$(tput setaf 234);
+	black=$(tput setaf 235);
+	brgreen=$(tput setaf 240);
+	bryellow=$(tput setaf 241);
+	brblue=$(tput setaf 244);
+	brcyan=$(tput setaf 245);
+	brwhite=$(tput setaf 230);
 	blue=$(tput setaf 33);
 	cyan=$(tput setaf 37);
 	green=$(tput setaf 64);
@@ -96,6 +102,12 @@ if tput setaf 1 &> /dev/null; then
 else
 	bold='';
 	reset="\e[0m";
+	brblack="\e[1;30m";
+	brgreen="\e[1;32m";
+	bryellow="\e[1;33m";
+	brblue="\e[1;34m";
+	brcyan="\e[1;36m";
+	brwhite="\e[1;37m";
 	black="\e[1;30m";
 	blue="\e[1;34m";
 	cyan="\e[1;36m";
@@ -126,16 +138,16 @@ fi;
 PS1="\[\033]0;\W\007\]"; # working directory base name
 PS1+="\[${bold}\]\n"; # newline
 PS1+="\[${userStyle}\]\u"; # username
-PS1+="\[${white}\] at ";
+PS1+="\[${brcyan}\] at ";
 PS1+="\[${hostStyle}\]\h"; # host
-PS1+="\[${white}\] in ";
+PS1+="\[${brcyan}\] in ";
 PS1+="\[${green}\]\w"; # working directory full path
-PS1+="\$(prompt_git \"\[${white}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
-PS1+="\[${white}\] at ";
+PS1+="\$(prompt_git \"\[${brcyan}\] on \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
+PS1+="\[${brcyan}\] at ";
 PS1+="\[${orange}\]\D{%F %T}";
-PS1+="\$(prompt_k8s \"\[${white}\] using\")";
+PS1+="\$(prompt_k8s \"\[${brcyan}\] using\")";
 PS1+="\n";
-PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
+PS1+="\[${brcyan}\]\$ \[${reset}\]"; # `$` (and reset color)
 export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
