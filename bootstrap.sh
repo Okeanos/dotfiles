@@ -5,20 +5,12 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
-	rsync --exclude ".git/" \
-		--exclude ".DS_Store" \
-		--exclude ".macos" \
-		--exclude "bin" \
-		--exclude "init" \
-		--exclude "Brewfile" \
-		--exclude "brew.sh" \
-		--exclude "bootstrap.sh" \
-		--exclude "README.md" \
-		--exclude "LICENSE-MIT.txt" \
-		-avh --no-perms . ~;
-	# clean up
-	rm -r "${HOME}/bin";
-	rm -r "${HOME}/init";
+	stow "stow/curl";
+	stow "stow/git";
+	stow "stow/misc";
+	stow "stow/shell";
+	stow "stow/ssh";
+	stow "stow/vim":
 	# load new config
 	source ~/.bash_profile;
 }

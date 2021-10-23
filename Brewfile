@@ -19,6 +19,9 @@ brew 'bash-completion@2'
 # Install `wget`.
 brew 'wget'
 
+# Install `stow`.
+brew 'stow'
+
 # Install GnuPG to enable PGP-signing commits.
 brew 'gnupg'
 
