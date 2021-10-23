@@ -45,7 +45,7 @@ if type _git &> /dev/null; then
 fi;
 
 # Create a config file for ssh based on the base configs if it doesn't exist
-[ ! -f "$HOME/.ssh/config" ] && [ -d "$HOME/.ssh/config.d" ] && cat "$HOME/.ssh/config.d/*" > "$HOME/.ssh/config"
+[ ! -f "$HOME/.ssh/config" ] && [ -d "$HOME/.ssh/config.d" ] && cat "$(realpath $HOME/.ssh/config.d)/"* > "$HOME/.ssh/config"
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
