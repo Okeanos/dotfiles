@@ -67,6 +67,9 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
+# Disable Close windows when quitting an app
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool true
+
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
@@ -118,6 +121,20 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 #rm -rf ~/Library/Application Support/Dock/desktoppicture.db
 #sudo rm -rf /System/Library/CoreServices/DefaultDesktop.jpg
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
+
+# Set digital clock (default)
+sudo defaults write com.apple.menuextra.clock IsAnalog -bool false
+
+# Disable Flash the time separators (Default)
+sudo defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
+
+# Thu 18 Aug 23:46:18
+# System Preferences > Date & Time > Display time with seconds - Checked [:ss]
+# System Preferences > Date & Time > Use a 24-hour clock - Checked [HH:mm]
+# System Preferences > Date & Time > Show AM/PM - Unchecked
+# System Preferences > Date & Time > Show the day of the week - Checked [EEE]
+# System Preferences > Date & Time > Show date - Checked [d MMM]
+sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
 
 ##############################################################################
 # Security                                                                   #
@@ -691,6 +708,7 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
+# TODO doesn't work anymore
 defaults write com.apple.spotlight orderedItems -array \
 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
