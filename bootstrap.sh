@@ -7,6 +7,8 @@ git pull origin master;
 function doIt() {
 	stow -d "stow" "curl" -t "${HOME}";
 	stow -d "stow" "git" -t "${HOME}";
+# mkdir -p "${HOME}/.m2";
+#	stow -d "stow" "maven" -t "${HOME}";
 	stow -d "stow" "misc" -t "${HOME}";
 	stow -d "stow" "shell" -t "${HOME}";
 	stow -d "stow" "ssh" -t "${HOME}";
