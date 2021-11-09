@@ -3,6 +3,16 @@
 		<!-- <toolchain>
 				<type>jdk</type>
 				<provides>
+						<version>6</version>
+						<vendor>Apple</vendor>
+				</provides>
+				<configuration>
+						<jdkHome>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin</jdkHome>
+				</configuration>
+		</toolchain> -->
+		<!-- <toolchain>
+				<type>jdk</type>
+				<provides>
 						<version>8</version>
 						<vendor>Adoptium</vendor>
 				</provides>
@@ -20,6 +30,16 @@
 						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home/bin</jdkHome>
 				</configuration>
 		</toolchain> -->
+	<!-- <toolchain>
+			<type>jdk</type>
+			<provides>
+					<version>16</version>
+					<vendor>AdoptOpenJDK</vendor>
+			</provides>
+			<configuration>
+					<jdkHome>/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home/bin</jdkHome>
+			</configuration>
+	</toolchain> -->
 		<toolchain>
 				<type>jdk</type>
 				<provides>
