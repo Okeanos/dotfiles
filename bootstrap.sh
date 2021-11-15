@@ -5,15 +5,15 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
-	stow -d "stow" "curl" -t "${HOME}";
-	stow -d "stow" "git" -t "${HOME}";
+	stow --dotfiles -d "stow" "curl" -t "${HOME}";
+	stow --dotfiles -d "stow" "git" -t "${HOME}";
 	mkdir -p "${HOME}/.m2";
-	stow -d "stow" "maven" -t "${HOME}";
-	stow -d "stow" "misc" -t "${HOME}";
-	stow -d "stow" "shell" -t "${HOME}";
+	stow --dotfiles -d "stow" "maven" -t "${HOME}";
+	stow --dotfiles -d "stow" "misc" -t "${HOME}";
+	stow --dotfiles -d "stow" "shell" -t "${HOME}";
 	mkdir -p "${HOME}/.ssh";
-	stow -d "stow" "ssh" -t "${HOME}";
-	stow -d "stow" "vim" -t "${HOME}";
+	stow --dotfiles -d "stow" "ssh" -t "${HOME}";
+	stow --dotfiles -d "stow" "vim" -t "${HOME}";
 	# load new config
 	source ~/.bash_profile;
 }
