@@ -2,7 +2,7 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-git pull origin master;
+git pull --autostash --rebase;
 
 function doIt() {
 	stow --dotfiles -d "stow" "curl" -t "${HOME}";
