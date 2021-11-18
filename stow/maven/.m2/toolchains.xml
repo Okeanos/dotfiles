@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <toolchains>
 		<!-- <toolchain>
 				<type>jdk</type>
@@ -7,7 +7,7 @@
 						<vendor>Apple</vendor>
 				</provides>
 				<configuration>
-						<jdkHome>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin</jdkHome>
+						<jdkHome>/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home</jdkHome>
 				</configuration>
 		</toolchain> -->
 		<!-- <toolchain>
@@ -17,7 +17,7 @@
 						<vendor>Adoptium</vendor>
 				</provides>
 				<configuration>
-						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home/bin</jdkHome>
+						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-8.jdk/Contents/Home</jdkHome>
 				</configuration>
 		</toolchain> -->
 		<!-- <toolchain>
@@ -27,7 +27,7 @@
 						<vendor>Adoptium</vendor>
 				</provides>
 				<configuration>
-						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home/bin</jdkHome>
+						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home</jdkHome>
 				</configuration>
 		</toolchain> -->
 	<!-- <toolchain>
@@ -37,7 +37,7 @@
 					<vendor>AdoptOpenJDK</vendor>
 			</provides>
 			<configuration>
-					<jdkHome>/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home/bin</jdkHome>
+					<jdkHome>/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home</jdkHome>
 			</configuration>
 	</toolchain> -->
 		<toolchain>
@@ -47,7 +47,7 @@
 						<vendor>Adoptium</vendor>
 				</provides>
 				<configuration>
-						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home/bin</jdkHome>
+						<jdkHome>/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home</jdkHome>
 				</configuration>
 		</toolchain>
 </toolchains>
