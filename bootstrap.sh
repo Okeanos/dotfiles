@@ -11,7 +11,7 @@ function doIt() {
 	stow --dotfiles -d "stow" "maven" -t "${HOME}";
 	stow --dotfiles -d "stow" "misc" -t "${HOME}";
 	stow --dotfiles -d "stow" "shell" -t "${HOME}";
-	mkdir -p "${HOME}/.ssh";
+	mkdir -p "${HOME}/.ssh/.config.d";
 	stow --dotfiles -d "stow" "ssh" -t "${HOME}";
 	stow --dotfiles -d "stow" "vim" -t "${HOME}";
 	# load new config
