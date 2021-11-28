@@ -1,5 +1,5 @@
-" Use the Solarized Dark theme
-set background=dark
+" Use the Solarized Light theme
+set background=light
 colorscheme solarized
 " Use 14pt Monaco
 set guifont=Monaco:h14
