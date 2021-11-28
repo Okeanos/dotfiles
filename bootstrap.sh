@@ -19,6 +19,18 @@ function doIt() {
 	source ~/.bash_profile;
 }
 
+function setGitUser() {
+	local username, email;
+	read -rp "Enter your Git Username: " username;
+	read -rp "Enter your Git E-Mail address: " email;
+	echo "
+[user]
+
+	name = ${username}
+	email = ${email}
+" > "${HOME}/.gituser"
+}
+
 if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
 	doIt;
 else
@@ -29,3 +41,8 @@ else
 	fi;
 fi;
 unset doIt;
+
+if [ ! -f "${HOME}/.gituser" ]; then
+	setGitUser;
+fi
+unset setGitUser;
