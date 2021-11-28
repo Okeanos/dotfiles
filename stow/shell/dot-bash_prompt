@@ -59,11 +59,14 @@ prompt_git() {
 }
 
 prompt_k8s() {
-	if [ $(kubectl config current-context &>/dev/null; echo "${?}") == '0' ]; then
-		local cluster="$(kubectl config current-context)";
-		local namespace="$(kubens --current)"
-		local format="${bold}";
-		case "$(echo -n ${cluster} | cut -d '-' -f2)" in
+	if ! command -v "kubectl" &> /dev/null; then
+		return
+	else
+		local cluster, namespace, format;
+		cluster="$(kubectl config current-context)";
+		namespace="$(kubens --current 2>/dev/null)"
+		format="${bold}";
+		case "$(echo -n "${cluster}" | cut -d '-' -f2)" in
 			"dev")
 				format+="${green}";
 				;;
@@ -75,8 +78,6 @@ prompt_k8s() {
 				;;
 		esac
 		echo -e "${1} ${format}${cluster}/${namespace}";
-	else
-		return;
 	fi;
 }
 

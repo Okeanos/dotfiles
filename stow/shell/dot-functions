@@ -172,7 +172,7 @@ function git-sync {
 		echo "Please specify a path to sync"
 		exit 1
 	fi
-	find $1 -maxdepth 2 -mindepth 2 -type d -name '.git' | xargs -P 8 -I % bash -c 'git -C %/.. pull --rebase --autostash --quiet || echo "Failed updating: %"'
+	find "${1}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 | xargs -P 8 -0 -I % bash -c 'git -C %/.. pull --rebase --autostash --quiet || echo "Failed updating: %"'
 }
 
 function git-fetch {
@@ -180,5 +180,5 @@ function git-fetch {
 		echo "Please specify a path to sync"
 		exit 1
 	fi
-	find $1 -maxdepth 2 -mindepth 2 -type d -name '.git' | xargs -P 8 -I % bash -c 'git -C %/.. fetch --all --prune --prune-tags --quiet || echo "Failed updating: %"'
+	find "${1}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 | xargs -P 8 -0 -I % bash -c 'git -C %/.. fetch --all --prune --prune-tags --quiet || echo "Failed updating: %"'
 }
