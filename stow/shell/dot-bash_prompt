@@ -59,12 +59,13 @@ prompt_git() {
 }
 
 prompt_k8s() {
-	if ! command -v "kubectl" &> /dev/null; then
+	if ! command -v "kubectl" &> /dev/null || ! kubectl config current-context &> /dev/null; then
 		return
 	else
-		local cluster, namespace, format;
+		local cluster
+		local namespace;
 		cluster="$(kubectl config current-context)";
-		namespace="$(kubens --current 2>/dev/null)"
+		namespace="$(kubectl config view --minify --output 'jsonpath={..namespace}'; echo)";
 		format="${bold}";
 		case "$(echo -n "${cluster}" | cut -d '-' -f2)" in
 			"dev")
