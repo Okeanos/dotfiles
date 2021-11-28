@@ -16,7 +16,7 @@ brew upgrade
 
 # Install everything inside Brewfile
 brew bundle install
-# shellcheck disable=SC2034
+# shellcheck disable=SC2016
 echo '
 Be sure to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 Add `$(brew --prefix findutils)/libexec/gnubin` to `$PATH` if you would prefer these be the defaults.
