@@ -10,6 +10,7 @@ function doIt() {
 	mkdir -p "${HOME}/.m2";
 	stow --dotfiles -d "stow" "maven" -t "${HOME}";
 	stow --dotfiles -d "stow" "misc" -t "${HOME}";
+	mkdir -p "${HOME}/.config";
 	stow --dotfiles -d "stow" "shell" -t "${HOME}";
 	mkdir -p "${HOME}/.ssh/.config.d";
 	stow --dotfiles -d "stow" "ssh" -t "${HOME}";
