@@ -185,4 +185,5 @@
 	path = .gituser
 
 [init]
+
 	defaultBranch = main
