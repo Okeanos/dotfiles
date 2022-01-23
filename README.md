@@ -8,9 +8,16 @@
 
 **Warning:** For this to work properly on macOS Mojave and later read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries to the `Full Disk Access`.
 
-You can clone the repository wherever you want (I like to keep it in `~/Projects/dotfiles`). It may be useful to start out with a copy of `brew.sh` and `Brewfile` to get started and only clone the actual repository afterwards.
+### Getting Started:
 
-### Install Homebrew
+1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) & [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
+1. Update the `Brewfile` to only install software you actually want
+1. Execute `brew.sh` from your shell
+1. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`)
+1. You can now `bootstrap.sh` you system
+1. **Optionally** and **after a careful review** you can now run `macos.sh`
+
+#### Installing Brew & other Software (`brew.sh`)
 
 When setting up a new Mac, you need to install some common [Homebrew](https://brew.sh/) formulae (after installing Homebrew, of course) for this repository to work as expected:
 
@@ -20,12 +27,12 @@ When setting up a new Mac, you need to install some common [Homebrew](https://br
 
 Some of the functionality of these dotfiles depends on formulae installed by `brew.sh`. If you don’t plan to run `brew.sh`, you should look carefully through the script and manually install any particularly important ones. A good example is Bash/Git completion: the dotfiles use a special version from Homebrew.
 
-### The bootstrap script
+#### The bootstrap script (`bootstrap.sh`)
 
 The bootstrapper script will pull in the latest version and symlink the files to your home folder using [gnu-stow](https://www.gnu.org/software/stow/).
 
 ```bash
-cd ~/Projects/dotfiles && ./bootstrap.sh
+cd ~/Workspace/dotfiles && ./bootstrap.sh
 ```
 
 To update, `cd` into your local `dotfiles` repository and then run:
@@ -34,12 +41,14 @@ To update, `cd` into your local `dotfiles` repository and then run:
 git pull --rebase --autostash
 ```
 
-### Sensible macOS defaults
+This will automatically apply any updates to existing dotfiles – apply new ones by running the bootstrapper again.
+
+#### Sensible macOS defaults (`macos.sh`)
 
 When setting up a new Mac, you may want to set some sensible macOS defaults. Please note that you really ought to read the contents of the following script very, very carefully because it changes a large number of system settings. You can apply it by invoking it like this:
 
 ```bash
-cd ~/Projects/dotfiles && ./macos.sh
+cd ~/Workspace/dotfiles && ./macos.sh
 ```
 
 ## Modifying the `$PATH`
