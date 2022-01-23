@@ -181,6 +181,8 @@
 	insteadOf = "gist:"
 
 [include]
+
 	path = .gituser
+
 [init]
 	defaultBranch = main
