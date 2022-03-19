@@ -21,7 +21,7 @@ function doIt() {
 }
 
 function setGitUser() {
-	local username, email;
+	local username, email, signingKey;
 	read -rp "Enter your Git Username: " username;
 	read -rp "Enter your Git E-Mail address: " email;
 	echo "
@@ -30,6 +30,18 @@ function setGitUser() {
 	name = ${username}
 	email = ${email}
 " > "${HOME}/.gituser"
+
+	read -rp "Use GPG Commit Signing? (y/n) " -n 1;
+	echo "";
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		read -rp "Enter your GPG Signing Key ID: " signingKey;
+		echo "
+	signingkey = ${signingKey}
+
+[commit]
+	gpgsign = true
+" >> "${HOME}/.gituser"
+	fi;
 }
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
