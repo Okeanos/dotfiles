@@ -21,7 +21,7 @@ function doIt() {
 }
 
 function setGitUser() {
-	local username, email, signingKey;
+	local username, email, signingKey, signWithSSH;
 	read -rp "Enter your Git Username: " username;
 	read -rp "Enter your Git E-Mail address: " email;
 	echo "
@@ -34,12 +34,23 @@ function setGitUser() {
 	read -rp "Use GPG Commit Signing? (y/n) " -n 1;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		read -rp "Enter your GPG Signing Key ID: " signingKey;
+		signWithSSH="";
+		read -rp "Sign with SSH: " -n 1;
+		echo "";
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			signWithSSH="
+[gpg]
+
+	format = ssh";
+		fi
+		read -rp "Enter your GPG or SSH Signing Key ID: " signingKey;
 		echo "
 	signingkey = ${signingKey}
 
 [commit]
 	gpgsign = true
+
+${signWithSSH}
 " >> "${HOME}/.gituser"
 	fi;
 }
