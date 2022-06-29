@@ -14,7 +14,7 @@
 1. Update the `Brewfile` to only install software you actually want
 1. Execute `brew.sh` from your shell
 1. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`)
-1. You can now `bootstrap.sh` you system
+1. You can now `bootstrap.sh` your system
 1. **Optionally** and **after a careful review** you can now run `macos.sh`
 
 #### Installing Brew & other Software (`brew.sh`)
