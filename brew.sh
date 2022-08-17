@@ -16,12 +16,22 @@ brew upgrade
 
 # Install everything inside Brewfile
 brew bundle install
-# shellcheck disable=SC2016
-echo '
-Be sure to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
-Add `$(brew --prefix findutils)/libexec/gnubin` to `$PATH` if you would prefer these be the defaults.
-Be sure to add `$(brew --prefix gnu-sed)/libexec/gnubin` to `$PATH`.
-If you would like to map vi so it opens the brew-installed vim: ln -s /usr/local/bin/vim /usr/local/bin/vi'
+
+echo "If you do not want to run 'bootstrap.sh' please ensure the following paths are put as _PREFIXES_ to your \$PATH:
+$(brew --prefix coreutils)/libexec/gnubin
+$(brew --prefix curl)/bin
+$(brew --prefix findutils)/libexec/gnubin
+$(brew --prefix gnu-sed)/libexec/gnubin
+$(brew --prefix grep)/libexec/gnubin
+
+Additionally, you may want to add the following path _PREFIXES_ to your \$MANPATH:
+$(brew --prefix coreutils)/libexec/gnuman
+$(brew --prefix curl)/share/man
+$(brew --prefix findutils)/libexec/gnuman
+$(brew --prefix gnu-sed)/libexec/gnuman
+$(brew --prefix grep)/libexec/gnuman
+
+If you would like to map 'vi' so it opens the brew-installed vim: ln -s /usr/local/bin/vim /usr/local/bin/vi"
 
 # Switch to using brew-installed bash as default shell
 if ! grep -Fq "${BREW_PREFIX}/bin/bash" /etc/shells; then
