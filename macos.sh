@@ -710,29 +710,32 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
 # TODO doesn't work anymore
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-	'{"enabled" = 1;"name" = "PDF";}' \
-	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 1;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 1;"name" = "CONTACT";}' \
-	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
-	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-	'{"enabled" = 0;"name" = "MUSIC";}' \
-	'{"enabled" = 0;"name" = "MOVIES";}' \
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-	'{"enabled" = 0;"name" = "SOURCE";}' \
-	'{"enabled" = 1;"name" = "MENU_DEFINITION";}' \
-	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-	'{"enabled" = 1;"name" = "MENU_CONVERSION";}' \
-	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}' \
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+spotlight_options=(
+	'{"enabled" = 1;"name" = "APPLICATIONS";}'
+	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
+	'{"enabled" = 1;"name" = "DIRECTORIES";}'
+	'{"enabled" = 1;"name" = "PDF";}'
+	'{"enabled" = 1;"name" = "FONTS";}'
+	'{"enabled" = 1;"name" = "DOCUMENTS";}'
+	'{"enabled" = 0;"name" = "MESSAGES";}'
+	'{"enabled" = 1;"name" = "CONTACT";}'
+	'{"enabled" = 0;"name" = "EVENT_TODO";}'
+	'{"enabled" = 0;"name" = "IMAGES";}'
+	'{"enabled" = 0;"name" = "BOOKMARKS";}'
+	'{"enabled" = 0;"name" = "MUSIC";}'
+	'{"enabled" = 0;"name" = "MOVIES";}'
+	'{"enabled" = 0;"name" = "PRESENTATIONS";}'
+	'{"enabled" = 0;"name" = "SPREADSHEETS";}'
+	'{"enabled" = 0;"name" = "SOURCE";}'
+	'{"enabled" = 1;"name" = "MENU_DEFINITION";}'
+	'{"enabled" = 0;"name" = "MENU_OTHER";}'
+	'{"enabled" = 1;"name" = "MENU_CONVERSION";}'
+	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}'
+	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+)
+defaults write com.apple.spotlight orderedItems -array "${spotlight_options[@]}"
+
 # Load new settings before rebuilding the index
 sudo killall mds > /dev/null 2>&1
 # Make sure indexing is enabled for the main volume
@@ -934,22 +937,26 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
-	"Mail" \
-	"Messages" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"Terminal" \
-	"iCal"; do
+affected_apps=(
+	"Activity Monitor"
+	"Address Book"
+	"Calendar"
+	"cfprefsd"
+	"Contacts"
+	"Dock"
+	"Finder"
+	"Google Chrome Canary"
+	"Google Chrome"
+	"Mail"
+	"Messages"
+	"Photos"
+	"Safari"
+	"SystemUIServer"
+	"Terminal"
+	"iCal"
+)
+
+for app in "${affected_apps[@]}"; do
 	killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
