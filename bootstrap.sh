@@ -15,6 +15,8 @@ function doIt() {
 	mkdir -p "${HOME}/.ssh/.config.d";
 	stow --dotfiles -d "stow" "ssh" -t "${HOME}";
 	stow --dotfiles -d "stow" "vim" -t "${HOME}";
+	stow --dotfiles -d "stow" "ruby" -t "${HOME}";
+	mkdir -p "${HOME}/.gem";
 	# load new config
 	# shellcheck disable=SC1090
 	source ~/.bash_profile;
