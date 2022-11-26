@@ -70,10 +70,10 @@ An example of `~/.extra` by the original author of this repository looks somethi
 ```bash
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
-GIT_AUTHOR_NAME="Mathias Bynens"
+GIT_AUTHOR_NAME="Foo Bar"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="mathias@mailinator.com"
+GIT_AUTHOR_EMAIL="foo.bar@example.org"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```
@@ -95,6 +95,8 @@ cd ~/Workspace/dotfiles && ./unlink.sh
 ```
 
 ## Original Author
+
+These dotfiles are a largely rewritten/updated [fork](https://github.com/mathiasbynens/dotfiles) based on the work of:
 
 | [![twitter/mathias](https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](https://twitter.com/mathias "Follow @mathias on Twitter") |
 |---|
