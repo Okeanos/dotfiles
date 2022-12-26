@@ -5,17 +5,17 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit;
 git pull --autostash --rebase;
 
 function doIt() {
-	stow --dotfiles -d "stow" "curl" -t "${HOME}";
-	stow --dotfiles -d "stow" "git" -t "${HOME}";
+	stow --dotfiles -dir "stow" "curl" --target "${HOME}";
+	stow --dotfiles -dir "stow" "git" --target "${HOME}";
 	mkdir -p "${HOME}/.m2";
-	stow --dotfiles -d "stow" "maven" -t "${HOME}";
-	stow --dotfiles -d "stow" "misc" -t "${HOME}";
+	stow --dotfiles -dir "stow" "maven" --target "${HOME}";
+	stow --dotfiles -dir "stow" "misc" --target "${HOME}";
 	mkdir -p "${HOME}/.config";
-	stow --dotfiles -d "stow" "shell" -t "${HOME}";
+	stow --dotfiles -dir "stow" "shell" --target "${HOME}";
 	mkdir -p "${HOME}/.ssh/.config.d";
-	stow --dotfiles -d "stow" "ssh" -t "${HOME}";
-	stow --dotfiles -d "stow" "vim" -t "${HOME}";
-	stow --dotfiles -d "stow" "ruby" -t "${HOME}";
+	stow --dotfiles -dir "stow" "ssh" --target "${HOME}";
+	stow --dotfiles -dir "stow" "vim" --target "${HOME}";
+	stow --dotfiles -dir "stow" "ruby" --target "${HOME}";
 	mkdir -p "${HOME}/.gem";
 	# load new config
 	# shellcheck disable=SC1090

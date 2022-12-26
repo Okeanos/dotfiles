@@ -4,7 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit;
 
 function doIt() {
 	for tmp in "stow"/*; do
-		stow --dotfiles -D -d "stow" "$(basenname "${tmp}")" -t "${HOME}";
+		stow --dotfiles --delete --dir "stow" "$(basenname "${tmp}")" --target "${HOME}";
 	done
 }
 
