@@ -85,7 +85,7 @@ You could also use `~/.extra` to override settings, functions and aliases from m
 If you want to unlink particular dotfiles (e.g. for `vim`) you can execute the following command:
 
 ```bash
-cd ~/Workspace/dotfiles && stow --dotfiles -d "stow" "vim" -t "${HOME}"
+cd ~/Workspace/dotfiles && stow --dotfiles --delete --dir "stow" "vim" -t "${HOME}"
 ```
 
 If you want to unlink (uninstall) all dotfiles managed by this repository you can use the `unlink.sh` script. This operation is non-destructive and will only remove the symlinks from your `${HOME}` directory. Any customizations, e.g. `.extra` or `.gituser`, that were created by you will stay in `${HOME}`. You can restore the dotfiles again by running `bootstrap.sh`.
