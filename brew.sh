@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-# Install all homebrew packages inside Brewfile
-
-# Check for Homebrew Installation
+# Check for Homebrew installation and install it if not present
 if ! which brew > /dev/null; then
-		# Install Homebrew
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi;
 
@@ -31,7 +28,7 @@ $(brew --prefix findutils)/libexec/gnuman
 $(brew --prefix gnu-sed)/libexec/gnuman
 $(brew --prefix grep)/libexec/gnuman
 
-If you would like to map 'vi' so it opens the brew-installed vim: ln -s /usr/local/bin/vim /usr/local/bin/vi"
+If you would like to map 'vi' so it opens the brew-installed vim run: ln -s /usr/local/bin/vim /usr/local/bin/vi"
 
 # Switch to using brew-installed bash as default shell
 if ! grep -Fq "${BREW_PREFIX}/bin/bash" /etc/shells; then
