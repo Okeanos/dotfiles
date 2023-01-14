@@ -62,7 +62,7 @@ ${signWithSSH}
 	fi;
 }
 
-if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
+if [[ "$1" == "--force" ]] || [[ "$1" == "-f" ]]; then
 	doIt;
 else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
@@ -73,7 +73,7 @@ else
 fi;
 unset doIt;
 
-if [ ! -f "${HOME}/.gituser" ]; then
+if [[ ! -f "${HOME}/.gituser" ]]; then
 	setGitUser;
 fi
 unset setGitUser;

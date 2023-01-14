@@ -8,7 +8,7 @@ function doIt() {
 	done
 }
 
-if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
+if [[ "$1" == "--force" ]] || [[ "$1" == "-f" ]]; then
 	doIt;
 	echo "Please logout from your shell (CTRL+D or type 'exit') for the changes to be applied."
 else
