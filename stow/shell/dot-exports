@@ -16,7 +16,7 @@ export PYTHONIOENCODING='UTF-8';
 
 # Make Ruby use the local user directory for gem installations
 # https://www.moncefbelyamani.com/the-definitive-guide-to-installing-ruby-gems-on-a-mac/
-export GEM_HOME="$HOME/.gem"
+export GEM_HOME="${HOME}/.gem"
 
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';

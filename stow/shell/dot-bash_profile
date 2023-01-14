@@ -19,7 +19,7 @@ shopt -s cdspell;
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
 # * Recursive globbing, e.g. `echo **/*.txt`
 for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null;
+	shopt -s "${option}" 2> /dev/null;
 done;
 
 # Add tab completion for many Bash commands
@@ -40,7 +40,7 @@ if type __git_complete &> /dev/null; then
 fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[[ -r "$HOME/.ssh/config" ]] && [[ -f "$HOME/.ssh/config" ]] && complete -o "default" -o "nospace" -W "$(grep -r "^Host " "$HOME/.ssh" | cut -d " " -f2- | tr ' ' '\n' | grep -v "[!?*]" | sort | uniq)" scp sftp ssh;
+[[ -r "${HOME}/.ssh/config" ]] && [[ -f "${HOME}/.ssh/config" ]] && complete -o "default" -o "nospace" -W "$(grep -r "^Host " "${HOME}/.ssh" | cut -d " " -f2- | tr ' ' '\n' | grep -v "[!?*]" | sort | uniq)" scp sftp ssh;
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit

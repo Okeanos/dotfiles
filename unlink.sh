@@ -8,13 +8,13 @@ function doIt() {
 	done
 }
 
-if [[ "$1" == "--force" ]] || [[ "$1" == "-f" ]]; then
+if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then
 	doIt;
 	echo "Please logout from your shell (CTRL+D or type 'exit') for the changes to be applied."
 else
 	read -rp "This will unlink the dotfiles from your home directory. No files will actually be deleted. Are you sure? (y/n) " -n 1;
 	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
+	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		doIt;
 		echo "Please logout from your shell (CTRL+D or type 'exit') for the changes to be applied."
 	fi;

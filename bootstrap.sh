@@ -36,11 +36,11 @@ function setGitUser() {
 
 	read -rp "Use GPG Commit Signing? (y/n) " -n 1;
 	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
+	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		signWithSSH="";
 		read -rp "Sign with SSH? (y/n) " -n 1;
 		echo "";
-		if [[ $REPLY =~ ^[Yy]$ ]]; then
+		if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 			touch "${HOME}/.ssh/allowed_signers";
 			signWithSSH="
 [gpg]
@@ -62,12 +62,12 @@ ${signWithSSH}
 	fi;
 }
 
-if [[ "$1" == "--force" ]] || [[ "$1" == "-f" ]]; then
+if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then
 	doIt;
 else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
 	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
+	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		doIt;
 	fi;
 fi;
