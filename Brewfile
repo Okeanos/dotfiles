@@ -49,9 +49,11 @@ cask "gpg-suite-no-mail"
 cask "iterm2"
 cask "jetbrains-toolbox"
 cask "keepassxc"
+cask "qlmarkdown", args: { no_quarantine: true }
 cask "rectangle"
 cask "sourcetree"
 cask "suspicious-package"
+cask "syntax-highlight", args: { no_quarantine: true }
 cask "temurin17"
 cask "the-unarchiver"
 cask "visual-studio-code"
