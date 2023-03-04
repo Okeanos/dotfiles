@@ -19,7 +19,6 @@ function doIt() {
 	stow --dotfiles --dir "stow" "ruby" --target "${HOME}"
 	mkdir -p "${HOME}/.gem"
 	# load new config
-	# shellcheck disable=SC1090
 	source ~/.bash_profile
 }
 
