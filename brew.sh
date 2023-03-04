@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Check for Homebrew installation and install it if not present
-if ! which brew > /dev/null; then
+if ! which brew >/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi;
+fi
 
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
@@ -32,6 +32,6 @@ If you would like to map 'vi' so it opens the brew-installed vim run: ln -s /usr
 
 # Switch to using brew-installed bash as default shell
 if ! grep -Fq "${BREW_PREFIX}/bin/bash" /etc/shells; then
-	echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells;
-	chsh -s "${BREW_PREFIX}/bin/bash";
-fi;
+	echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
+	chsh -s "${BREW_PREFIX}/bin/bash"
+fi
