@@ -116,7 +116,7 @@ cd ~/Workspace/dotfiles && ./unlink.sh
 
 These dotfiles are a largely rewritten/updated [fork](https://github.com/mathiasbynens/dotfiles) based on the work of:
 
-<!-- markdownlint-disable-line MD013 --> <!-- editorconfig-checker-disable -->
+<!-- markdownlint-disable MD013 --> <!-- editorconfig-checker-disable -->
 | [![twitter/mathias](https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](https://twitter.com/mathias "Follow @mathias on Twitter") |
 |---------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Mathias Bynens](https://mathiasbynens.be/)                                                                                                       |
