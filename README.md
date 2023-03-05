@@ -12,7 +12,7 @@ risk!
 read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries to
 the `Full Disk Access`.
 
-### Getting Started:
+### Getting Started
 
 1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
    [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
@@ -65,7 +65,7 @@ cd ~/Workspace/dotfiles && ./macos.sh
 ## Modifying the `$PATH`
 
 If `~/.path` exists, it will be sourced along with the other files, before any feature testing (such as
-[detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-L26)) <!-- editorconfig-checker-disable-line -->
+[detecting which version of `ls` is being used](https://github.com/mathiasbynens/dotfiles/blob/aff769fd75225d8f2e481185a71d5e05b76002dc/.aliases#L21-L26)) <!-- markdownlint-disable-line MD013 --> <!-- editorconfig-checker-disable-line -->
 takes place.
 
 Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
@@ -116,11 +116,11 @@ cd ~/Workspace/dotfiles && ./unlink.sh
 
 These dotfiles are a largely rewritten/updated [fork](https://github.com/mathiasbynens/dotfiles) based on the work of:
 
-<!-- editorconfig-checker-disable -->
+<!-- markdownlint-disable-line MD013 --> <!-- editorconfig-checker-disable -->
 | [![twitter/mathias](https://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](https://twitter.com/mathias "Follow @mathias on Twitter") |
 |---------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Mathias Bynens](https://mathiasbynens.be/)                                                                                                       |
-<!-- editorconfig-checker-enable -->
+<!-- markdownlint-enable MD013 --> <!-- editorconfig-checker-enable -->
 
 ## Thanks to…
 
