@@ -15,7 +15,7 @@ the `Full Disk Access`.
 ### Getting Started
 
 1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
-   [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
+  [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
 2. Update the `Brewfile` to only install software you actually want
 3. Execute `brew.sh` from your shell
 4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`)
