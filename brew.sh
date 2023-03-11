@@ -14,7 +14,8 @@ brew upgrade
 # Install everything inside Brewfile
 brew bundle install
 
-echo "If you do not want to run 'bootstrap.sh' please ensure the following paths are put as _PREFIXES_ to your \$PATH:
+cat <<EOF
+If you do not want to run 'bootstrap.sh' please ensure the following paths are put as _PREFIXES_ to your \$PATH:
 $(brew --prefix coreutils)/libexec/gnubin
 $(brew --prefix curl)/bin
 $(brew --prefix findutils)/libexec/gnubin
@@ -28,7 +29,8 @@ $(brew --prefix findutils)/libexec/gnuman
 $(brew --prefix gnu-sed)/libexec/gnuman
 $(brew --prefix grep)/libexec/gnuman
 
-If you would like to map 'vi' so it opens the brew-installed vim run: ln -s $(brew --prefix vim) $(which vi)"
+If you would like to map 'vi' so it opens the brew-installed vim run: ln -s $(brew --prefix vim) $(which vi)
+EOF
 
 # Switch to using brew-installed bash as default shell
 if ! grep -Fq "${BREW_PREFIX}/bin/bash" /etc/shells; then
