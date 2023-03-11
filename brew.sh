@@ -28,7 +28,7 @@ $(brew --prefix findutils)/libexec/gnuman
 $(brew --prefix gnu-sed)/libexec/gnuman
 $(brew --prefix grep)/libexec/gnuman
 
-If you would like to map 'vi' so it opens the brew-installed vim run: ln -s /usr/local/bin/vim /usr/local/bin/vi"
+If you would like to map 'vi' so it opens the brew-installed vim run: ln -s $(brew --prefix vim) $(which vi)"
 
 # Switch to using brew-installed bash as default shell
 if ! grep -Fq "${BREW_PREFIX}/bin/bash" /etc/shells; then

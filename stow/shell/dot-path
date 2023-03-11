@@ -1,12 +1,29 @@
-# verify necessary path adjustments against the caveats from brew (accessible from 'brew info $(brew list)')
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
-export PATH="/usr/local/opt/curl/bin:${PATH}"
-export PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
-export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
-export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
+#!/usr/bin/env bash
+# the shebang statement above is only here to allow linting this file
 
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/curl/share/man:${MANPATH}"
-export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
-export MANPATH="/usr/local/opt/grep/libexec/gnuman:${MANPATH}"
+# verify necessary path adjustments against the caveats from brew (accessible from 'brew info $(brew list)')
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+	export PATH="/usr/local/opt/curl/bin:${PATH}"
+	export PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
+	export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
+	export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
+
+	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
+	export MANPATH="/usr/local/opt/curl/share/man:${MANPATH}"
+	export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
+	export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
+	export MANPATH="/usr/local/opt/grep/libexec/gnuman:${MANPATH}"
+else
+	export PATH="/opt/homebrew/coreutils/libexec/gnubin:${PATH}"
+	export PATH="/opt/homebrew/curl/bin:${PATH}"
+	export PATH="/opt/homebrew/findutils/libexec/gnubin:${PATH}"
+	export PATH="/opt/homebrew/gnu-sed/libexec/gnubin:${PATH}"
+	export PATH="/opt/homebrew/grep/libexec/gnubin:${PATH}"
+
+	export MANPATH="/opt/homebrew/coreutils/libexec/gnuman:${MANPATH}"
+	export MANPATH="/opt/homebrew/curl/share/man:${MANPATH}"
+	export MANPATH="/opt/homebrew/findutils/libexec/gnuman:${MANPATH}"
+	export MANPATH="/opt/homebrew/gnu-sed/libexec/gnuman:${MANPATH}"
+	export MANPATH="/opt/homebrew/grep/libexec/gnuman:${MANPATH}"
+fi
