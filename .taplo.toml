@@ -6,5 +6,5 @@ indent_string = "	"
 [[rule]]
 include = ["**/starship.toml"]
 
-	[rule.schema]
-	path = "https://starship.rs/config-schema.json"
+[rule.schema]
+path = "https://starship.rs/config-schema.json"
