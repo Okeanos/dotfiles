@@ -23,3 +23,9 @@ jobs:
           yamllint .
       - uses: bewuethr/shellcheck-action@v2
       - uses: DavidAnson/markdownlint-cli2-action@v9
+      - name: Run Taplo
+        run: |
+          curl --fail --silent --show-error --location --output taplo.gz \
+            https://github.com/tamasfe/taplo/releases/download/0.8.0/taplo-full-linux-x86_64.gz
+          gunzip --decompress taplo.gz
+          taplo fmt --check
