@@ -285,17 +285,17 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
 # Disable remote apple events
-#sudo systemsetup -setremoteappleevents off || msg "${full_disk_access_message}"
+#sudo systemsetup -setremoteappleevents off
 
 # Disable remote login
-#sudo systemsetup -setremotelogin off || msg "${full_disk_access_message}"
+#sudo systemsetup -setremotelogin off
 
 # Disable wake-on modem
-#sudo systemsetup -setwakeonmodem off || msg "${full_disk_access_message}"
+#sudo systemsetup -setwakeonmodem off
 #sudo pmset -a ring 0
 
 # Disable wake-on LAN
-#sudo systemsetup -setwakeonnetworkaccess off || msg "${full_disk_access_message}"
+#sudo systemsetup -setwakeonnetworkaccess off
 #sudo pmset -a womp 0
 
 # Disable file-sharing via AFP or SMB
@@ -406,8 +406,8 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
-# Set the timezone; see `sudo systemsetup -listtimezones` for other values || msg "${full_disk_access_message}"
-sudo systemsetup -settimezone "Europe/Berlin" >/dev/null || msg "${full_disk_access_message}"
+# Set the timezone; see `sudo systemsetup -listtimezones` for other values
+sudo systemsetup -settimezone "Europe/Berlin" >/dev/null
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -425,7 +425,7 @@ sudo pmset -a lidwake 1
 sudo pmset -a autorestart 1
 
 # Restart automatically if the computer freezes
-#sudo systemsetup -setrestartfreeze on || msg "${full_disk_access_message}"
+#sudo systemsetup -setrestartfreeze on
 
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
@@ -440,7 +440,7 @@ sudo pmset -a displaysleep 15
 #sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-#sudo systemsetup -setcomputersleep Off > /dev/null || msg "${full_disk_access_message}"
+#sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
