@@ -93,7 +93,7 @@ if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	fi
 fi
 
-full_disk_access=$(plistbuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
+full_disk_access=$(/usr/libexec/PlistBuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
 [[ "${full_disk_access-:0}" -lt 10 ]] && die "Full Disk Access is not granted to bash. Please add '${bash_path}' to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
