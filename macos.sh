@@ -119,6 +119,7 @@ msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
+# cannot be enabled anymore this way on macOS Ventura, see https://github.com/mathiasbynens/dotfiles/issues/1027
 #defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # Set highlight color to green
@@ -368,10 +369,11 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool false || echo "ignoring"
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144 || echo "ignoring"
+# cannot be enabled anymore this way on macOS Ventura, see https://github.com/mathiasbynens/dotfiles/issues/1027
+#defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool false
+#defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
 # Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true || echo "ignoring"
+#defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 # Disable press-and-hold for keys in favor of key repeat in case of Terminal
 defaults write com.apple.terminal ApplePressAndHoldEnabled -bool false
