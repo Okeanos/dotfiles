@@ -83,7 +83,7 @@ if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	read -rp "Are you sure? (y/n) " -n 1
 	echo ""
 	if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
-		die "Missing required parameter: param"
+		die "Cancelled configuration."
 	fi
 fi
 
