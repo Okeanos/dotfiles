@@ -66,15 +66,8 @@ parse_params() {
 	done
 
 	# check required params and arguments
-	if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
-		msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
-		msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
-		read -rp "Are you sure? (y/n) " -n 1
-		echo ""
-		if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
-			die "Missing required parameter: param"
-		fi
-	fi
+	#[[ -z "${param-}" ]] && die "Missing required parameter: param"
+	#[[ ${#args[@]} -eq 0 ]] && die "Missing script arguments"
 
 	return 0
 }
@@ -83,6 +76,16 @@ parse_params "$@"
 setup_colors
 
 # script logic here
+
+if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
+	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
+	msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
+	read -rp "Are you sure? (y/n) " -n 1
+	echo ""
+	if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
+		die "Missing required parameter: param"
+	fi
+fi
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
