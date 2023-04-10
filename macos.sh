@@ -76,7 +76,9 @@ parse_params "$@"
 setup_colors
 
 # script logic here
+set +e
 bash_path=$(readlink -e "$(which bash)" 2&>/dev/null || readlink -f l "$(which bash)")
+set -e
 
 if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
