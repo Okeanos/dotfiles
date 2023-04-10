@@ -76,9 +76,13 @@ parse_params "$@"
 setup_colors
 
 # script logic here
+bash_path=$(readlink -e "$(which bash)" 2&>/dev/null || readlink -f l "$(which bash)")
 
 if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
+	msg "${RED}Full Disk Access is required for this, see: https://support.apple.com/en-us/HT210595${NOFORMAT}"
+	msg "${RED}To do so add '${bash_path}' to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' ${NOFORMAT}"
+	msg "${RED}Please restart your Terminal afterwards to apply the changes.${NOFORMAT}"
 	msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
 	read -rp "Are you sure? (y/n) " -n 1
 	echo ""
@@ -86,6 +90,9 @@ if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 		die "Cancelled configuration."
 	fi
 fi
+
+full_disk_access=$(plistbuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
+[[ "${full_disk_access-:0}" -lt 10 ]] && die "Full Disk Access is not granted to bash. Please add '${bash_path}' to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
