@@ -83,7 +83,7 @@ set -e
 if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
 	msg "${RED}Full Disk Access is required for this, see: https://support.apple.com/en-us/HT210595${NOFORMAT}"
-	msg "${RED}To do so add '${bash_path}' to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' ${NOFORMAT}"
+	msg "${RED}To do so add '${bash_path}' and your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' ${NOFORMAT}"
 	msg "${RED}Please restart your Terminal afterwards to apply the changes.${NOFORMAT}"
 	msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
 	read -rp "Are you sure? (y/n) " -n 1
@@ -93,8 +93,11 @@ if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	fi
 fi
 
+set +e
 full_disk_access=$(/usr/libexec/PlistBuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
-[[ "${full_disk_access-:0}" -lt 10 ]] && die "Full Disk Access is not granted to bash. Please add '${bash_path}' to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
+full_disk_access_message="Full Disk Access is not granted to bash/your Terminal. Please add '${bash_path}' and your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
+[[ "${full_disk_access-:0}" -lt 3 ]] && die "${full_disk_access_message}"
+set -e
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
@@ -105,7 +108,7 @@ osascript -e 'tell application "System Preferences" to quit'
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+# Keep-alive: update existing `sudo` time stamp until `macos.sh` has finished
 while true; do
 	sudo -n true
 	sleep 60
@@ -282,17 +285,17 @@ sudo defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
 # Disable remote apple events
-#sudo systemsetup -setremoteappleevents off
+#sudo systemsetup -setremoteappleevents off || msg "${full_disk_access_message}"
 
 # Disable remote login
-#sudo systemsetup -setremotelogin off
+#sudo systemsetup -setremotelogin off || msg "${full_disk_access_message}"
 
 # Disable wake-on modem
-#sudo systemsetup -setwakeonmodem off
+#sudo systemsetup -setwakeonmodem off || msg "${full_disk_access_message}"
 #sudo pmset -a ring 0
 
 # Disable wake-on LAN
-#sudo systemsetup -setwakeonnetworkaccess off
+#sudo systemsetup -setwakeonnetworkaccess off || msg "${full_disk_access_message}"
 #sudo pmset -a womp 0
 
 # Disable file-sharing via AFP or SMB
@@ -403,8 +406,8 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 # Show language menu in the top right corner of the boot screen
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
-# Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Berlin" >/dev/null
+# Set the timezone; see `sudo systemsetup -listtimezones` for other values || msg "${full_disk_access_message}"
+sudo systemsetup -settimezone "Europe/Berlin" >/dev/null || msg "${full_disk_access_message}"
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -422,7 +425,7 @@ sudo pmset -a lidwake 1
 sudo pmset -a autorestart 1
 
 # Restart automatically if the computer freezes
-#sudo systemsetup -setrestartfreeze on
+#sudo systemsetup -setrestartfreeze on || msg "${full_disk_access_message}"
 
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
@@ -437,7 +440,7 @@ sudo pmset -a displaysleep 15
 #sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-#sudo systemsetup -setcomputersleep Off > /dev/null
+#sudo systemsetup -setcomputersleep Off > /dev/null || msg "${full_disk_access_message}"
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
