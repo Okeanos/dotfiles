@@ -588,7 +588,7 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
 #defaults write com.apple.dock tilesize -int 36
-plistbuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
+/usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
 
 # Prevent accidental resizing of the Dock
 defaults write com.apple.dock size-immutable -bool true
