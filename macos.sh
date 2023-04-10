@@ -1,11 +1,86 @@
 #!/usr/bin/env bash
 
+# script-template.sh https://gist.github.com/m-radzikowski/53e0b39e9a59a1518990e76c2bff8038 by Maciej Radzikowski
+# MIT License https://gist.github.com/m-radzikowski/d925ac457478db14c2146deadd0020cd
+# https://betterdev.blog/minimal-safe-bash-script-template/
+
 set -Eeuo pipefail
-# In case you encounter errors add:
-# set -x
+trap cleanup SIGINT SIGTERM ERR EXIT
+
+# shellcheck disable=SC2034
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
-# ~/.macos — https://mths.be/macos
+usage() {
+	cat <<EOF
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-f] -p param_value arg1 [arg2...]
+Configure macos.
+
+Available options:
+
+-h, --help      Print this help and exit
+-v, --verbose   Print script debug info
+-f, --flag      Some flag description
+-p, --param     Some param description
+EOF
+	exit
+}
+
+cleanup() {
+	trap - SIGINT SIGTERM ERR EXIT
+	# script cleanup here
+}
+
+setup_colors() {
+	if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
+		NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
+	else
+		# shellcheck disable=SC2034
+		NOFORMAT='' RED='' GREEN='' ORANGE='' BLUE='' PURPLE='' CYAN='' YELLOW=''
+	fi
+}
+
+msg() {
+	echo >&2 -e "${1-}"
+}
+
+die() {
+	local msg=$1
+	local code=${2-1} # default exit status 1
+	msg "$msg"
+	exit "$code"
+}
+
+parse_params() {
+	# default values of variables set from params
+	verbose=0
+
+	while :; do
+		case "${1-}" in
+		-h | --help) usage ;;
+		-v | --verbose)
+			set -x
+			verbose=1
+			;;
+		--no-color) NO_COLOR=1 ;;
+		-?*) die "Unknown option: $1" ;;
+		*) break ;;
+		esac
+		shift
+	done
+
+	# check required params and arguments
+	#[[ -z "${param-}" ]] && die "Missing required parameter: param"
+	#[[ ${#args[@]} -eq 0 ]] && die "Missing script arguments"
+
+	return 0
+}
+
+parse_params "$@"
+setup_colors
+
+# script logic here
+
+msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -24,6 +99,8 @@ done 2>/dev/null &
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
+
+msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 
 # Set computer name (as done via System Preferences → Sharing)
 #sudo scutil --set ComputerName "0x6D746873"
@@ -147,6 +224,8 @@ sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:m
 # https://github.com/drduh/macOS-Security-and-Privacy-Guide
 # https://benchmarks.cisecurity.org/tools2/osx/CIS_Apple_OSX_10.12_Benchmark_v1.0.0.pdf
 
+msg "${GREEN}Configuring Security.${NOFORMAT}"
+
 # Enable firewall. Possible values:
 #   0 = off
 #   1 = on for specific sevices
@@ -257,6 +336,8 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
+msg "${GREEN}Configuring Trackpad, mouse, keyboard, Bluetooth accessories, and input.${NOFORMAT}"
+
 # Trackpad: enable tap to click for this user and for the login screen
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool false
 defaults write com.apple.AppleMultitouchTrackpad Clicking -int 0
@@ -314,6 +395,8 @@ sudo systemsetup -settimezone "Europe/Berlin" >/dev/null
 # Energy saving                                                               #
 ###############################################################################
 
+msg "${GREEN}Configuring Energy saving.${NOFORMAT}"
+
 # Enable lid wakeup
 sudo pmset -a lidwake 1
 
@@ -355,6 +438,8 @@ sudo pmset -a displaysleep 15
 # Screen                                                                      #
 ###############################################################################
 
+msg "${GREEN}Configuring Screen.${NOFORMAT}"
+
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
@@ -378,6 +463,8 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 1
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
+
+msg "${GREEN}Configuring Finder.${NOFORMAT}"
 
 # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
 #defaults write com.apple.finder QuitMenuItem -bool true
@@ -485,6 +572,8 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+msg "${GREEN}Configuring Dock, Dashboard, and hot corners.${NOFORMAT}"
+
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
@@ -493,7 +582,7 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 plistbuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
 
 # Prevent accidental resizing of the Dock
-defaults write com.apple.dock size-immutable -bool yes
+defaults write com.apple.dock size-immutable -bool true
 
 # Change minimize/maximize window effect
 defaults write com.apple.dock mineffect -string "scale"
@@ -584,6 +673,8 @@ find "${HOME}/Library/Application Support/Dock" -name "*-*.db" -maxdepth 1 -dele
 # Safari & WebKit                                                             #
 ###############################################################################
 
+msg "${GREEN}Configuring Safari & WebKit.${NOFORMAT}"
+
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
 defaults write com.apple.Safari SuppressSearchSuggestions -bool true
@@ -673,6 +764,8 @@ defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 # Mail                                                                        #
 ###############################################################################
 
+msg "${GREEN}Configuring Mail.${NOFORMAT}"
+
 # Disable send and reply animations in Mail.app
 defaults write com.apple.mail DisableReplyAnimations -bool true
 defaults write com.apple.mail DisableSendAnimations -bool true
@@ -697,6 +790,8 @@ defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnab
 ###############################################################################
 # Spotlight                                                                   #
 ###############################################################################
+
+msg "${GREEN}Configuring Spotlight.${NOFORMAT}"
 
 # Hide Spotlight tray-icon (and subsequent helper)
 #sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
@@ -750,6 +845,8 @@ sudo mdutil -E / >/dev/null
 ###############################################################################
 # Terminal & iTerm 2                                                          #
 ###############################################################################
+
+msg "${GREEN}Configuring Terminal & iTerm 2.${NOFORMAT}"
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
@@ -820,12 +917,16 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 # Time Machine                                                                #
 ###############################################################################
 
+msg "${GREEN}Configuring Time Machine.${NOFORMAT}"
+
 # Prevent Time Machine from prompting to use new hard drives as backup volume
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 ###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
+
+msg "${GREEN}Configuring Activity Monitor.${NOFORMAT}"
 
 # Show the main window when launching Activity Monitor
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
@@ -843,6 +944,8 @@ defaults write com.apple.ActivityMonitor SortDirection -int 0
 ###############################################################################
 # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
 ###############################################################################
+
+msg "${GREEN}Configuring Address Book, Dashboard, iCal, TextEdit, and Disk Utility.${NOFORMAT}"
 
 # Enable the debug menu in Address Book
 defaults write com.apple.addressbook ABShowDebugMenu -bool true
@@ -869,6 +972,8 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 ###############################################################################
 # Mac App Store                                                               #
 ###############################################################################
+
+msg "${GREEN}Configuring Mac App Store.${NOFORMAT}"
 
 # Enable the WebKit Developer Tools in the Mac App Store
 defaults write com.apple.appstore WebKitDeveloperExtras -bool true
@@ -901,12 +1006,16 @@ defaults write com.apple.commerce AutoUpdate -bool true
 # Photos                                                                      #
 ###############################################################################
 
+msg "${GREEN}Configuring Photos.${NOFORMAT}"
+
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
 # Messages                                                                    #
 ###############################################################################
+
+msg "${GREEN}Configuring Messages.${NOFORMAT}"
 
 # Disable automatic emoji substitution (i.e. use plain text smileys)
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
@@ -920,6 +1029,8 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 ###############################################################################
 # Google Chrome & Google Chrome Canary                                        #
 ###############################################################################
+
+msg "${GREEN}Configuring Google Chrome & Google Chrome Canary.${NOFORMAT}"
 
 # Disable the all too sensitive backswipe on trackpads
 #defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
@@ -940,6 +1051,8 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 ###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
+
+msg "${GREEN}Kill affected applications.${NOFORMAT}"
 
 affected_apps=(
 	"Activity Monitor"
@@ -963,4 +1076,5 @@ affected_apps=(
 for app in "${affected_apps[@]}"; do
 	killall "${app}" &>/dev/null
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+msg "${GREEN}Done. Note that some of these changes require a logout/restart to take effect.${NOFORMAT}"
