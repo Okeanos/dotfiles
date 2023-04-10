@@ -19,8 +19,6 @@ Available options:
 
 -h, --help      Print this help and exit
 -v, --verbose   Print script debug info
--f, --flag      Some flag description
--p, --param     Some param description
 EOF
 	exit
 }
@@ -52,15 +50,11 @@ die() {
 
 parse_params() {
 	# default values of variables set from params
-	verbose=0
 
 	while :; do
 		case "${1-}" in
 		-h | --help) usage ;;
-		-v | --verbose)
-			set -x
-			verbose=1
-			;;
+		-v | --verbose) set -x ;;
 		--no-color) NO_COLOR=1 ;;
 		-?*) die "Unknown option: $1" ;;
 		*) break ;;
