@@ -19,6 +19,7 @@ Available options:
 
 -h, --help      Print this help and exit
 -v, --verbose   Print script debug info
+-f, --fore      Apply without confirmation
 EOF
 	exit
 }
@@ -50,11 +51,13 @@ die() {
 
 parse_params() {
 	# default values of variables set from params
+	force=0
 
 	while :; do
 		case "${1-}" in
 		-h | --help) usage ;;
 		-v | --verbose) set -x ;;
+		-f | --force) force=1 ;;
 		--no-color) NO_COLOR=1 ;;
 		-?*) die "Unknown option: $1" ;;
 		*) break ;;
@@ -63,8 +66,15 @@ parse_params() {
 	done
 
 	# check required params and arguments
-	#[[ -z "${param-}" ]] && die "Missing required parameter: param"
-	#[[ ${#args[@]} -eq 0 ]] && die "Missing script arguments"
+	if [[ -z "${force-}" ]]; then
+		msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
+		msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
+		read -rp "Are you sure? (y/n) " -n 1
+		echo ""
+		if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
+			die "Missing required parameter: param"
+		fi
+	fi
 
 	return 0
 }
