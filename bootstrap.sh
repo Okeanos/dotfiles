@@ -23,10 +23,7 @@ function doIt() {
 }
 
 function setGitUser() {
-	username=""
-	email=""
-	signingKey=""
-	signWithSSH=""
+	local username email signingKey signWithSSH
 	read -rp "Enter your Git Username: " username
 	read -rp "Enter your Git E-Mail address: " email
 	echo "
