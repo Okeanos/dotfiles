@@ -587,7 +587,6 @@ msg "${GREEN}Configuring Dock, Dashboard, and hot corners.${NOFORMAT}"
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
-#defaults write com.apple.dock tilesize -int 36
 /usr/libexec/PlistBuddy -c "Add :tilesize integer 36" ~/Library/Preferences/com.apple.dock.plist || /usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
 
 # Prevent accidental resizing of the Dock
