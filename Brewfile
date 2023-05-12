@@ -32,6 +32,7 @@ brew "maven-completion"
 brew "moreutils"
 brew "netcat"
 brew "node"
+brew "pigz" # https://github.com/moby/moby/pull/35697
 brew "starship"
 brew "stow"
 brew "tree"
