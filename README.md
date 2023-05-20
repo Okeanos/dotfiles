@@ -9,8 +9,16 @@ remove things you don’t want or need. Don’t blindly use my settings unless y
 risk!
 
 **Warning:** For this to work properly on macOS Mojave and later
-read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries to
-the `Full Disk Access`.
+read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries
+(`bash`, `iTerm`, `Terminal`) to the `System Settings > Privacy & Security > Full Disk Access` list.
+
+**Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `iTerm`,
+and `Terminal` have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
+install and Homebrew casks.
+
+For this to work properly on macOS Ventura and later
+read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries
+(`iTerm`, `Terminal`) to the `Full Disk Access` list.
 
 ### Getting Started
 
