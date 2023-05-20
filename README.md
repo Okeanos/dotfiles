@@ -21,7 +21,7 @@ install and Homebrew casks.
 1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
   [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
 2. Update the `Brewfile` to only install software you actually want
-3. Execute `brew.sh` from your shell
+3. Execute `brew.sh` from your shell after reviewing it
 4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`)
 5. You can now `bootstrap.sh` your system
 6. **Optionally** and **after a careful review** you can now run `macos.sh`
