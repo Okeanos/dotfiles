@@ -37,3 +37,19 @@ if ! grep --fixed-strings --quiet "${BREW_PREFIX}/bin/bash" /etc/shells; then
 	echo "${BREW_PREFIX}/bin/bash" | sudo tee --append /etc/shells
 	chsh -s "${BREW_PREFIX}/bin/bash"
 fi
+
+# Install basic Visual Studio Code extensions if vscode is installed / part of the Brewfile
+if grep --fixed-strings --quiet 'cask "visual-studio-code"' Brewfile && which code >/dev/null; then
+	extensions=(
+		"DotJoshJohnson.xml"
+		"EditorConfig.EditorConfig"
+		"ms-azuretools.vscode-docker"
+		#"ms-vscode.powershell"
+		"redhat.vscode-yaml"
+		"timonwong.shellcheck"
+		"yzhang.markdown-all-in-one"
+	)
+	for extension in "${extensions[@]}"; do
+		code --install-extension "${extension}"
+	done
+fi

@@ -39,6 +39,19 @@ Some functionality of these dotfiles depends on formulae installed by `brew.sh`.
 you should look carefully through the `Brewfile` and manually install any particularly important tools manually. Good
 examples of these are Bash and Git.
 
+##### Lightweight Editor
+
+The aforementioned `Brewfile` includes [Visual Studio Code](https://code.visualstudio.com) ("VSCode"), i.e. the
+nonfree, proprietary Microsoft product that includes telemetry etc., as a lightweight GUI editor. Either disable
+telemetry manually if you are bothered by it (e.g. as described in
+[this gist](https://gist.github.com/hyperupcall/99e355405611be6c4e0a38b6e3e8aad0)) or switch to another editor, e.g.:
+
+- [VSCodium](https://vscodium.com)
+- [Nova](https://nova.app)
+- [Sublime Text](https://www.sublimetext.com)
+- [BBedit](https://www.barebones.com/products/bbedit/)
+- …
+
 #### The bootstrap script (`bootstrap.sh`)
 
 The bootstrapper script will pull in the latest version and symlink the files to your home folder
