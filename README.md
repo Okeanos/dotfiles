@@ -16,10 +16,6 @@ read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefull
 and `Terminal` have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
 install and Homebrew casks.
 
-For this to work properly on macOS Ventura and later
-read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries
-(`iTerm`, `Terminal`) to the `Full Disk Access` list.
-
 ### Getting Started
 
 1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
