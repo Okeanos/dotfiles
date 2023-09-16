@@ -36,8 +36,8 @@ fi
 
 # Add tab completion for Docker
 if [[ -d "/Applications/Docker.app/Contents/Resources/etc/" ]]; then
-	source "/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion"
-	source "/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion"
+	[[ -f "/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion" ]] && source "/Applications/Docker.app/Contents/Resources/etc/docker.bash-completion"
+	[[ -f "/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion" ]] && source "/Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion"
 fi
 
 # Enable tab completion for `g` by marking it as an alias for `git`
