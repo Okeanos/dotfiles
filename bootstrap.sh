@@ -11,7 +11,7 @@ function doIt() {
 	stow --dotfiles --dir "stow" "maven" --target "${HOME}"
 	stow --dotfiles --dir "stow" "misc" --target "${HOME}"
 	mkdir -p "${HOME}/.config"
-	#stow --dotfiles --dir "stow" "powershell" --target "${HOME}";
+	stow --dotfiles --dir "stow" "powershell" --target "${HOME}";
 	stow --dotfiles --dir "stow" "shell" --target "${HOME}"
 	mkdir -p "${HOME}/.ssh/config.d"
 	stow --dotfiles --dir "stow" "ssh" --target "${HOME}"
