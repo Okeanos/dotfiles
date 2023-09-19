@@ -19,7 +19,7 @@ function doIt() {
 	stow --dotfiles --dir "stow" "ruby" --target "${HOME}"
 	mkdir -p "${HOME}/.gem"
 	# load new config
-	source ~/.bash_profile
+	source "${HOME}/.bash_profile"
 }
 
 function setGitUser() {
