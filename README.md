@@ -43,8 +43,8 @@ examples of these are Bash and Git.
 
 These dotfiles contain a few additional tools that have to be properly registered to work:
 
-* [QLMarkdown](https://github.com/sbarex/QLMarkdown) (QuickLook Extension)
-* [Syntax Highlighter](https://github.com/sbarex/SourceCodeSyntaxHighlight) (QuickLook Extension)
+- [QLMarkdown](https://github.com/sbarex/QLMarkdown) (QuickLook Extension)
+- [Syntax Highlighter](https://github.com/sbarex/SourceCodeSyntaxHighlight) (QuickLook Extension)
 
 Follow the instructions as presented in the repositories for this to work as expected. Additionally, you should
 probably manually open each application from within the `/Applications` folder manually once to ensure they work
