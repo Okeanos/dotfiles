@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Install Rosetta 2 on ARM Macs
+if ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	sudo softwareupdate --install-rosetta --agree-to-license
+fi
+
 # Check for Homebrew installation and install it if not present
 if ! which brew >/dev/null; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
