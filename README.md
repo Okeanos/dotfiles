@@ -39,6 +39,28 @@ Some functionality of these dotfiles depends on formulae installed by `brew.sh`.
 you should look carefully through the `Brewfile` and manually install any particularly important tools manually. Good
 examples of these are Bash and Git.
 
+##### Enabling (Brew) Installed Tools
+
+These dotfiles contain a few additional tools that have to be properly registered to work:
+
+* [QLMarkdown](https://github.com/sbarex/QLMarkdown) (QuickLook Extension)
+* [Syntax Highlighter](https://github.com/sbarex/SourceCodeSyntaxHighlight) (QuickLook Extension)
+
+Follow the instructions as presented in the repositories for this to work as expected. Additionally, you should
+probably manually open each application from within the `/Applications` folder manually once to ensure they work
+as expected. Mainly because macOS will, in some cases (depending on how the apps were signed for example) ask for
+additional confirmation once and prevent e.g. auto-start of these apps until then.
+
+##### iTerm/Terminal Theming
+
+These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever popular
+[Solarized](https://github.com/altercation/solarized). iTerm, Terminal, etc. do not ship with that theme out
+of the box. It has to be manually installed. To do so open the `selenized-light.itermcolors` file from the `init`
+folder with iterm and select it in `Settings > Profiles > [Profile Name] > Colors > Color Presets…`.
+
+If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to replace the VIM
+theme as well in the `stow/vim/.vim/colors/selenized.vim` file.
+
 ##### Lightweight Editor
 
 The aforementioned `Brewfile` includes [Visual Studio Code](https://code.visualstudio.com) ("VSCode"), i.e. the

@@ -1,7 +1,6 @@
 # Configure taps
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "homebrew/cask-drivers"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
@@ -64,6 +63,7 @@ cask "visual-studio-code"
 # Install Mac App Store applications
 # See https://github.com/mas-cli/mas
 mas "AdGuard for Safari", id: 1440147259
+mas "Constent-O-Matic", id: 1606897889
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541

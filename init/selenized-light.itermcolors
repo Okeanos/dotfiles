@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- MIT License, Copyright (c) 2021 Jan Warchoł https://github.com/jan-warchol/selenized/blob/master/LICENSE.txt  -->
 <plist version="1.0">
 <dict>
 	<key>Ansi 0 Color</key>
