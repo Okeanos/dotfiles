@@ -27,7 +27,6 @@ install and Homebrew casks.
   curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brefile
   chmod +x ~/Downloads/brew.sh
   ```
-
 2. Update the `Brewfile` to only install software you actually want
 3. Execute `brew.sh` from your shell after reviewing it
 4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
