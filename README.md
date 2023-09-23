@@ -27,13 +27,14 @@ install and Homebrew casks.
   curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brefile
   chmod +x ~/Downloads/brew.sh
   ```
-2. Update the `Brewfile` to only install software you actually want
-3. Execute `brew.sh` from your shell after reviewing it
-4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
+
+1. Update the `Brewfile` to only install software you actually want
+2. Execute `brew.sh` from your shell after reviewing it
+3. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
   have a [fancy icon](https://weblog.antranigv.am/posts/2023/02/hardcoded-folder-icons-in-macos/) in Finder I suggest
   you use `~/Developer/dotfiles`)
-5. You can now `bootstrap.sh` your system
-6. **Optionally** and **after a careful review** you can now run `macos.sh`
+4. You can now `bootstrap.sh` your system
+5. **Optionally** and **after a careful review** you can now run `macos.sh`
   Please note that this requires `bash` to have `Full Disk Access` as described above!
 
 #### Installing Brew & other Software (`brew.sh`)
