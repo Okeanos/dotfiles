@@ -39,7 +39,7 @@ EOF
 
 # Switch to using brew-installed bash as default shell
 if ! grep --fixed-strings --quiet "${BREW_PREFIX}/bin/bash" /etc/shells; then
-	echo "${BREW_PREFIX}/bin/bash" | sudo tee --append /etc/shells
+	echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells
 	chsh -s "${BREW_PREFIX}/bin/bash"
 fi
 
