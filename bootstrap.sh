@@ -19,6 +19,7 @@ function doIt() {
 	stow --dotfiles --dir "stow" "ruby" --target "${HOME}"
 	mkdir -p "${HOME}/.gem"
 	# load new config
+	echo "Loading profile"
 	source "${HOME}/.bash_profile"
 }
 
@@ -67,6 +68,7 @@ else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo ""
 	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+		echo "Linking dotfiles"
 		doIt
 	fi
 fi
@@ -76,3 +78,5 @@ if [[ ! -f "${HOME}/.gituser" ]]; then
 	setGitUser
 fi
 unset setGitUser
+
+echo "Done"
