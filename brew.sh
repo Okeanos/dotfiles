@@ -49,7 +49,7 @@ if grep --fixed-strings --quiet 'cask "visual-studio-code"' Brewfile && which co
 		"DotJoshJohnson.xml"
 		"EditorConfig.EditorConfig"
 		"ms-azuretools.vscode-docker"
-		#"ms-vscode.powershell"
+		"ms-vscode.powershell"
 		"redhat.vscode-yaml"
 		"timonwong.shellcheck"
 		"yzhang.markdown-all-in-one"
