@@ -10,7 +10,8 @@ risk!
 
 **Warning:** For this to work properly on macOS Mojave and later
 read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849) carefully and add all necessary binaries
-(`bash`, `iTerm`, `Terminal`) to the `System Settings > Privacy & Security > Full Disk Access` list.
+(e.g. `bash` as listed in `/etc/shells`, `iTerm`, `Terminal`) to the
+`System Settings > Privacy & Security > Full Disk Access` list.
 
 **Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `iTerm`,
 and `Terminal` have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
@@ -20,11 +21,21 @@ install and Homebrew casks.
 
 1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
   [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
+
+  ```bash
+  curl -sSL -o ~/Downloads/brew.sh https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh
+  curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brefile
+  chmod +x ~/Downloads/brew.sh
+  ```
+
 2. Update the `Brewfile` to only install software you actually want
 3. Execute `brew.sh` from your shell after reviewing it
-4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`)
+4. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
+  have a [fancy icon](https://weblog.antranigv.am/posts/2023/02/hardcoded-folder-icons-in-macos/) in Finder I suggest
+  you use `~/Developer/dotfiles`)
 5. You can now `bootstrap.sh` your system
 6. **Optionally** and **after a careful review** you can now run `macos.sh`
+  Please note that this requires `bash` to have `Full Disk Access` as described above!
 
 #### Installing Brew & other Software (`brew.sh`)
 
