@@ -407,7 +407,8 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Berlin" >/dev/null
+# See https://github.com/LnL7/nix-darwin/issues/359 explaining the redirect
+sudo systemsetup -settimezone "Europe/Berlin" 2>/dev/null 1>&2
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
