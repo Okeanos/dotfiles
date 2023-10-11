@@ -16,7 +16,7 @@ brew "gh"
 brew "git"
 brew "git-lfs"
 brew "gnu-sed"
-brew "gnupg"
+brew "gnupg", link: false # conflicts with cask "gpg-suite-no-mail"
 brew "go"
 brew "grep"
 brew "htop"
@@ -60,6 +60,7 @@ cask "visual-studio-code"
 
 # Install Mac App Store applications
 # See https://github.com/mas-cli/mas
+# requires an Apple ID
 mas "AdGuard for Safari", id: 1440147259
 mas "Constent-O-Matic", id: 1606897889
 mas "Keynote", id: 409183694

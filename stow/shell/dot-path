@@ -2,7 +2,10 @@
 # the shebang statement above is only here to allow linting this file
 
 # verify necessary path adjustments against the caveats from brew (accessible from 'brew info $(brew list)')
+# as well as the output of 'brew shellenv'
 if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	export PATH="/usr/local/sbin:${PATH}"
+
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
 	export PATH="/usr/local/opt/curl/bin:${PATH}"
 	export PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
@@ -15,6 +18,8 @@ if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
 	export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
 	export MANPATH="/usr/local/opt/grep/libexec/gnuman:${MANPATH}"
 else
+	export PATH="/opt/homebrew/bin:${PATH}"
+
 	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
 	export PATH="/opt/homebrew/opt/curl/bin:${PATH}"
 	export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:${PATH}"
