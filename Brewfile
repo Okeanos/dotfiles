@@ -59,6 +59,7 @@ cask "sourcetree"
 cask "suspicious-package"
 cask "syntax-highlight", args: { no_quarantine: true }
 cask "temurin17"
+cask "temurin21"
 cask "the-unarchiver"
 cask "visual-studio-code"
 

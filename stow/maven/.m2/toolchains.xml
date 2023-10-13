@@ -31,16 +31,6 @@
 			<jdkHome>/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home</jdkHome>
 		</configuration>
 	</toolchain> -->
-	<!-- <toolchain>
-		<type>jdk</type>
-		<provides>
-			<version>16</version>
-			<vendor>AdoptOpenJDK</vendor>
-		</provides>
-		<configuration>
-			<jdkHome>/Library/Java/JavaVirtualMachines/adoptopenjdk-16.jdk/Contents/Home</jdkHome>
-		</configuration>
-	</toolchain> -->
 	<toolchain>
 		<type>jdk</type>
 		<provides>
@@ -49,6 +39,16 @@
 		</provides>
 		<configuration>
 			<jdkHome>/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home</jdkHome>
+		</configuration>
+	</toolchain>
+	<toolchain>
+		<type>jdk</type>
+		<provides>
+			<version>21</version>
+			<vendor>Adoptium</vendor>
+		</provides>
+		<configuration>
+			<jdkHome>/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home</jdkHome>
 		</configuration>
 	</toolchain>
 </toolchains>
