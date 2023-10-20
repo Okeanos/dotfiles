@@ -24,7 +24,7 @@ install and Homebrew casks.
 
   ```bash
   curl -sSL -o ~/Downloads/brew.sh https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh
-  curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brefile
+  curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile
   chmod +x ~/Downloads/brew.sh
   ```
 
@@ -33,8 +33,22 @@ install and Homebrew casks.
 3. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
   have a [fancy icon](https://weblog.antranigv.am/posts/2023/02/hardcoded-folder-icons-in-macos/) in Finder I suggest
   you use `~/Developer/dotfiles`)
-4. You can now `bootstrap.sh` your system
-5. **Optionally** and **after a careful review** you can now run `macos.sh`
+
+  ```bash
+  mkdir -p ~/Developer
+  # using SSH
+  git clone https://github.com/Okeanos/dotfiles.git ~/Developer/dotfiles
+  # using HTTS
+  git clone git@github.com:Okeanos/dotfiles.git ~/Developer/dotfiles
+  ```
+
+1. You can now `bootstrap.sh` your system
+
+  ```bash
+  cd ~/Developer/dotfiles
+  ./bootstrap.sh
+  ```
+2. **Optionally** and **after a careful review** you can now run `macos.sh`
   Please note that this requires `bash` to have `Full Disk Access` as described above!
 
 #### Installing Brew & other Software (`brew.sh`)
