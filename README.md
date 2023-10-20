@@ -48,7 +48,8 @@ install and Homebrew casks.
   cd ~/Developer/dotfiles
   ./bootstrap.sh
   ```
-2. **Optionally** and **after a careful review** you can now run `macos.sh`
+
+1. **Optionally** and **after a careful review** you can now run `macos.sh`
   Please note that this requires `bash` to have `Full Disk Access` as described above!
 
 #### Installing Brew & other Software (`brew.sh`)
