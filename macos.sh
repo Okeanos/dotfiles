@@ -1070,32 +1070,7 @@ msg "${GREEN}Configuring Google Chrome & Google Chrome Canary.${NOFORMAT}"
 #defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
 
 ###############################################################################
-# Kill affected applications                                                  #
+# Finalize                                                                    #
 ###############################################################################
 
-msg "${GREEN}Kill affected applications.${NOFORMAT}"
-
-affected_apps=(
-	"Activity Monitor"
-	"Address Book"
-	"Calendar"
-	"cfprefsd"
-	"Contacts"
-	"Dock"
-	"Finder"
-	"Google Chrome Canary"
-	"Google Chrome"
-	"Mail"
-	"Messages"
-	"Photos"
-	"Safari"
-	"SystemUIServer"
-	"Terminal"
-	"iCal"
-)
-
-for app in "${affected_apps[@]}"; do
-	killall "${app}" &>/dev/null
-done
-
-msg "${GREEN}Done. Note that some of these changes require a logout/restart to take effect.${NOFORMAT}"
+msg "${GREEN}Done. Note that some of these changes require a logout/restart to take effect. Also restart all your apps.${NOFORMAT}"
