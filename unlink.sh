@@ -5,8 +5,10 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit
 function doIt() {
 	for tmp in "stow"/*; do
 		echo "Unlinking '${tmp}' from '${HOME}'"
-		stow --dotfiles --delete --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
+		[[ "${tmp}" != "vscode" ]] && stow --dotfiles --delete --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
 	done
+	echo "Unlinking 'vscode' from '${HOME}/Library/Application Support/Code/User'"
+	stow --dotfiles --dir "stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 }
 
 if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then

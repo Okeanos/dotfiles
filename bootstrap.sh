@@ -10,11 +10,13 @@ function doIt() {
 	mkdir -v -p "${HOME}/.config"
 	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/.gem"
+	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
 
 	echo "Linking files"
 	for tmp in "stow"/*; do
 		[[ "${tmp}" != "vscode" ]] && stow --dotfiles --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
 	done
+	stow --dotfiles --dir "stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 
 	# load new config
 	echo "Loading profile"

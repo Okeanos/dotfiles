@@ -1,0 +1,47 @@
+{
+	"workbench.colorTheme": "Default Light+",
+	"editor.renderWhitespace": "all",
+	"files.trimTrailingWhitespace": true,
+	"redhat.telemetry.enabled": false,
+	"workbench.editor.enablePreview": false,
+	"editor.wordWrap": "on",
+	"powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+	"terminal.external.osxExec": "iTerm.app",
+	"editor.inlineSuggest.enabled": true,
+	"terminal.integrated.defaultProfile.osx": "bash",
+	"terminal.integrated.profiles.osx": {
+		"bash": {
+			"path": "bash",
+			"args": [
+				"-l"
+			],
+			"icon": "terminal-bash"
+		},
+		"zsh": {
+			"path": "zsh",
+			"args": [
+				"-l"
+			]
+		},
+		"fish": {
+			"path": "fish",
+			"args": [
+				"-l"
+			]
+		},
+		"tmux": {
+			"path": "tmux",
+			"icon": "terminal-tmux"
+		},
+		"pwsh": {
+			"path": "pwsh",
+			"icon": "terminal-powershell"
+		}
+	},
+	"editor.rulers": [
+		80,
+		100,
+		120,
+		140
+	]
+}
