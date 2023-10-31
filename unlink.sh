@@ -4,6 +4,7 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit
 
 function doIt() {
 	for tmp in "stow"/*; do
+		echo "Unlinking '${tmp}' from '${HOME}'"
 		stow --dotfiles --delete --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
 	done
 }

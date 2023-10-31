@@ -5,25 +5,25 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit
 git pull --autostash --rebase
 
 function doIt() {
-	stow --dotfiles --dir "stow" "curl" --target "${HOME}"
-	stow --dotfiles --dir "stow" "git" --target "${HOME}"
-	mkdir -p "${HOME}/.m2"
-	stow --dotfiles --dir "stow" "maven" --target "${HOME}"
-	stow --dotfiles --dir "stow" "misc" --target "${HOME}"
-	mkdir -p "${HOME}/.config"
-	stow --dotfiles --dir "stow" "powershell" --target "${HOME}";
-	stow --dotfiles --dir "stow" "shell" --target "${HOME}"
-	mkdir -p "${HOME}/.ssh/config.d"
-	stow --dotfiles --dir "stow" "ssh" --target "${HOME}"
-	stow --dotfiles --dir "stow" "vim" --target "${HOME}"
-	stow --dotfiles --dir "stow" "ruby" --target "${HOME}"
-	mkdir -p "${HOME}/.gem"
+	echo "Creating target directories"
+	mkdir -v -p "${HOME}/.m2"
+	mkdir -v -p "${HOME}/.config"
+	mkdir -v -p "${HOME}/.ssh/config.d"
+	mkdir -v -p "${HOME}/.gem"
+
+	echo "Linking files"
+	for tmp in "stow"/*; do
+		[[ "${tmp}" != "vscode" ]] && stow --dotfiles --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
+	done
+
 	# load new config
 	echo "Loading profile"
 	source "${HOME}/.bash_profile"
 }
 
 function setGitUser() {
+	echo "Creating Git user config"
+
 	local username email signingKey signWithSSH
 	read -rp "Enter your Git Username: " username
 	read -rp "Enter your Git E-Mail address: " email
@@ -63,6 +63,7 @@ ${signWithSSH}
 }
 
 if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then
+	echo "Linking dotfiles"
 	doIt
 else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
