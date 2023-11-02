@@ -1,3 +1,7 @@
+### Homebrew lockfile
+Brewfile.lock.json
+
+
 ### Eclipse template
 .metadata
 bin/
