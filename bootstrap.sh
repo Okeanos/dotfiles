@@ -6,10 +6,10 @@ git pull --autostash --rebase
 
 function doIt() {
 	echo "Creating target directories"
-	mkdir -v -p "${HOME}/.m2"
 	mkdir -v -p "${HOME}/.config"
-	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/.gem"
+	mkdir -v -p "${HOME}/.m2"
+	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
 
 	echo "Linking files"
