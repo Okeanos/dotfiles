@@ -43,5 +43,6 @@
 			"path": "pwsh",
 			"icon": "terminal-powershell"
 		}
-	}
+	},
+	"explorer.confirmDragAndDrop": false
 }
