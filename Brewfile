@@ -67,7 +67,18 @@ cask "visual-studio-code"
 # See https://github.com/mas-cli/mas
 # requires an Apple ID
 mas "AdGuard for Safari", id: 1440147259
-mas "Constent-O-Matic", id: 1606897889
+mas "Consent-O-Matic", id: 1606897889
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+
+# Install Visual Studio Code extensions
+vscode "DotJoshJohnson.xml"
+vscode "EditorConfig.EditorConfig"
+vscode "ban.spellright"
+vscode "jetmartin.bats"
+vscode "ms-azuretools.vscode-docker"
+vscode "ms-vscode.powershell"
+vscode "redhat.vscode-yaml"
+vscode "timonwong.shellcheck"
+vscode "yzhang.markdown-all-in-one"
