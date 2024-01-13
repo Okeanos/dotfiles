@@ -8,6 +8,7 @@ cask_args appdir: "/Applications"
 
 brew "bash"
 brew "bash-completion@2"
+#brew "bats-core"
 brew "coreutils"
 brew "curl"
 brew "dive"
@@ -73,12 +74,15 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 
 # Install Visual Studio Code extensions
+vscode "asciidoctor.asciidoctor-vscode"
+vscode "ban.spellright"
 vscode "DotJoshJohnson.xml"
 vscode "EditorConfig.EditorConfig"
-vscode "ban.spellright"
-vscode "jetmartin.bats"
+vscode "github.vscode-github-actions"
+#vscode "jetmartin.bats"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode.powershell"
 vscode "redhat.vscode-yaml"
+vscode "tamasfe.even-better-toml"
 vscode "timonwong.shellcheck"
 vscode "yzhang.markdown-all-in-one"
