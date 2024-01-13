@@ -14,7 +14,8 @@ function doIt() {
 
 	echo "Linking files"
 	for tmp in "stow"/*; do
-		[[ "${tmp}" != "vscode" ]] && stow --dotfiles --dir "stow" "$(basename "${tmp}")" --target "${HOME}"
+		toolname=$(basename "${tmp}")
+		[[ "${toolname}" != "vscode" ]] && stow --dotfiles --dir "stow" "${toolname}" --target "${HOME}"
 	done
 	stow --dotfiles --dir "stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 
