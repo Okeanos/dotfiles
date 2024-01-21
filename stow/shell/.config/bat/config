@@ -4,7 +4,7 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
-#--theme="TwoDark"
+--theme="Selenized-Light"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
@@ -28,9 +28,3 @@
 # this, simply add the --tabs argument with the number of spaces you want to be
 # displayed.
 #--tabs=4
-
-# Use `bat --list-themes` to get a list of all available themes for syntax
-# highlighting. To select the `TwoDark`` theme, call `bat`` with the
-# `--theme=TwoDark` option or set the `BAT_THEME` environment variable to
-# `TwoDark`.
---theme="Selenized-Light"
