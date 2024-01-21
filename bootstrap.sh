@@ -24,6 +24,11 @@ function doIt() {
 	source "${HOME}/.bash_profile"
 }
 
+function initApps() {
+	echo "Rebuild bat cache for custom theme support"
+	bat cache --build
+}
+
 function setGitUser() {
 	echo "Creating Git user config"
 
@@ -68,12 +73,14 @@ ${signWithSSH}
 if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then
 	echo "Linking dotfiles"
 	doIt
+	initApps
 else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo ""
 	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		echo "Linking dotfiles"
 		doIt
+		initApps
 	fi
 fi
 unset doIt

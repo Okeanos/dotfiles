@@ -31,6 +31,10 @@ export LC_ALL='en_US.UTF-8'
 # Don’t clear the screen after quitting a manual page.
 #export MANPAGER='less -X';
 
+# Use bat as pager
+# https://github.com/sharkdp/bat#man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # Avoid issues with `gpg` as installed via Homebrew.
 # https://stackoverflow.com/a/42265848/96656
 GPG_TTY=$(tty)
