@@ -1,37 +1,70 @@
 #!/usr/bin/env bash
 # the shebang statement above is only here to allow linting this file
 
+# macOS will do some "magic" so to speak when it comes to $PATH handling
+# a new bash (interactive login shell) is started with these steps:
+# /etc/profile
+# /etc/bashrc
+# /etc/bashrc_Apple_Terminal (if run in Apple Terminal)
+# ${HOME}/.bash_profile (or ${HOME}/.bash_login or ${HOME}/.profile)
+#
+# /etc/profile invokes /usr/libexec/path_helper
+# -> path_helper sets up the $PATH (and technically $MANPATH)
+# -> input is /etc/paths and then /etc/paths.d/*
+# result looks like
+#
+# ```
+#	/usr/local/bin
+#	/System/Cryptexes/App/usr/bin
+#	/usr/bin
+#	/bin
+#	/usr/sbin
+#	/sbin
+#	/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+#	/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+#	/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+# 	... possibly some extras from e.g. MacGPG, TeX, and VMware
+# ```
+# So keep that in mind when adjusting the path below
+#
+
 # verify necessary path adjustments against the caveats from brew (accessible from 'brew info $(brew list)')
 # as well as the output of 'brew shellenv'
+new_path=""
+new_man_path=""
+
 if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
-	export PATH="/usr/local/sbin:${PATH}"
+	new_path+='/usr/local/sbin:'
+	new_path+='/usr/local/opt/coreutils/libexec/gnubin:'
+	new_path+='/usr/local/opt/curl/bin:'
+	new_path+='/usr/local/opt/findutils/libexec/gnubin:'
+	new_path+='/usr/local/opt/gnu-sed/libexec/gnubin:'
+	new_path+='/usr/local/opt/grep/libexec/gnubin:'
 
-	export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
-	export PATH="/usr/local/opt/curl/bin:${PATH}"
-	export PATH="/usr/local/opt/findutils/libexec/gnubin:${PATH}"
-	export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:${PATH}"
-	export PATH="/usr/local/opt/grep/libexec/gnubin:${PATH}"
-
-	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:${MANPATH}"
-	export MANPATH="/usr/local/opt/curl/share/man:${MANPATH}"
-	export MANPATH="/usr/local/opt/findutils/libexec/gnuman:${MANPATH}"
-	export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:${MANPATH}"
-	export MANPATH="/usr/local/opt/grep/libexec/gnuman:${MANPATH}"
+	new_man_path+='/usr/local/opt/coreutils/libexec/gnuman:'
+	new_man_path+='/usr/local/opt/curl/share/man:'
+	new_man_path+='/usr/local/opt/findutils/libexec/gnuman:'
+	new_man_path+='/usr/local/opt/gnu-sed/libexec/gnuman:'
+	new_man_path+='/usr/local/opt/grep/libexec/gnuman:'
 else
-	export PATH="/opt/homebrew/bin:${PATH}"
-	export PATH="/opt/homebrew/sbin:${PATH}"
+	new_path+='/opt/homebrew/bin:'
+	new_path+='/opt/homebrew/sbin:'
+	new_path+='/opt/homebrew/opt/coreutils/libexec/gnubin:'
+	new_path+='/opt/homebrew/opt/curl/bin:'
+	new_path+='/opt/homebrew/opt/findutils/libexec/gnubin:'
+	new_path+='/opt/homebrew/opt/gnu-sed/libexec/gnubin:'
+	new_path+='/opt/homebrew/opt/grep/libexec/gnubin:'
 
-	export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
-	export PATH="/opt/homebrew/opt/curl/bin:${PATH}"
-	export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:${PATH}"
-	export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:${PATH}"
-	export PATH="/opt/homebrew/opt/grep/libexec/gnubin:${PATH}"
-
-	export MANPATH="/opt/homebrew/share/man:${MANPATH}"
-
-	export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
-	export MANPATH="/opt/homebrew/opt/curl/share/man:${MANPATH}"
-	export MANPATH="/opt/homebrew/opt/findutils/libexec/gnuman:${MANPATH}"
-	export MANPATH="/opt/homebrew/opt/gnu-sed/libexec/gnuman:${MANPATH}"
-	export MANPATH="/opt/homebrew/opt/grep/libexec/gnuman:${MANPATH}"
+	new_man_path+='/opt/homebrew/share/man:'
+	new_man_path+='/opt/homebrew/opt/coreutils/libexec/gnuman:'
+	new_man_path+='/opt/homebrew/opt/curl/share/man:'
+	new_man_path+='/opt/homebrew/opt/findutils/libexec/gnuman:'
+	new_man_path+='/opt/homebrew/opt/gnu-sed/libexec/gnuman:'
+	new_man_path+='/opt/homebrew/opt/grep/libexec/gnuman:'
 fi
+
+export PATH="${new_path}${PATH}"
+export MANPATH="${new_man_path}${MANPATH}"
+
+unset new_path;
+unset new_man_path;
