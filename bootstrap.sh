@@ -5,10 +5,18 @@ cd "$(dirname "${BASH_SOURCE[0]:-$0}")" || exit
 git pull --autostash --rebase
 
 function doIt() {
-	echo "Creating target directories"
-	mkdir -v -p "${HOME}/.config"
-	mkdir -v -p "${HOME}/.gem"
-	mkdir -v -p "${HOME}/.m2"
+	echo "Creating expected XDG target directories"
+	mkdir -v -p "${HOME}/.cache/bash"
+	mkdir -v -p "${HOME}/.cache/ruby/gem"
+	mkdir -v -p "${HOME}/.cache/vim/swap"
+	mkdir -v -p "${HOME}/.config/"{bash,git}
+	mkdir -v -p "${HOME}/.local/"{share,state}
+	mkdir -v -p "${HOME}/.local/share/node"
+	mkdir -v -p "${HOME}/.local/share/vim/bundle"
+	mkdir -v -p "${HOME}/.local/state/vim/"{backup,undo}
+
+	echo "Creating non-XDG target directories"
+	mkdir -v -p "${HOME}/."{gradle,m2}
 	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
 
@@ -40,7 +48,7 @@ function setGitUser() {
 
 	name = ${username}
 	email = ${email}
-" >"${HOME}/.gituser"
+" >"${HOME}/.config/git/user"
 
 	read -rp "Use GPG Commit Signing? (y/n) " -n 1
 	echo ""
@@ -66,26 +74,24 @@ function setGitUser() {
 	gpgsign = true
 
 ${signWithSSH}
-" >>"${HOME}/.gituser"
+" >>"${HOME}/.config/git/user"
 	fi
 }
 
 if [[ "${1}" == "--force" ]] || [[ "${1}" == "-f" ]]; then
-	echo "Linking dotfiles"
 	doIt
 	initApps
 else
 	read -rp "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo ""
 	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-		echo "Linking dotfiles"
 		doIt
 		initApps
 	fi
 fi
 unset doIt
 
-if [[ ! -f "${HOME}/.gituser" ]]; then
+if [[ ! -f "${HOME}/.config/git/user" ]]; then
 	setGitUser
 fi
 unset setGitUser

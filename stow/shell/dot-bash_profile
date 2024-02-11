@@ -4,10 +4,11 @@
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in "${HOME}/".{path,exports,aliases,functions,extra}; do
+for file in "${HOME}/.config/bash/"{path,exports,aliases,functions,extra}; do
 	[[ -r "${file}" ]] && [[ -f "${file}" ]] && source "${file}"
 done
 unset file
+[[ -r "${HOME}/.extra" ]] && [[ -f "${HOME}/.extra" ]] && source "${HOME}/.extra"
 
 # Case-insensitive globbing (used in pathname expansion)
 shopt -s nocaseglob
@@ -26,12 +27,10 @@ for option in autocd globstar; do
 done
 
 # Add tab completion for many Bash commands
-if type brew &>/dev/null; then
-	brew_prefix=$(brew --prefix)
-	if [[ -f "${brew_prefix}/etc/profile.d/bash_completion.sh" ]]; then
-		source "${brew_prefix}/etc/profile.d/bash_completion.sh"
+if [[ -n "${BREW_PREFIX}" ]]; then
+	if [[ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+		source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 	fi
-	unset brew_prefix
 fi
 
 # Add tab completion for Docker

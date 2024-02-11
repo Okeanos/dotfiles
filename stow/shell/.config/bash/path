@@ -32,39 +32,34 @@
 # as well as the output of 'brew shellenv'
 new_path=""
 new_man_path=""
+brew_prefix=""
 
 if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
-	new_path+='/usr/local/sbin:'
-	new_path+='/usr/local/opt/coreutils/libexec/gnubin:'
-	new_path+='/usr/local/opt/curl/bin:'
-	new_path+='/usr/local/opt/findutils/libexec/gnubin:'
-	new_path+='/usr/local/opt/gnu-sed/libexec/gnubin:'
-	new_path+='/usr/local/opt/grep/libexec/gnubin:'
-
-	new_man_path+='/usr/local/opt/coreutils/libexec/gnuman:'
-	new_man_path+='/usr/local/opt/curl/share/man:'
-	new_man_path+='/usr/local/opt/findutils/libexec/gnuman:'
-	new_man_path+='/usr/local/opt/gnu-sed/libexec/gnuman:'
-	new_man_path+='/usr/local/opt/grep/libexec/gnuman:'
+	brew_prefix="/usr/local"
+	new_path+=""
+	new_man_path+=""
 else
-	new_path+='/opt/homebrew/bin:'
-	new_path+='/opt/homebrew/sbin:'
-	new_path+='/opt/homebrew/opt/coreutils/libexec/gnubin:'
-	new_path+='/opt/homebrew/opt/curl/bin:'
-	new_path+='/opt/homebrew/opt/findutils/libexec/gnubin:'
-	new_path+='/opt/homebrew/opt/gnu-sed/libexec/gnubin:'
-	new_path+='/opt/homebrew/opt/grep/libexec/gnubin:'
-
-	new_man_path+='/opt/homebrew/share/man:'
-	new_man_path+='/opt/homebrew/opt/coreutils/libexec/gnuman:'
-	new_man_path+='/opt/homebrew/opt/curl/share/man:'
-	new_man_path+='/opt/homebrew/opt/findutils/libexec/gnuman:'
-	new_man_path+='/opt/homebrew/opt/gnu-sed/libexec/gnuman:'
-	new_man_path+='/opt/homebrew/opt/grep/libexec/gnuman:'
+	brew_prefix="/opt/homebrew"
+	new_path+="${brew_prefix}/bin:"
+	new_man_path+="${brew_prefix}/share/man:"
 fi
+
+new_path+="${brew_prefix}/sbin:"
+new_path+="${brew_prefix}/opt/coreutils/libexec/gnubin:"
+new_path+="${brew_prefix}/opt/curl/bin:"
+new_path+="${brew_prefix}/opt/findutils/libexec/gnubin:"
+new_path+="${brew_prefix}/opt/gnu-sed/libexec/gnubin:"
+new_path+="${brew_prefix}/opt/grep/libexec/gnubin:"
+
+new_man_path+="${brew_prefix}/opt/coreutils/libexec/gnuman:"
+new_man_path+="${brew_prefix}/opt/curl/share/man:"
+new_man_path+="${brew_prefix}/opt/findutils/libexec/gnuman:"
+new_man_path+="${brew_prefix}/opt/gnu-sed/libexec/gnuman:"
+new_man_path+="${brew_prefix}/opt/grep/libexec/gnuman:"
 
 export PATH="${new_path}${PATH}"
 export MANPATH="${new_man_path}${MANPATH}"
 
-unset new_path;
-unset new_man_path;
+unset brew_prefix
+unset new_path
+unset new_man_path
