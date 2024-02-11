@@ -79,8 +79,8 @@ mas "Pages", id: 409201541
 # Install Visual Studio Code extensions
 vscode "asciidoctor.asciidoctor-vscode"
 vscode "ban.spellright"
-vscode "DotJoshJohnson.xml"
-vscode "EditorConfig.EditorConfig"
+vscode "dotjoshjohnson.xml"
+vscode "editorconfig.editorconfig"
 vscode "github.vscode-github-actions"
 #vscode "jetmartin.bats"
 vscode "ms-azuretools.vscode-docker"
