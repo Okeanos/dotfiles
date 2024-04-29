@@ -16,6 +16,7 @@ function doIt() {
 	mkdir -v -p "${HOME}/.local/state/vim/"{backup,undo}
 
 	echo "Creating non-XDG target directories"
+	# prevents accidentally syncing sensitive files later on if/when parts of this are put into the dotfiles
 	mkdir -v -p "${HOME}/."{gradle,m2}
 	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
