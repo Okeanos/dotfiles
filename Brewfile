@@ -64,8 +64,8 @@ cask "rectangle"
 cask "sourcetree"
 cask "suspicious-package"
 cask "syntax-highlight", args: { no_quarantine: true }
-cask "temurin17"
-cask "temurin21"
+cask "temurin@17"
+cask "temurin@21"
 cask "the-unarchiver"
 cask "visual-studio-code"
 
