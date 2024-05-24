@@ -44,5 +44,7 @@
 			"icon": "terminal-powershell"
 		}
 	},
-	"explorer.confirmDragAndDrop": false
+	"explorer.confirmDragAndDrop": false,
+	"telemetry.telemetryLevel": "off",
+	"gitlens.telemetry.enabled": false
 }
