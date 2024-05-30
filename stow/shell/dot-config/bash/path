@@ -51,6 +51,10 @@ new_path+="${brew_prefix}/opt/findutils/libexec/gnubin:"
 new_path+="${brew_prefix}/opt/gnu-sed/libexec/gnubin:"
 new_path+="${brew_prefix}/opt/grep/libexec/gnubin:"
 
+if command -v go >/dev/null; then
+	new_path+="$(go env GOPATH)/bin:"
+fi
+
 new_man_path+="${brew_prefix}/opt/coreutils/libexec/gnuman:"
 new_man_path+="${brew_prefix}/opt/curl/share/man:"
 new_man_path+="${brew_prefix}/opt/findutils/libexec/gnuman:"
