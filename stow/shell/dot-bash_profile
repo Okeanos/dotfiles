@@ -29,12 +29,9 @@ for option in autocd globstar; do
 	shopt -s "${option}" 2>/dev/null
 done
 
-# Add tab completion for many Bash commands
-# This will automatically source the bash_completion file in dot-config as well
-if [[ -n "${BREW_PREFIX}" ]]; then
-	if [[ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-		source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
-	fi
+# Add tab completion for many Bash commands. This will automatically source the bash_completion file in dot-config as well
+if [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+	source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 fi
 
 # Launch Starship as prompt: https://starship.rs/
