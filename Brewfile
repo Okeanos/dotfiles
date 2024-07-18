@@ -1,6 +1,5 @@
 # Configure taps
 tap "homebrew/bundle"
-tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "johanhaleby/kubetail"
 # Configure where our applications go
