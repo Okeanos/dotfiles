@@ -1,6 +1,4 @@
 # Configure taps
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "johanhaleby/kubetail"
 # Configure where our applications go
 cask_args appdir: "/Applications"
