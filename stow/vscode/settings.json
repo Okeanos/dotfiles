@@ -12,6 +12,7 @@
 	"editor.wordWrap": "on",
 	"files.trimTrailingWhitespace": true,
 	"powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+	"powershell.promptToUpdatePowerShell": false,
 	"redhat.telemetry.enabled": false,
 	"terminal.external.osxExec": "iTerm.app",
 	"terminal.integrated.defaultProfile.osx": "bash",
@@ -19,7 +20,8 @@
 		"bash": {
 			"path": "bash",
 			"args": [
-				"-l"
+				"-l",
+				"-i"
 			],
 			"icon": "terminal-bash"
 		},
