@@ -22,9 +22,12 @@ function doIt() {
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
 
 	echo "Linking files"
+	# skipping some tools because they are handled differently
+	local skip_tools=("vscode")
 	for tmp in "stow"/*; do
 		toolname=$(basename "${tmp}")
-		[[ "${toolname}" != "vscode" ]] && stow --dotfiles --dir "stow" "${toolname}" --target "${HOME}"
+		# shellcheck disable=SC2076
+		[[ ! "${skip_tools[*]}" =~ "${toolname}" ]] && stow --dotfiles --dir "stow" "${toolname}" --target "${HOME}"
 	done
 	stow --dotfiles --dir "stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 
