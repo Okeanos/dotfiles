@@ -69,3 +69,6 @@ export GOMODCACHE="${XDG_CACHE_HOME}/go/mod"
 
 # Make wget XDG aware
 export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
+
+# Make ripgrep XDF aware
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgreprc"

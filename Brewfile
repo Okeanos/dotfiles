@@ -35,6 +35,7 @@ brew "moreutils"
 brew "netcat"
 brew "node"
 brew "pigz" # https://github.com/moby/moby/pull/35697
+brew "ripgrep"
 #brew "shellcheck"
 #brew "shfmt"
 brew "starship"
