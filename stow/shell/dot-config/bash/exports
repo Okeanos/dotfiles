@@ -55,7 +55,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # shellcheck disable=SC2016
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
-if type brew &>/dev/null; then
+if command -v brew >/dev/null; then
 	BREW_PREFIX=$(brew --prefix)
 	export BREW_PREFIX
 fi
