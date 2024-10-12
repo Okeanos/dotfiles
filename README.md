@@ -206,5 +206,6 @@ These dotfiles are a largely rewritten/updated [fork](https://github.com/mathias
 - [Marcel Bischoff](https://herrbischoff.com) and his
   [Awesome macOS Command Line](https://git.herrbischoff.com/awesome-macos-command-line/about/)
 - [Maarten Billemont's Bash Guide](http://mywiki.wooledge.org/BashGuide)
+- [Luiz Ferreira's dotfiles](https://github.com/lferreira/dotfiles)
 - Anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors)
   or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
