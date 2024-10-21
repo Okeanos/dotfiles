@@ -98,11 +98,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# URL-encode strings
-alias urlencode='python3 -c "from urllib.parse import quote_plus; import sys; print(quote_plus(sys.argv[1]));"'
-# URL-decode strings
-alias urldecode='python3 -c "from urllib.parse import unquote_plus; import sys; print(unquote_plus(sys.argv[1]));"'
-
 # Merge PDF files, preserving hyperlinks
 # Usage: `mergepdf input{1,2,3}.pdf`
 alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
