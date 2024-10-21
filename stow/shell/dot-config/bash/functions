@@ -86,8 +86,8 @@ function server() {
 function gz() {
 	local origsize gzipsize ratio
 	origsize=$(
-		stat -Lf"%z" -- "${1}" 2> /dev/null # macOS `stat`
-		stat -Lc"%s" -- "${1}" 2> /dev/null # GNU `stat`
+		stat -Lf"%z" -- "${1}" 2>/dev/null # macOS `stat`
+		stat -Lc"%s" -- "${1}" 2>/dev/null # GNU `stat`
 	)
 	gzipsize=$(gzip -c "${1}" | wc -c)
 	ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l)
@@ -161,7 +161,7 @@ function o() {
 # the `.git` directory, listing directories first. The output gets piped into
 # `bat`.
 function tre() {
-	tree -aC -I '.git|node_modules|target|build|vendor' --dirsfirst "$@" | \
+	tree -aC -I '.git|node_modules|target|build|vendor' --dirsfirst "$@" |
 		bat
 }
 
@@ -173,7 +173,7 @@ function git-sync {
 	if [[ $# -ne 0 ]]; then
 		path="${1}"
 	fi
-	find "${path}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 | \
+	find "${path}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 |
 		xargs -P 8 -0 -I % bash -c 'git -C %/.. pull --rebase --autostash --quiet || echo "Failed updating: %"'
 }
 
@@ -185,7 +185,7 @@ function git-fetch {
 	if [[ $# -ne 0 ]]; then
 		path="${1}"
 	fi
-	find "${path}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 | \
+	find "${path}" -maxdepth 2 -mindepth 2 -type d -name '.git' -print0 |
 		xargs -P 8 -0 -I % bash -c 'git -C %/.. fetch --all --prune --prune-tags --quiet || echo "Failed updating: %"'
 }
 
@@ -216,7 +216,7 @@ function handle-secrets {
 
 	echo "Scanning: ${target_directory}"
 	if [[ -f "${target_directory}/.gitleaksignore" ]]; then
-		ignore_file_contents=$(< "${target_directory}/.gitleaksignore")
+		ignore_file_contents=$(<"${target_directory}/.gitleaksignore")
 		ignore_file_contents+="\n"
 	else
 		ignore_file_contents="# https://github.com/gitleaks/gitleaks\n\n"
@@ -244,8 +244,11 @@ function handle-secrets {
 			echo "File: ${file}"
 			echo "Commit: ${commit}"
 			echo "Secret: ${secret}"
-			select finding_type in "False Positive" "Valid" "Other"; do
-				[[ -n "${finding_type}" ]] || { echo "Please select a valid option." >&2; continue; }
+			select finding_type in "False Positive" "Valid" "Other" "Continue later"; do
+				[[ -n "${finding_type}" ]] || {
+					echo "Please select a valid option." >&2
+					continue
+				}
 				documented_as="${finding_type}"
 				break
 			done
