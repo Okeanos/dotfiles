@@ -168,7 +168,7 @@ function tre() {
 # `git-sync` is a wrapper function around `find`, `xargs` that will
 # asynchrounously call git pull --rebase --autostash on any repository one level
 # down from the specified path.
-function git-sync {
+function git-sync() {
 	local path="."
 	if [[ $# -ne 0 ]]; then
 		path="${1}"
@@ -180,7 +180,7 @@ function git-sync {
 # `git-fetch` is a wrapper function around `find`, `xargs` that will
 # asynchrounously call --all --prune --prune-tags --quiet on any repository one level
 # down from the specified path.
-function git-fetch {
+function git-fetch() {
 	local path="."
 	if [[ $# -ne 0 ]]; then
 		path="${1}"
@@ -190,7 +190,7 @@ function git-fetch {
 }
 
 # URL-encode strings
-function urlencode {
+function urlencode() {
 	local input=${1:-$(</dev/stdin)}
 	if ! command -v trurl >/dev/null; then
 		echo "trurl not installed, cannot URL-encode the data"
@@ -201,7 +201,7 @@ function urlencode {
 }
 
 # URL-decode strings
-function urldecode {
+function urldecode() {
 	local input=${1:-$(</dev/stdin)}
 	if ! command -v trurl >/dev/null; then
 		echo "trurl not installed, cannot URL-decode the data"
@@ -214,7 +214,7 @@ function urldecode {
 # `handle-secrets` is a wrapper function around `gitleaks` and allows you to
 # interactively go through any finding gitleaks detects in the supplied folder
 # and put them into a `.gitleaksignore` file with appropriate comments
-function handle-secrets {
+function handle-secrets() {
 	local target_directory report_directory report_file git_name git_email git_user ignore_file_contents current_time description rule file fingerprint commit secret comment documented_as
 
 	target_directory=$(realpath --canonicalize-missing "${1}")
