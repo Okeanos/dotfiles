@@ -13,11 +13,16 @@ fi
 # Save Homebrew’s installed location.
 BREW_PREFIX=$(brew --prefix)
 
+# shellcheck disable=SC2034
+script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
+
 # Upgrade any already-installed formulae.
 brew upgrade
 
 # Install everything inside Brewfile
-brew bundle install
+brew bundle install --file "${script_dir}/Brewfile"
+
+echo ""
 
 cat <<EOF
 If you do not want to run 'bootstrap.sh' please ensure the following paths are put as _PREFIXES_ to your \$PATH:
