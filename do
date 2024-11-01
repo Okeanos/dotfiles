@@ -129,6 +129,8 @@ elif [[ "${args[0]}" == "link" ]]; then
 	if [[ "${rosetta}" == "true" ]] && ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 		msg "Installing Rosetta"
 		sudo softwareupdate --install-rosetta --agree-to-license
+	else
+		msg "${YELLOW}Skip installing Rosetta on Intel machines${NOFORMAT}"
 	fi
 
 	if ! which brew >/dev/null; then
@@ -145,11 +147,15 @@ elif [[ "${args[0]}" == "link" ]]; then
 	fi
 
 	if [[ -d "${repository}" ]]; then
-		die "${RED}The target location '${repository}' already exists. Please remove it and try again.${NOFORMAT}"
+		if git -C "${repository}" rev-parse; then
+			msg "${YELLOW}Assuming the Git repository '${repository}' belongs to this script and will use it as a 'dotfiles' source."
+		else
+			die "${RED}The target location '${repository}' already exists but is ${NOFORMAT}not${RED} a Git repository. Please remove it and try again.${NOFORMAT}"
+		fi
+	else
+		msg "Cloning dotfiles to: ${repository}"
+		git clone --quiet https://github.com/Okeanos/dotfiles.git "${repository}"
 	fi
-
-	msg "Cloning dotfiles to: ${repository}"
-	git clone --quiet https://github.com/Okeanos/dotfiles.git "${repository}"
 
 	msg "Installing Brewfile contents"
 	read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
