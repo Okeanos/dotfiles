@@ -57,22 +57,22 @@ die() {
 
 parse_params() {
 	# default values of variables set from params
-	rosetta=1
+	rosetta="true"
 	dotfiles="*"
-	target=$(realpath "${HOME}/Developer")
+	target="${HOME}/Developer"
 
 	while :; do
 		case "${1-}" in
 		-h | --help) usage ;;
 		-v | --verbose) set -x ;;
 		--no-color) NO_COLOR=1 ;;
-		-n | --no-rosetta) rosetta=0 ;; # example flag
+		-n | --no-rosetta) rosetta="false" ;;
 		-d | --dotfiles)
 			dotfiles="${2-}"
 			shift
 			;;
 		-t | --target)
-			target=$(realpath "${2-}")
+			target="${2-}"
 			shift
 			;;
 		-?*) die "Unknown option: $1" ;;
@@ -108,9 +108,25 @@ if [[ "${args[0]}" == "show" ]]; then
 	msg ""
 	msg "Use the leading directory name as input for the -d (--dotfiles) parameter."
 elif [[ "${args[0]}" == "link" ]]; then
+	msg "Installing prerequisites & setting up dotfiles"
+	msg "Will use the following inputs:"
+	msg "- Target location: '${target}'"
+	msg "- Dotfiles repository location: '${repository}'"
+	msg "- Dotfiles to install: '${dotfiles}'"
+	msg "- Installing Rosetta: '${rosetta}'"
+	msg ""
+
+	read -rp "Do you want to continue (y/n)? " -n 1
+	msg ""
+	if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
+		die "Installation canceled"
+	fi
+
+	msg ""
+
 	msg "Installing prerequisites"
 
-	if [[ "${rosetta}" == 1 ]] && ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
+	if [[ "${rosetta}" == "true" ]] && ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 		msg "Installing Rosetta"
 		sudo softwareupdate --install-rosetta --agree-to-license
 	fi
