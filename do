@@ -272,10 +272,14 @@ elif [[ "${args[0]}" == "link" ]]; then
 		signing_format="opengpg"
 		sign_selection=""
 		signing_key=""
+
+		read -rp "Enter your Git Username: " username
 		while [[ -z "${username}" ]]; do
-			read -rp "Enter your Git Username: " username
+			read -rp "Enter your Git Username (must not be empty): " username
 		done
-		while [[ -z "${email}" ]] && [[ "${email}" != *"@"* ]]; do
+
+		read -rp "Enter your Git E-Mail address (must not be empty & contain an @): " email
+		while [[ -z "${email}" ]] || [[ "${email}" != *"@"* ]]; do
 			read -rp "Enter your Git E-Mail address: " email
 		done
 
