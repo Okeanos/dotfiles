@@ -243,7 +243,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		if [[ "${dotfiles}" != "*" ]] && [[ "${dotfiles}" != *"${toolname}"* ]]; then
 			continue
 		fi
-		[[ ! "${skip_tools[*]}" == *"${toolname}"* ]] && stow --dotfiles --dir "stow" "${toolname}" --target "${HOME}"
+		[[ ! "${skip_tools[*]}" == *"${toolname}"* ]] && stow --dotfiles --dir "${repository}/stow" "${toolname}" --target "${HOME}"
 	done
 	if [[ "${dotfiles}" == "*" ]] || [[ "${dotfiles}" == *"vscode"* ]]; then
 		stow --dotfiles --dir "${repository}/stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
