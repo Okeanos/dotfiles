@@ -69,6 +69,7 @@ cask "temurin@17"
 cask "temurin@21"
 cask "the-unarchiver"
 cask "visual-studio-code"
+cask "xattred"
 
 # Install Mac App Store applications
 # See https://github.com/mas-cli/mas
