@@ -122,13 +122,11 @@ elif [[ "${args[0]}" == "link" ]]; then
 	msg ""
 
 	read -rp "Do you want to continue (y/n)? " -n 1
-	msg ""
 	if [[ ! ${REPLY} =~ ^[Yy]$ ]]; then
 		die "Installation canceled"
 	fi
 
 	msg ""
-
 	msg "Installing prerequisites"
 
 	if [[ "${rosetta}" == "true" ]] && ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
@@ -146,6 +144,8 @@ elif [[ "${args[0]}" == "link" ]]; then
 	# Save Homebrew’s installed location.
 	BREW_PREFIX=$(brew --prefix)
 
+	msg ""
+	msg "Setting up dotfiles repository in ${repository}"
 	if [[ ! -d "${target}" ]]; then
 		msg "Creating target location '${target}' for dotfiles"
 		mkdir -p "${target}"
@@ -162,25 +162,30 @@ elif [[ "${args[0]}" == "link" ]]; then
 		git clone --quiet https://github.com/Okeanos/dotfiles.git "${repository}"
 	fi
 
+	msg ""
 	msg "Installing Brewfile contents"
-	read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
-	msg ""
-	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-		msg "Brewfile contents:"
-		msg "---"
-		echo "$(<"${repository}/Brewfile")"
-		msg "---"
-	fi
-
-	read -rp "Do you want to install the Brewfile contents (y/n)? " -n 1
-	msg ""
-	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-		# Upgrade any already-installed formulae.
-		brew upgrade
-		# Install everything inside Brewfile
-		brew bundle install --file "${repository}/Brewfile"
+	if [[ -f "${repository}/Brewfile.lock.json" ]]; then
+		msg "${YELLOW}A brew bundle lockfile ('${repository}/Brewfile.lock.json') exists, assuming all required tools are installed.${NOFORMAT}"
 	else
-		die "${RED}Aborting. The dotfiles require a number of tools from the Brewfile to work. Please update the Brewfile to your liking and run the installer again.${NOFORMAT}"
+		read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
+		msg ""
+		if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+			msg "Brewfile contents:"
+			msg "---"
+			echo "$(<"${repository}/Brewfile")"
+			msg "---"
+		fi
+
+		read -rp "Do you want to install the Brewfile contents (y/n)? " -n 1
+		msg ""
+		if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+			# Upgrade any already-installed formulae.
+			brew upgrade
+			# Install everything inside Brewfile
+			brew bundle install --file "${repository}/Brewfile"
+		else
+			die "${RED}Aborting. The dotfiles require a number of tools from the Brewfile to work. Please update the Brewfile to your liking and run the installer again.${NOFORMAT}"
+		fi
 	fi
 
 	msg ""
@@ -269,7 +274,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		username=""
 		email=""
 		signing_enabled="false"
-		signing_format="opengpg"
+		signing_format="openpgp"
 		sign_selection=""
 		signing_key=""
 
@@ -278,9 +283,9 @@ elif [[ "${args[0]}" == "link" ]]; then
 			read -rp "Enter your Git Username (must not be empty): " username
 		done
 
-		read -rp "Enter your Git E-Mail address (must not be empty & contain an @): " email
+		read -rp "Enter your Git E-Mail address: " email
 		while [[ -z "${email}" ]] || [[ "${email}" != *"@"* ]]; do
-			read -rp "Enter your Git E-Mail address: " email
+			read -rp "Enter your Git E-Mail address (must not be empty & contain an @): " email
 		done
 
 		msg "Will set up Git commit signing, check the following links for more information:"
