@@ -228,11 +228,13 @@ elif [[ "${args[0]}" == "link" ]]; then
 	if [[ "${theme}" == "dark" ]]; then
 		msg "${YELLOW}Converting dotfiles to Selenized Dark${NOFORMAT}"
 		if command -v gsed >/dev/null; then
-			gsed -i "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
 			gsed -i "s/Selenized-Light/Selenized-Dark/g" "${repository}/stow/shell/dot-config/bat/config"
+			gsed -i "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
+			gsed -i "s/Default Light+/Default Dark+/g" "${repository}/stow/vscode/settings.json"
 		else
-			sed -i '' "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
 			sed -i '' "s/Selenized-Light/Selenized-Dark/g" "${repository}/stow/shell/dot-config/bat/config"
+			sed -i '' "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
+			sed -i '' "s/Default Light+/Default Dark+/g" "${repository}/stow/vscode/settings.json"
 		fi
 	fi
 
