@@ -18,6 +18,7 @@ Available options:
 -h, --help         Print this help and exit
 -v, --verbose      Print script debug info
 
+-a, --dark-theme   Use Selenized Dark instead of Selenized Light as a theme
 -d, --dotfiles     Comma separated list of dotfiles to link/install, defaults to everything
 -n, --no-rosetta   Skip installing Rosetta on Apple Silicon (ARM)
 -t, --target       The location where to put the Dotfiles repository, defaults to ~/Developer
@@ -51,6 +52,7 @@ die() {
 	local msg=$1
 	local code=${2-1} # default exit status 1
 	msg "$msg"
+	msg ""
 	usage
 	exit "$code"
 }
@@ -60,12 +62,14 @@ parse_params() {
 	rosetta="true"
 	dotfiles="*"
 	target="${HOME}/Developer"
+	theme="light"
 
 	while :; do
 		case "${1-}" in
 		-h | --help) usage ;;
 		-v | --verbose) set -x ;;
 		--no-color) NO_COLOR=1 ;;
+		-a | --dark-theme) theme="dark" ;;
 		-n | --no-rosetta) rosetta="false" ;;
 		-d | --dotfiles)
 			dotfiles="${2-}"
@@ -114,6 +118,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 	msg "- Dotfiles repository location: '${repository}'"
 	msg "- Dotfiles to install: '${dotfiles}'"
 	msg "- Installing Rosetta: '${rosetta}'"
+	msg "- Theme is Selenized (https://github.com/jan-warchol/selenized) in: '${theme}'"
 	msg ""
 
 	read -rp "Do you want to continue (y/n)? " -n 1
@@ -148,7 +153,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 
 	if [[ -d "${repository}" ]]; then
 		if git -C "${repository}" rev-parse; then
-			msg "${YELLOW}Assuming the Git repository '${repository}' belongs to this script and will use it as a 'dotfiles' source."
+			msg "${YELLOW}Assuming the Git repository '${repository}' belongs to this script and will use it as a 'dotfiles' source.${NOFORMAT}"
 		else
 			die "${RED}The target location '${repository}' already exists but is ${NOFORMAT}not${RED} a Git repository. Please remove it and try again.${NOFORMAT}"
 		fi
@@ -209,6 +214,16 @@ elif [[ "${args[0]}" == "link" ]]; then
 	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
 
+	if [[ "${theme}" == "dark" ]]; then
+		msg "${YELLOW}Converting dotfiles to Selenized Dark${NOFORMAT}"
+		if command -v gsed >/dev/null; then
+			gsed -i "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
+			gsed -i "s/Selenized-Light/Selenized-Dark/g" "${repository}/stow/shell/dot-config/bat/config"
+		else
+			sed -i '' "s/background=light/background=dark/g" "${repository}/stow/shell/dot-config/vim/vimrc"
+			sed -i '' "s/Selenized-Light/Selenized-Dark/g" "${repository}/stow/shell/dot-config/bat/config"
+		fi
+	fi
 
 	msg "Linking dotfiles: ${dotfiles}"
 	msg "This may overwrite existing files in your home directory. Only continue if you are sure you want this to happen."
@@ -233,7 +248,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 	msg "Loading new bash profile with updated \$PATH etc."
 	source "${HOME}/.bash_profile"
 
-	if ! command -v bat >/dev/null; then
+	if command -v bat >/dev/null; then
 		msg "Rebuild bat cache so the theme works as expected"
 		bat cache --build
 	fi
