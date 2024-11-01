@@ -61,8 +61,8 @@ new_man_path+="${brew_prefix}/opt/findutils/libexec/gnuman:"
 new_man_path+="${brew_prefix}/opt/gnu-sed/libexec/gnuman:"
 new_man_path+="${brew_prefix}/opt/grep/libexec/gnuman:"
 
-export PATH="${new_path}${PATH}"
-export MANPATH="${new_man_path}${MANPATH}"
+export PATH="${new_path}${PATH:-}"
+export MANPATH="${new_man_path}${MANPATH:-}"
 
 unset brew_prefix
 unset new_path
