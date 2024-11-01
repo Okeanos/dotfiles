@@ -192,8 +192,8 @@ elif [[ "${args[0]}" == "link" ]]; then
 			fi
 		fi
 
-		current_shell=$(finger "${USER}" | /usr/bin/grep -F "Shell:" | cut -d':' -f3 | xargs)
-		if [[ "${current_shell}" != "'${BREW_PREFIX}/bin/bash'" ]]; then
+		current_shell=$(finger "${USER}" | grep -F "Shell:" | cut -d':' -f3 | xargs)
+		if [[ "${current_shell}" != "${BREW_PREFIX}/bin/bash" ]]; then
 			read -rp "Do you want to make the modern Bash ('${BREW_PREFIX}/bin/bash') your user shell (y/n)? " -n 1
 			msg ""
 			if [[ ${REPLY} =~ ^[Yy]$ ]]; then
