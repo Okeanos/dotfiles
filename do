@@ -183,6 +183,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		die "${RED}Aborting. The dotfiles require a number of tools from the Brewfile to work. Please update the Brewfile to your liking and run the installer again.${NOFORMAT}"
 	fi
 
+	msg ""
 	if [[ -f "${BREW_PREFIX}/bin/bash" ]]; then
 		if ! grep --fixed-strings --quiet "${BREW_PREFIX}/bin/bash" /etc/shells; then
 			read -rp "Do you want to make the modern Bash ('${BREW_PREFIX}/bin/bash') known to the system (y/n)? " -n 1
@@ -202,6 +203,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		fi
 	fi
 
+	msg ""
 	msg "Creating static locations to which to link the dotfiles. This prevents accidentally syncing sensitives files later on with the repository."
 	msg "Creating XDG (https://specifications.freedesktop.org/basedir-spec/latest/) locations:"
 	mkdir -v -p "${HOME}/.cache/bash"
@@ -229,6 +231,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		fi
 	fi
 
+	msg ""
 	msg "Linking dotfiles: ${dotfiles}"
 	msg "This may overwrite existing files in your home directory. Only continue if you are sure you want this to happen."
 	read -rp "Do you want to link the named dotfiles (y/n)? " -n 1
@@ -249,6 +252,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		stow --dotfiles --dir "${repository}/stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 	fi
 
+	msg ""
 	msg "Loading new bash profile with updated \$PATH etc."
 	source "${HOME}/.bash_profile"
 
@@ -257,6 +261,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		bat cache --build
 	fi
 
+	msg ""
 	if [[ -f "${HOME}/.config/git/user" ]]; then
 		msg "The Git user config '${HOME}/.config/git/user' already exists. Skipping setup."
 	else
@@ -269,11 +274,9 @@ elif [[ "${args[0]}" == "link" ]]; then
 		signing_key=""
 		while [[ -z "${username}" ]]; do
 			read -rp "Enter your Git Username: " username
-			msg ""
 		done
 		while [[ -z "${email}" ]] && [[ "${email}" != *"@"* ]]; do
 			read -rp "Enter your Git E-Mail address: " email
-			msg ""
 		done
 
 		msg "Will set up Git commit signing, check the following links for more information:"
@@ -293,7 +296,6 @@ elif [[ "${args[0]}" == "link" ]]; then
 		if [[ "${sign_selection}" != "Set up later" ]]; then
 			while [[ -z "${signing_key}" ]]; do
 				read -rp "Enter your GPG or SSH Signing Key ID: " signing_key
-				msg ""
 			done
 
 			if [[ "${sign_selection}" == "SSH" ]]; then
@@ -302,7 +304,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 			fi
 		fi
 
-		printf '[%s]\n' \
+		printf '%s\n' \
 				"[user]" \
 				"" \
 				"	name = ${username}" \
