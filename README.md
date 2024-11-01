@@ -4,7 +4,7 @@
 
 ## Installation
 
-**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and
+**Warning:** If you want to give these `dotfiles` a try, you should first fork this repository, review the code, and
 remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own
 risk!
 
@@ -13,58 +13,23 @@ carefully and add all necessary binaries (e.g. `bash` as listed in `/etc/shells`
 `System Settings > Privacy & Security > Full Disk Access` list.
 
 **Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `iTerm`,
-and `Terminal` have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
+and `Terminal` may have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
 install and Homebrew casks.
 
 ### Getting Started
 
-1. Manually download [`brew.sh`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh) &
-  [`Brewfile`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile)
+1. Manually download the [`do`](https://raw.githubusercontent.com/Okeanos/dotfiles/main/do) script
 
   ```bash
-  curl -sSL -o ~/Downloads/brew.sh https://raw.githubusercontent.com/Okeanos/dotfiles/main/brew.sh
-  curl -sSL -o ~/Downloads/brewfile https://raw.githubusercontent.com/Okeanos/dotfiles/main/Brewfile
-  chmod +x ~/Downloads/brew.sh
+  curl -sSL -o ~/Downloads/do https://raw.githubusercontent.com/Okeanos/dotfiles/main/do
+  chmod +x ~/Downloads/do
   ```
 
-1. Update the `Brewfile` to only install software you actually want
-2. Execute `brew.sh` from your shell after reviewing it
-3. You can now clone the repository wherever you want (I like to keep it in `~/Workspace/dotfiles`, if you want it to
-  have a [fancy icon](https://weblog.antranigv.am/posts/2023/02/hardcoded-folder-icons-in-macos/) in Finder I suggest
-  you use `~/Developer/dotfiles`)
-
-  ```bash
-  mkdir -p ~/Developer
-  # using SSH
-  git clone https://github.com/Okeanos/dotfiles.git ~/Developer/dotfiles
-  # using HTTS
-  git clone git@github.com:Okeanos/dotfiles.git ~/Developer/dotfiles
-  ```
-
-1. You can now `bootstrap.sh` your system
-
-  ```bash
-  cd ~/Developer/dotfiles
-  ./bootstrap.sh
-  ```
-
-1. **Optionally** and **after a careful review** you can now run `macos.sh`
+1. Execute `do link` from your shell after reviewing it
+2. **Optionally** and **after a careful review** you can now run `macos.sh` from the `dotfiles` repository
   Please note that this requires `bash` to have `Full Disk Access` as described above!
 
-#### Installing Brew & other Software (`brew.sh`)
-
-When setting up a new Mac, you need to install some common [Homebrew](https://brew.sh/) formulae (after installing
-Homebrew, of course) for this repository to work as expected:
-
-```bash
-./brew.sh
-```
-
-Some functionality of these dotfiles depends on formulae installed by `brew.sh`. If you don’t plan to use `brew`,
-you should look carefully through the `Brewfile` and manually install any particularly important tools manually. Good
-examples of these are Bash and Git.
-
-##### Enabling (Brew) Installed Tools
+#### Enabling (Brew) Installed Tools
 
 These dotfiles contain a few additional tools that have to be properly registered to work:
 
@@ -76,45 +41,36 @@ probably manually open each application from within the `/Applications` folder m
 as expected. Mainly because macOS will, in some cases (depending on how the apps were signed for example) ask for
 additional confirmation once and prevent e.g. auto-start of these apps until then.
 
-##### iTerm/Terminal Theming
+#### iTerm/Terminal Theming
 
 These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever-popular [Solarized](https://github.com/altercation/solarized).
 iTerm, Terminal, etc. do not ship with that theme out of the box. It has to be manually installed. To do so open the
-`selenized-light.itermcolors` file from the `init` folder with iterm and select it in
+`selenized-*.itermcolors` file from the `init` folder with iTerm and select it in
 `Settings > Profiles > [Profile Name] > Colors > Color Presets…`.
 
-If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to replace the VIM
-theme as well in the `stow/vim/.vim/colors/selenized.vim` file.
+If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to pass the appropriate
+flag when running `do link`.
 
-##### Lightweight Editor
+Alternatively, set the following for individual tools beyond iTerm:
+
+- bat: `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in `stow/shell/dot-config/bat/config`
+- VIM: `background=light` to `background=dark` in `stow/shell/dot-config/vim/vimrc`
+- VSCode: `"workbench.colorTheme": "Default Light+"` to `"workbench.colorTheme": "Default Dark+"` in
+  `stow/vscode/setting.json`
+
+#### Lightweight Editor
 
 The aforementioned `Brewfile` includes [Visual Studio Code](https://code.visualstudio.com) ("VSCode"), i.e. the
-nonfree, proprietary Microsoft product that includes telemetry etc., as a lightweight GUI editor. Either disable
+non-free, proprietary Microsoft product that includes telemetry etc., as a lightweight GUI editor. Either disable
 telemetry manually if you are bothered by it (e.g. as described in
 [this gist](https://gist.github.com/hyperupcall/99e355405611be6c4e0a38b6e3e8aad0)) or switch to another editor, e.g.:
 
-- [VSCodium](https://vscodium.com)
+- [BBedit](https://www.barebones.com/products/bbedit/)
 - [Nova](https://nova.app)
 - [Sublime Text](https://www.sublimetext.com)
-- [BBedit](https://www.barebones.com/products/bbedit/)
+- [VSCodium](https://vscodium.com)
+- [Zed](https://zed.dev)
 - …
-
-#### The bootstrap script (`bootstrap.sh`)
-
-The bootstrapper script will pull in the latest version and symlink the files to your home folder
-using [gnu-stow](https://www.gnu.org/software/stow/).
-
-```bash
-cd ~/Workspace/dotfiles && ./bootstrap.sh
-```
-
-To update, `cd` into your local `dotfiles` repository and then run:
-
-```bash
-git pull --rebase --autostash
-```
-
-This will automatically apply any updates to existing dotfiles – apply new ones by running the bootstrapper again.
 
 #### Sensible macOS defaults (`macos.sh`)
 
@@ -123,7 +79,7 @@ the contents of the following script very, very carefully because it changes a l
 apply it by invoking it like this:
 
 ```bash
-cd ~/Workspace/dotfiles && ./macos.sh
+cd ~/Developer/dotfiles && ./macos.sh
 ```
 
 ## Modifying the `$PATH`
@@ -164,16 +120,22 @@ better to [fork this repository](https://github.com/Okeanos/dotfiles/fork) inste
 If you want to unlink particular dotfiles (e.g. for `vim`) you can execute the following command:
 
 ```bash
-cd ~/Workspace/dotfiles && stow --dotfiles --delete --dir "stow" "vim" -t "${HOME}"
+~/Developer/dotfiles/do -d 'vim' unlink
 ```
 
-If you want to unlink (uninstall) all dotfiles managed by this repository you can use the `unlink.sh` script. This
-operation is non-destructive and will only remove the symlinks from your `${HOME}` directory. Any customizations,
-e.g. `.extra` or `.gituser`, that were created by you will stay in `${HOME}`. You can restore the dotfiles again by
-running `bootstrap.sh`.
+Or do it via the raw stow invocation:
 
 ```bash
-cd ~/Workspace/dotfiles && ./unlink.sh
+cd ~/Developer/dotfiles && stow --dotfiles --delete --dir "stow" "vim" -t "${HOME}"
+```
+
+If you want to unlink (uninstall) all dotfiles managed by this repository you can use the `do unlink` script. This
+operation is non-destructive and will only remove the symlinks from your `${HOME}` directory. Any customizations,
+e.g. `.extra` or `.gituser`, that were created by you will stay in `${HOME}`. You can restore the dotfiles again by
+running `do link`.
+
+```bash
+~/Developer/dotfiles/do unlink
 ```
 
 ## Original Author
