@@ -710,8 +710,8 @@ msg "${GREEN}Configuring Safari & WebKit.${NOFORMAT}"
 # everything up to this point doesn't strictly speaking require this but e.g. the defaults domain com.apple.Safari is sandboxed and
 # requires the Terminal to have access upfront.
 if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
-  'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
-  die "Full Disk Access no granted; cannot continue setting preferences"
+	'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
+	die "Full Disk Access no granted; cannot continue setting preferences"
 fi
 
 # Privacy: don’t send search queries to Apple
