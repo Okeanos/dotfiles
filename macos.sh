@@ -77,14 +77,17 @@ setup_colors
 
 # script logic here
 set +e
-bash_path=$(readlink -e "$(which bash)" 2&>/dev/null || readlink -f l "$(which bash)")
+bash_path=$(readlink -e "$(which bash)" 2&>/dev/null || readlink -f "$(which bash)")
 set -e
 
 if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
-	msg "${RED}Full Disk Access is required for this, see: https://support.apple.com/en-us/HT210595${NOFORMAT}"
-	msg "${RED}To do so add '${bash_path}' and your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' ${NOFORMAT}"
-	msg "${RED}Please restart your Terminal afterwards to apply the changes.${NOFORMAT}"
+	msg ""
+	msg "${ORANGE}Full Disk Access is required for this, see: https://support.apple.com/en-us/HT210595${NOFORMAT}"
+	msg "${ORANGE}If you run into any trouble applying the settings do the following:${NOFORMAT}"
+	msg "${ORANGE}Add your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' ${NOFORMAT}"
+	msg "${ORANGE}Please restart your Terminal afterwards to apply the changes.${NOFORMAT}"
+	msg ""
 	msg "${RED}Only proceed if you read the script contents and are fine with the settings.${NOFORMAT}"
 	read -rp "Are you sure? (y/n) " -n 1
 	echo ""
@@ -546,7 +549,7 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Show item info near icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 
 # Show item info to the right of the icons on the desktop
@@ -554,17 +557,17 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Enable snap-to-grid for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase grid spacing for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase the size of icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 # Use column view in all Finder windows by default
@@ -600,7 +603,12 @@ msg "${GREEN}Configuring Dock, Dashboard, and hot corners.${NOFORMAT}"
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
-/usr/libexec/PlistBuddy -c "Add :tilesize integer 36" ~/Library/Preferences/com.apple.dock.plist || /usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
+tilesize=$(/usr/libexec/PlistBuddy -c "Print :tilesize" ~/Library/Preferences/com.apple.dock.plist)
+if [[ "${tilesize}" == *"36"** ]]; then
+	/usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
+else
+	/usr/libexec/PlistBuddy -c "Add :tilesize integer 36" ~/Library/Preferences/com.apple.dock.plist
+fi
 
 # Prevent accidental resizing of the Dock
 defaults write com.apple.dock size-immutable -bool true
@@ -656,7 +664,9 @@ defaults write com.apple.dock show-recents -bool false
 #defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
 # Reset Launchpad, but keep the desktop wallpaper intact
-find "${HOME}/Library/Application Support/Dock" -maxdepth 1 -name "*-*.db" -delete
+if [[ -d "${HOME}/Library/Application Support/Dock" ]]; then
+	find "${HOME}/Library/Application Support/Dock" -maxdepth 1 -name "*-*.db" -delete
+fi
 
 # Add iOS & Watch Simulator to Launchpad
 #sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
@@ -695,6 +705,14 @@ find "${HOME}/Library/Application Support/Dock" -maxdepth 1 -name "*-*.db" -dele
 ###############################################################################
 
 msg "${GREEN}Configuring Safari & WebKit.${NOFORMAT}"
+
+# Try to access a file that requires Full Disk Access before continuing
+# everything up to this point doesn't strictly speaking require this but e.g. the defaults domain com.apple.Safari is sandboxed and
+# requires the Terminal to have access upfront.
+if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
+  'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
+  die "Full Disk Access no granted; cannot continue setting preferences"
+fi
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
