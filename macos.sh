@@ -96,11 +96,13 @@ if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	fi
 fi
 
-set +e
-full_disk_access=$(/usr/libexec/PlistBuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
-set -e
-full_disk_access_message="Full Disk Access is not granted to bash/your Terminal. Please add '${bash_path}' and your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
-[[ "${full_disk_access-:0}" -lt 3 ]] && die "${full_disk_access_message}"
+# Try to access a file that requires Full Disk Access before continuing
+# everything up to this point doesn't strictly speaking require this but e.g. the defaults domain com.apple.Safari is sandboxed and
+# requires the Terminal to have access upfront.
+if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
+	'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
+	die "Full Disk Access no granted to Terminal.app or iTerm; cannot continue setting preferences"
+fi
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
@@ -604,9 +606,9 @@ defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
 set +e
-tilesize=$(/usr/libexec/PlistBuddy -c "Print :tilesize" ~/Library/Preferences/com.apple.dock.plist)
+tilesize_exists=$(/usr/libexec/PlistBuddy -c "Print :tilesize" ~/Library/Preferences/com.apple.dock.plist 2>&1 | grep -Fc "Does Not Exist")
 set -e
-if [[ "${tilesize}" == *"36"** ]]; then
+if [[ "${tilesize_exists}" == 0 ]]; then
 	/usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
 else
 	/usr/libexec/PlistBuddy -c "Add :tilesize integer 36" ~/Library/Preferences/com.apple.dock.plist
@@ -707,14 +709,6 @@ fi
 ###############################################################################
 
 msg "${GREEN}Configuring Safari & WebKit.${NOFORMAT}"
-
-# Try to access a file that requires Full Disk Access before continuing
-# everything up to this point doesn't strictly speaking require this but e.g. the defaults domain com.apple.Safari is sandboxed and
-# requires the Terminal to have access upfront.
-if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
-	'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
-	die "Full Disk Access no granted; cannot continue setting preferences"
-fi
 
 # Privacy: don’t send search queries to Apple
 defaults write com.apple.Safari UniversalSearchEnabled -bool false
@@ -958,8 +952,8 @@ defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 # Configure Selenized Themes
 set +e
-selenized_light_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
-selenized_dark_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
+selenized_light_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist 2>&1 | grep -Fc "Does Not Exist")
+selenized_dark_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist 2>&1 | grep -Fc "Does Not Exist")
 set -e
 
 if [[ ${selenized_light_exists} == 1 ]]; then
