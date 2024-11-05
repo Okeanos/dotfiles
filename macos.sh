@@ -98,9 +98,9 @@ fi
 
 set +e
 full_disk_access=$(/usr/libexec/PlistBuddy -c 'print' /Library/Preferences/com.apple.TimeMachine.plist | wc -l)
+set -e
 full_disk_access_message="Full Disk Access is not granted to bash/your Terminal. Please add '${bash_path}' and your Terminal App to Full Disk Access via ' > System Settings > Privacy & Security > Full Disk Access > +' and restart your Terminal."
 [[ "${full_disk_access-:0}" -lt 3 ]] && die "${full_disk_access_message}"
-set -e
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
 
@@ -603,7 +603,9 @@ msg "${GREEN}Configuring Dock, Dashboard, and hot corners.${NOFORMAT}"
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 # Set the icon size of Dock items to 36 pixels
+set +e
 tilesize=$(/usr/libexec/PlistBuddy -c "Print :tilesize" ~/Library/Preferences/com.apple.dock.plist)
+set -e
 if [[ "${tilesize}" == *"36"** ]]; then
 	/usr/libexec/PlistBuddy -c "Set :tilesize 36" ~/Library/Preferences/com.apple.dock.plist
 else
@@ -955,8 +957,10 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 # Configure Selenized Themes
+set +e
 selenized_light_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
 selenized_dark_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
+set -e
 
 if [[ ${selenized_light_exists} == 1 ]]; then
 	/usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':selenized-light dict" ~/Library/Preferences/com.googlecode.iterm2.plist
