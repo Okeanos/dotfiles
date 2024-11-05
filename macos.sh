@@ -76,10 +76,6 @@ parse_params "$@"
 setup_colors
 
 # script logic here
-set +e
-bash_path=$(readlink -e "$(which bash)" 2&>/dev/null || readlink -f "$(which bash)")
-set -e
-
 if [[ -z "${force-}" ]] || [[ "${force-}" == 0 ]]; then
 	msg "${RED}This will modify macOS system settings and applications.${NOFORMAT}"
 	msg ""
@@ -101,7 +97,7 @@ fi
 # requires the Terminal to have access upfront.
 if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
 	'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
-	die "Full Disk Access no granted to Terminal.app or iTerm; cannot continue setting preferences"
+	die "Full Disk Access not granted to Terminal.app or iTerm; cannot continue setting preferences"
 fi
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
