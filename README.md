@@ -9,7 +9,7 @@ remove things you don’t want or need. Don’t blindly use my settings unless y
 risk!
 
 **Warning:** For this to work properly on macOS Mojave and later read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849)
-carefully and add all necessary binaries (e.g. `bash` as listed in `/etc/shells`, `iTerm`, `Terminal`) to the
+carefully and add all necessary binaries (e.g. `iTerm`, `Terminal`, and possibly `bash` as listed in `/etc/shells`) to the
 `System Settings > Privacy & Security > Full Disk Access` list.
 
 **Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `iTerm`,
@@ -44,18 +44,24 @@ additional confirmation once and prevent e.g. auto-start of these apps until the
 #### iTerm/Terminal Theming
 
 These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever-popular [Solarized](https://github.com/altercation/solarized).
-iTerm, Terminal, etc. do not ship with that theme out of the box. It has to be manually installed. To do so open the
-`selenized-*.itermcolors` file from the `init` folder with iTerm and select it in
-`Settings > Profiles > [Profile Name] > Colors > Color Presets…`.
+
+iTerm, Terminal, etc. do not ship with that theme out of the box. If you use the `macos.sh` script, both themes will be
+imported as color profiles into iTerm (but not Terminal for reasons explained [here](https://github.com/jan-warchol/selenized/tree/master/terminals/terminal-app)
+and [here](https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized)). You can then choose
+whichever you want for your profile. To do so select it in
+`Settings > Profiles > [Profile Name] > Colors > Color Presets…` within iTerm (or manually import it from there if you
+did not run `macos.sh`).
 
 If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to pass the appropriate
 flag when running `do link`.
 
 Alternatively, set the following for individual tools beyond iTerm:
 
-- bat: `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in `stow/shell/dot-config/bat/config`
-- VIM: `background=light` to `background=dark` in `stow/shell/dot-config/vim/vimrc`
-- VSCode: `"workbench.colorTheme": "Default Light+"` to `"workbench.colorTheme": "Default Dark+"` in
+- [bat](https://github.com/sharkdp/bat): `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in
+  `stow/shell/dot-config/bat/config`
+  - also applicable for [`delta`](https://github.com/dandavison/delta) (used for git diffs)
+- Vim: `background=light` to `background=dark` in `stow/shell/dot-config/vim/vimrc`
+- Visual Studio Code: `"workbench.colorTheme": "Default Light+"` to `"workbench.colorTheme": "Default Dark+"` in
   `stow/vscode/setting.json`
 
 #### Lightweight Editor

@@ -891,6 +891,8 @@ msg "${GREEN}Configuring Terminal & iTerm 2.${NOFORMAT}"
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use Solarized Light theme by default in Terminal.app
+# See https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized
+# See https://github.com/jan-warchol/selenized/tree/master/terminals/terminal-app
 #osascript <<EOD
 
 #tell application "Terminal"
@@ -951,6 +953,20 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+# Configure Selenized Themes
+selenized_light_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
+selenized_dark_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist | grep -Fc "Does Not Exist")
+
+if [[ ${selenized_light_exists} == 1 ]]; then
+	/usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':selenized-light dict" ~/Library/Preferences/com.googlecode.iterm2.plist
+	/usr/libexec/PlistBuddy -c "Merge ${script_dir}/init/selenized-light.itermcolors :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist
+fi
+
+if [[ ${selenized_dark_exists} == 1 ]]; then
+	/usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':selenized-dark dict" ~/Library/Preferences/com.googlecode.iterm2.plist
+	/usr/libexec/PlistBuddy -c "Merge ${script_dir}/init/selenized-dark.itermcolors :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist
+fi
 
 ###############################################################################
 # Time Machine                                                                #
