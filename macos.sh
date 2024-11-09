@@ -390,6 +390,7 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Disable press-and-hold for keys in favor of key repeat in case of Terminal
 defaults write com.apple.terminal ApplePressAndHoldEnabled -bool false
+# Disable press-and-hold for keys in favor of key repeat everywhere
 #defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
@@ -429,14 +430,14 @@ sudo pmset -a autorestart 1
 # Restart automatically if the computer freezes
 #sudo systemsetup -setrestartfreeze on
 
+# Sleep the display after 15 minutes
+sudo pmset -a displaysleep 15
+
 # Disable machine sleep while charging
 sudo pmset -c sleep 0
 
 # Set machine sleep to 5 minutes on battery
 sudo pmset -b sleep 5
-
-# Sleep the display after 15 minutes
-sudo pmset -a displaysleep 15
 
 # Set standby delay to 24 hours (default is 1 hour)
 #sudo pmset -a standbydelay 86400
@@ -628,7 +629,46 @@ defaults write com.apple.dock show-process-indicators -bool true
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
 # the Dock to launch apps.
-#defaults write com.apple.dock persistent-apps -array
+defaults write com.apple.dock persistent-apps -array
+
+# Write new list of Dock items
+dock_items=(
+	/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app
+	/System/Applications/Messages.app
+	/System/Applications/{Mail,Calendar,Notes}.app
+	/System/Applications/Music.app
+	/System/Applications/System%20Settings.app
+	/Applications/{KeePassXC,Souretree,iTerm}.app
+)
+for dock_item in "${dock_items[@]}"; do
+	defaults write com.apple.dock persistent-apps -array-add \
+		"{
+			\"tile-data\" = {
+				\"file-data\" = {
+					\"_CFURLString\" = \"file:///${dock_item}/\";
+					\"_CFURLStringType\" = \"15\";
+				};
+			};
+			\"tile-type\"=\"file-tile\";
+		}"
+done
+
+# Wipe all (other) icons from the Dock
+# This is only really useful when setting up a new Mac, or if you don’t use
+# the Dock to launch apps.
+defaults write com.apple.dock persistent-others -array
+
+# Write new list of other Dock items
+defaults write com.apple.dock persistent-others -array-add \
+	"{
+		\"tile-data\" = {
+			\"file-data\" = {
+				\"_CFURLString\" = \"file:///Users/${USER}/Downloads/\";
+				\"_CFURLStringType\" = \"15\";
+			};
+		};
+		\"tile-type\" = \"directory-tile\";
+	}"
 
 # Show only open applications in the Dock
 #defaults write com.apple.dock static-only -bool true
@@ -831,6 +871,7 @@ msg "${GREEN}Configuring Spotlight.${NOFORMAT}"
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
 # TOOD see https://blog.christovic.com/2021/02/programatically-adding-spotlight.html
 #sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
 # 	MENU_DEFINITION
@@ -839,39 +880,45 @@ msg "${GREEN}Configuring Spotlight.${NOFORMAT}"
 # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
-# TODO doesn't work anymore
-#spotlight_options=(
-#	'{"enabled" = 1;"name" = "APPLICATIONS";}'
-#	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
-#	'{"enabled" = 1;"name" = "DIRECTORIES";}'
-#	'{"enabled" = 1;"name" = "PDF";}'
-#	'{"enabled" = 1;"name" = "FONTS";}'
-#	'{"enabled" = 1;"name" = "DOCUMENTS";}'
-#	'{"enabled" = 0;"name" = "MESSAGES";}'
-#	'{"enabled" = 1;"name" = "CONTACT";}'
-#	'{"enabled" = 0;"name" = "EVENT_TODO";}'
-#	'{"enabled" = 0;"name" = "IMAGES";}'
-#	'{"enabled" = 0;"name" = "BOOKMARKS";}'
-#	'{"enabled" = 0;"name" = "MUSIC";}'
-#	'{"enabled" = 0;"name" = "MOVIES";}'
-#	'{"enabled" = 0;"name" = "PRESENTATIONS";}'
-#	'{"enabled" = 0;"name" = "SPREADSHEETS";}'
-#	'{"enabled" = 0;"name" = "SOURCE";}'
-#	'{"enabled" = 1;"name" = "MENU_DEFINITION";}'
-#	'{"enabled" = 0;"name" = "MENU_OTHER";}'
-#	'{"enabled" = 1;"name" = "MENU_CONVERSION";}'
-#	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}'
-#	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
-#	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-#)
-#defaults write com.apple.spotlight orderedItems -array "${spotlight_options[@]}"
+
+# Wipe all (default) list
+defaults write com.apple.spotlight orderedItems -array
+
+# Write new list of Spotlight entries
+spotlight_options=(
+	'{"enabled" = 1;"name" = "APPLICATIONS";}'
+	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
+	'{"enabled" = 1;"name" = "DIRECTORIES";}'
+	'{"enabled" = 1;"name" = "PDF";}'
+	'{"enabled" = 1;"name" = "FONTS";}'
+	'{"enabled" = 1;"name" = "DOCUMENTS";}'
+	'{"enabled" = 0;"name" = "MESSAGES";}'
+	'{"enabled" = 1;"name" = "CONTACT";}'
+	'{"enabled" = 0;"name" = "EVENT_TODO";}'
+	'{"enabled" = 0;"name" = "IMAGES";}'
+	'{"enabled" = 0;"name" = "BOOKMARKS";}'
+	'{"enabled" = 0;"name" = "MUSIC";}'
+	'{"enabled" = 0;"name" = "MOVIES";}'
+	'{"enabled" = 0;"name" = "PRESENTATIONS";}'
+	'{"enabled" = 0;"name" = "SPREADSHEETS";}'
+	'{"enabled" = 0;"name" = "SOURCE";}'
+	'{"enabled" = 1;"name" = "MENU_DEFINITION";}'
+	'{"enabled" = 0;"name" = "MENU_OTHER";}'
+	'{"enabled" = 1;"name" = "MENU_CONVERSION";}'
+	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}'
+	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
+	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+)
+for spotlight_option in "${spotlight_options[@]}"; do
+	defaults write com.apple.spotlight orderedItems -array-add "${spotlight_option}"
+done
 
 # Load new settings before rebuilding the index
-#sudo killall mds >/dev/null 2>&1
+sudo killall mds >/dev/null 2>&1
 # Make sure indexing is enabled for the main volume
-#sudo mdutil -i on / >/dev/null
+sudo mdutil -i on / >/dev/null
 # Rebuild the index from scratch
-#sudo mdutil -E / >/dev/null
+sudo mdutil -E / >/dev/null
 
 ###############################################################################
 # Terminal & iTerm 2                                                          #
