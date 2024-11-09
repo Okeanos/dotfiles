@@ -637,7 +637,7 @@ dock_items=(
 	/System/Applications/Messages.app
 	/System/Applications/{Mail,Calendar,Notes}.app
 	/System/Applications/Music.app
-	/System/Applications/System%20Settings.app
+	/System/Applications/System\ Settings.app
 	/Applications/{KeePassXC,Souretree,iTerm}.app
 )
 for dock_item in "${dock_items[@]}"; do
@@ -689,7 +689,7 @@ defaults write com.apple.dock persistent-others -array-add \
 			<key>file-data</key>
 			<dict>
 				<key>_CFURLString</key>
-				<string>file://${USER}/Downloads/</string>
+				<string>file:///Users/${USER}/Downloads/</string>
 				<key>_CFURLStringType</key>
 				<integer>15</integer>
 			</dict>
