@@ -643,16 +643,18 @@ dock_items=(
 for dock_item in "${dock_items[@]}"; do
 	if [[ -r "${dock_item}" ]]; then
 		defaults write com.apple.dock persistent-apps -array-add \
-			"{
-				\"tile-data\" = {
-					\"file-data\" = {
-						\"_CFURLString\" = \"file://${dock_item}/\";
-						\"_CFURLStringType\" = 15;
-					};
-					\"file-type\" = 41;
-				};
-				\"tile-type\" = \"file-tile\";
-			}"
+			"<dict>
+				<key>tile-data</key>
+				<dict>
+					<key>file-data</key>
+					<dict>
+						<key>_CFURLString</key>
+						<string>${dock_item}</string>
+						<key>_CFURLStringType</key>
+						<integer>0</integer>
+					</dict>
+				</dict>
+			</dict>"
 	fi
 done
 
@@ -677,19 +679,28 @@ defaults write com.apple.dock persistent-others -array
 #  2 -> Grid
 #  3 -> List
 defaults write com.apple.dock persistent-others -array-add \
-	"{
-		\"tile-data\" = {
-			arrangement = 2;
-			displayas = 0;
-			\"file-data\" = {
-				\"_CFURLString\" = \"file:///Users/${USER}/Downloads/\";
-				\"_CFURLStringType\" = 15;
-			};
-			\"file-type\" = 2;
-			showas = 1;
-		};
-		\"tile-type\" = \"directory-tile\";
-	}"
+	"<dict>
+		<key>tile-data</key>
+		<dict>
+			<key>arrangement</key>
+			<integer>2</integer>
+			<key>displayas</key>
+			<integer>0</integer>
+			<key>file-data</key>
+			<dict>
+				<key>_CFURLString</key>
+				<string>file://${USER}/Downloads/</string>
+				<key>_CFURLStringType</key>
+				<integer>15</integer>
+			</dict>
+			<key>file-type</key>
+			<integer>2</integer>
+			<key>showas</key>
+			<integer>0</integer>
+		</dict>
+		<key>tile-type</key>
+		<string>directory-tile</string>
+	</dict>"
 
 # Show only open applications in the Dock
 #defaults write com.apple.dock static-only -bool true
