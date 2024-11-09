@@ -934,7 +934,7 @@ defaults write com.apple.spotlight orderedItems -array \
 	'{ "enabled" = 1; "name" = "SPREADSHEETS"; }' \
 	'{ "enabled" = 1; "name" = "SYSTEM_PREFS"; }' \
 	'{ "enabled" = 0; "name" = "TIPS"; }' \
-	'{ "enabled" = 0; "name" = "BOOKMARKS"; '
+	'{ "enabled" = 0; "name" = "BOOKMARKS"; }'
 
 # Load new settings before rebuilding the index
 sudo killall mds >/dev/null 2>&1
