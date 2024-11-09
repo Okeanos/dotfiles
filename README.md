@@ -175,5 +175,6 @@ These dotfiles are a largely rewritten/updated [fork](https://github.com/mathias
   [Awesome macOS Command Line](https://git.herrbischoff.com/awesome-macos-command-line/about/)
 - [Maarten Billemont's Bash Guide](http://mywiki.wooledge.org/BashGuide)
 - [Luiz Ferreira's dotfiles](https://github.com/lferreira/dotfiles)
+- [Yann Bertrand's macOS defaults list](https://github.com/yannbertrand/macos-defaults)
 - Anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors)
   or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
