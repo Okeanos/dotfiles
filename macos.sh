@@ -641,16 +641,19 @@ dock_items=(
 	/Applications/{KeePassXC,Souretree,iTerm}.app
 )
 for dock_item in "${dock_items[@]}"; do
-	defaults write com.apple.dock persistent-apps -array-add \
-		"{
-			\"tile-data\" = {
-				\"file-data\" = {
-					\"_CFURLString\" = \"file:///${dock_item}/\";
-					\"_CFURLStringType\" = \"15\";
+	if [[ -r "${dock_item}" ]]; then
+		defaults write com.apple.dock persistent-apps -array-add \
+			"{
+				\"tile-data\" = {
+					\"file-data\" = {
+						\"_CFURLString\" = \"file://${dock_item}/\";
+						\"_CFURLStringType\" = 15;
+					};
+					\"file-type\" = 41;
 				};
-			};
-			\"tile-type\"=\"file-tile\";
-		}"
+				\"tile-type\" = \"file-tile\";
+			}"
+	fi
 done
 
 # Wipe all (other) icons from the Dock
@@ -658,14 +661,32 @@ done
 # the Dock to launch apps.
 defaults write com.apple.dock persistent-others -array
 
-# Write new list of other Dock items
+# Write new list of other Dock items (e.g. adds the Downloads folder to the end)
+# arrangement
+#  1 -> Name
+#  2 -> Date Added
+#  3 -> Date Modified
+#  4 -> Date Created
+#  5 -> Kind
+# displayAs
+#  0 -> Stack
+#  1 -> Folder
+#showAs
+#  0 -> Automatic
+#  1 -> Fan
+#  2 -> Grid
+#  3 -> List
 defaults write com.apple.dock persistent-others -array-add \
 	"{
 		\"tile-data\" = {
+			arrangement = 2;
+			displayas = 0;
 			\"file-data\" = {
 				\"_CFURLString\" = \"file:///Users/${USER}/Downloads/\";
-				\"_CFURLStringType\" = \"15\";
+				\"_CFURLStringType\" = 15;
 			};
+			\"file-type\" = 2;
+			showas = 1;
 		};
 		\"tile-type\" = \"directory-tile\";
 	}"
