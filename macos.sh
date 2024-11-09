@@ -913,37 +913,30 @@ msg "${GREEN}Configuring Spotlight.${NOFORMAT}"
 # 	MENU_WEBSEARCH             (send search queries to Apple)
 # 	MENU_OTHER
 
-# Wipe all (default) list
-defaults write com.apple.spotlight orderedItems -array
-
-# Write new list of Spotlight entries
-spotlight_options=(
-	'{"enabled" = 1;"name" = "APPLICATIONS";}'
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}'
-	'{"enabled" = 1;"name" = "DIRECTORIES";}'
-	'{"enabled" = 1;"name" = "PDF";}'
-	'{"enabled" = 1;"name" = "FONTS";}'
-	'{"enabled" = 1;"name" = "DOCUMENTS";}'
-	'{"enabled" = 0;"name" = "MESSAGES";}'
-	'{"enabled" = 1;"name" = "CONTACT";}'
-	'{"enabled" = 0;"name" = "EVENT_TODO";}'
-	'{"enabled" = 0;"name" = "IMAGES";}'
-	'{"enabled" = 0;"name" = "BOOKMARKS";}'
-	'{"enabled" = 0;"name" = "MUSIC";}'
-	'{"enabled" = 0;"name" = "MOVIES";}'
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}'
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}'
-	'{"enabled" = 0;"name" = "SOURCE";}'
-	'{"enabled" = 1;"name" = "MENU_DEFINITION";}'
-	'{"enabled" = 0;"name" = "MENU_OTHER";}'
-	'{"enabled" = 1;"name" = "MENU_CONVERSION";}'
-	'{"enabled" = 1;"name" = "MENU_EXPRESSION";}'
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}'
-	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-)
-for spotlight_option in "${spotlight_options[@]}"; do
-	defaults write com.apple.spotlight orderedItems -array-add "${spotlight_option}"
-done
+defaults write com.apple.spotlight orderedItems -array \
+	'(
+		{ "enabled" = 1; "name" = "APPLICATIONS"; },
+		{ "enabled" = 1; "name" = "MENU_EXPRESSION"; },
+		{ "enabled" = 1; "name" = "CONTACT"; },
+		{ "enabled" = 1; "name" = "MENU_CONVERSION"; },
+		{ "enabled" = 1; "name" = "MENU_DEFINITION"; },
+		{ "enabled" = 1; "name" = "DOCUMENTS"; },
+		{ "enabled" = 1; "name" = "EVENT_TODO"; },
+		{ "enabled" = 1; "name" = "DIRECTORIES"; },
+		{ "enabled" = 0; "name" = "FONTS"; },
+		{ "enabled" = 1; "name" = "IMAGES"; },
+		{ "enabled" = 1; "name" = "MESSAGES"; },
+		{ "enabled" = 0; "name" = "MOVIES"; },
+		{ "enabled" = 1; "name" = "MUSIC"; },
+		{ "enabled" = 1; "name" = "MENU_OTHER"; },
+		{ "enabled" = 1; "name" = "PDF"; },
+		{ "enabled" = 0; "name" = "PRESENTATIONS"; },
+		{ "enabled" = 0; "name" = "MENU_SPOTLIGHT_SUGGETIONS"; },
+		{ "enabled" = 1; "name" = "SPREADSHEETS"; },
+		{ "enabled" = 1; "name" = "SYSTEM_PREFS"; },
+		{ "enabled" = 0; "name" = "TIPS"; },
+		{ "enabled" = 0; "name" = "BOOKMARKS"; }
+	)'
 
 # Load new settings before rebuilding the index
 sudo killall mds >/dev/null 2>&1
