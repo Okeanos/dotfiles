@@ -464,6 +464,9 @@ sudo pmset -b sleep 5
 
 msg "${GREEN}Configuring Screen.${NOFORMAT}"
 
+# Disable screen saver by setting the idle time to 0
+defaults -currentHost write com.apple.screensaver idleTime -int 0
+
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
