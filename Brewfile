@@ -1,4 +1,6 @@
 # Configure taps
+tap "CtrlSpice/homebrew-otel-desktop-viewer" # is not up to date with source https://github.com/CtrlSpice/homebrew-otel-desktop-viewer/blob/main/otel-desktop-viewer.rb (v0.1.2 vs v0.1.4 latest releases)
+tap "equinix-labs/otel-cli"
 tap "johanhaleby/kubetail"
 # Configure where our applications go
 cask_args appdir: "/Applications"
@@ -28,13 +30,16 @@ brew "jq"
 brew "kubectx"
 brew "kubernetes-cli"
 brew "kubetail"
+brew "markdownlint-cli2"
 brew "mas"
 brew "maven"
 brew "maven-completion"
 brew "moreutils"
 brew "netcat"
 brew "node"
-brew "pigz" # https://github.com/moby/moby/pull/35697
+brew "otel-cli"
+brew "otel-desktop-viewer" # maybe replace with Jaeger-All-In-One? See https://github.com/open-telemetry/community/issues/1515
+brew "pigz" # See https://github.com/moby/moby/pull/35697 (may be irrelevant for macOS)
 brew "ripgrep"
 #brew "shellcheck"
 #brew "shfmt"
@@ -79,7 +84,7 @@ mas "Consent-O-Matic", id: 1606897889
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-# mas "uBlacklist for Safari", id: 1547912640 # can be covered by AdGuard instead using a Custom Filter
+#mas "uBlacklist for Safari", id: 1547912640 # can be covered by AdGuard instead using a Custom Filter
 
 # Install Visual Studio Code extensions
 vscode "asciidoctor.asciidoctor-vscode"
