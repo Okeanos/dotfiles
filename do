@@ -12,7 +12,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
 usage() {
 	cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-d list,of,dotfiles] -t local_repository_location [-r install_rosetta] show|link|unlink
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-d list,of,dotfiles] [-s https://example.org/dotfiles.git] -t local_repository_location [-r install_rosetta] show|link|unlink
 Install or uninstall the dotfiles
 Available options:
 -h, --help         Print this help and exit
@@ -21,6 +21,7 @@ Available options:
 -a, --dark-theme   Use Selenized Dark instead of Selenized Light as a theme
 -d, --dotfiles     Comma separated list of dotfiles to link/install, defaults to everything
 -n, --no-rosetta   Skip installing Rosetta on Apple Silicon (ARM)
+-s, --source       The Git remote URL to clone the Dotfiles from, defaults to https://github.com/Okeanos/dotfiles.git
 -t, --target       The location where to put the Dotfiles repository, defaults to ~/Developer
 
 show               Show which dotfiles exist
@@ -61,6 +62,7 @@ parse_params() {
 	# default values of variables set from params
 	rosetta="true"
 	dotfiles="*"
+	source_repository='https://github.com/Okeanos/dotfiles.git'
 	target="${HOME}/Developer"
 	theme="light"
 
@@ -73,6 +75,10 @@ parse_params() {
 		-n | --no-rosetta) rosetta="false" ;;
 		-d | --dotfiles)
 			dotfiles="${2-}"
+			shift
+			;;
+		-s | --source)
+			source_repository="${2-}"
 			shift
 			;;
 		-t | --target)
@@ -90,6 +96,7 @@ parse_params() {
 	# check required params and arguments
 	[[ ${#args[@]} -eq 0 ]] && die "Missing script arguments"
 	[[ "${args[0]}" != "show" ]] && [[ ${args[0]} != "link" ]] && [[ ${args[0]} != "unlink" ]] && die "Unknown script argument"
+	[[ -z ${source_repository-} ]] && die "Missing parameter: --source"
 
 	return 0
 }
@@ -159,7 +166,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		fi
 	else
 		msg "Cloning dotfiles to: ${repository}"
-		git clone --quiet https://github.com/Okeanos/dotfiles.git "${repository}"
+		git clone --quiet "${source_repository}" "${repository}"
 	fi
 
 	msg ""
