@@ -147,7 +147,7 @@
 	# Add a generic, globally configured template for the Commit Message
 	# This can either be a path relative to the current repository
 	# or an absolute path such as "~/.config/git/commit.template"
-	# template = ""
+	# template = "~/.config/git/commit.template"
 
 [delta]
 
@@ -241,7 +241,7 @@
 
 [include]
 
-	# Include customization that should separately (from the dotfiles)
+	# Include customization that should be handled separately (from the dotfiles)
 	# More info: https://git-scm.com/docs/git-config#_includes
 	path = ./user
 
@@ -251,7 +251,7 @@
 # [includeIf "gitdir:~/Workspace/professional/"]
 #	path = .gituser-professional
 
-# .gituser-* look like the following and contain regular git config commands:
+# .gituser-* files look like the following and contain regular git config commands:
 # [user]
 #	email = user.name@example.org
 #	name = User Name
