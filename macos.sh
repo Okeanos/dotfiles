@@ -139,6 +139,9 @@ sudo nvram SystemAudioVolume=" "
 #defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 
 # Set sidebar icon size to medium
+# 1 = small
+# 2 = medium (default)
+# 3 = large
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 # Always show scrollbars
@@ -225,18 +228,22 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 #sudo ln -s /path/to/your/image /System/Library/CoreServices/DefaultDesktop.jpg
 
 # Set digital clock (default)
-sudo defaults write com.apple.menuextra.clock IsAnalog -bool false
+defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 # Disable Flash the time separators (Default)
-sudo defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
+defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 
-# Thu 18 Aug 23:46:18
-# System Preferences > Date & Time > Display time with seconds - Checked [:ss]
-# System Preferences > Date & Time > Use a 24-hour clock - Checked [HH:mm]
-# System Preferences > Date & Time > Show AM/PM - Unchecked
-# System Preferences > Date & Time > Show the day of the week - Checked [EEE]
-# System Preferences > Date & Time > Show date - Checked [d MMM]
-sudo defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM HH:mm:ss"
+# Show AM / PM when the time format allows
+defauls write com.apple.menuextra.clock ShowAMPM -bool true
+
+# Change the Clock in the Menu Bar to show
+# Show the Date
+# 0 = when space allows (default)
+# 1 = always
+# 2 = never
+defauls write com.apple.menuextra.clock ShowDate -int 0
+defauls write com.apple.menuextra.clock ShowDayOfWeek -bool true
+defauls write com.apple.menuextra.clock ShowSeconds -bool true
 
 ##############################################################################
 # Security                                                                   #
@@ -379,7 +386,21 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+# 0 = disabled (default)
+# 2 = enabled
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+
+# Choose what happens when you press the Fn or 🌐︎ key on the keyboard.
+# 0 = Nothing (default)
+# 1 = Switches between keyboard layouts for writing in other languages (known as input sources).
+# 2 = Opens the Character Viewer for entering emoji, symbols, and more.
+# 3 = Starts dictation when you press the key twice (you may be asked to enable dictation first).
+defaults write com.apple.HIToolbox AppleFnUsageType -int "2"
+
+# Change the behavior of the function keys. The two possible options are:
+# false = Use F1, F2, etc. as special keys (default)
+# true = Use F1, F2, etc. as standard function keys
+defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
 # cannot be enabled anymore this way on macOS Ventura, see https://github.com/mathiasbynens/dotfiles/issues/1027
@@ -471,6 +492,19 @@ defaults -currentHost write com.apple.screensaver idleTime -int 0
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 
+# Enable subpixel font rendering on non-Apple LCDs
+# Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+defaults write NSGlobalDomain AppleFontSmoothing -int 1
+
+# Enable HiDPI display modes (requires restart)
+#sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+
+###############################################################################
+# Screenshots                                                                 #
+###############################################################################
+
+msg "${GREEN}Configuring Screenshots.${NOFORMAT}"
+
 # Save screenshots to the desktop
 defaults write com.apple.screencapture location -string "${HOME}/Downloads"
 
@@ -480,12 +514,12 @@ defaults write com.apple.screencapture type -string "png"
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# Enable subpixel font rendering on non-Apple LCDs
-# Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-defaults write NSGlobalDomain AppleFontSmoothing -int 1
+# Display the thumbnail after taking a screenshot
+defaults write com.apple.screencapture "show-thumbnail" -bool true
 
-# Enable HiDPI display modes (requires restart)
-#sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
+# Include date and time in screenshot filenames.
+defaults write com.apple.screencapture "include-date" -bool true
+
 
 ###############################################################################
 # Finder                                                                      #
@@ -529,6 +563,9 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 # When performing a search, search the current folder by default
+# SCev = search this Mac (default)
+# SCcf = search current folder
+# SCsp = search previous scope
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Disable the warning when changing a file extension
@@ -549,9 +586,15 @@ defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
+# Empty bin items after 30 days
+# false = don't (default)
+# true = do
+defaults write com.apple.finder "FXRemoveOldTrashItems" -bool false
+
+# See also https://support.apple.com/en-gb/guide/mac-help/mchldaafb302/mac
 # Show item info near icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 
 # Show item info to the right of the icons on the desktop
@@ -559,17 +602,17 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Enable snap-to-grid for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase grid spacing for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 
 # Increase the size of icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-#/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 # Use column view in all Finder windows by default
@@ -711,16 +754,6 @@ defaults write com.apple.dock persistent-others -array-add \
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
 
-# Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.1
-
-# Don’t group windows by application in Mission Control
-# (i.e. use the old Exposé behavior instead)
-#defaults write com.apple.dock expose-group-by-app -bool false
-
-# Don’t automatically rearrange Spaces based on most recent use
-defaults write com.apple.dock mru-spaces -bool false
-
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
@@ -755,6 +788,7 @@ fi
 # Hot corners
 # Possible values:
 #  0: no-op
+#  1: nothing
 #  2: Mission Control
 #  3: Show application windows
 #  4: Desktop
@@ -765,6 +799,7 @@ fi
 # 11: Launchpad
 # 12: Notification Center
 # 13: Lock Screen
+# 14: Quick Note
 # Top left screen corner → Mission Control
 #defaults write com.apple.dock wvous-tl-corner -int 2
 #defaults write com.apple.dock wvous-tl-modifier -int 0
@@ -774,6 +809,31 @@ fi
 # Bottom left screen corner → Start screen saver
 #defaults write com.apple.dock wvous-bl-corner -int 5
 #defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom right screen corner (defaults to Quick Note)
+defaults write com.apple.dock wvous-br-corner -int 1
+defaults write com.apple.dock wvous-br-modifier -int 0
+
+###############################################################################
+# Spaces, and Mission Control                                                 #
+###############################################################################
+
+msg "${GREEN}Configuring Spaces, and Mission Control.${NOFORMAT}"
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.1
+
+# Don’t group windows by application in Mission Control
+# (i.e. use the old Exposé behavior instead)
+#defaults write com.apple.dock expose-group-by-app -bool false
+
+# Don’t automatically rearrange Spaces based on most recent use
+defaults write com.apple.dock mru-spaces -bool false
+
+# Displays have separate Spaces
+defaults write com.apple.spaces "spans-displays" -bool false
+
+# Switch to a Space with open windows for the application.
+defaults write NSGlobalDomain "AppleSpacesSwitchOnActivate" -bool "true"
 
 ###############################################################################
 # Safari & WebKit                                                             #
@@ -1080,7 +1140,7 @@ defaults write com.apple.addressbook ABShowDebugMenu -bool true
 defaults write com.apple.iCal IncludeDebugMenu -bool true
 
 # Use plain text mode for new TextEdit documents
-defaults write com.apple.TextEdit RichText -int 0
+defaults write com.apple.TextEdit RichText -bool false
 # Open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
