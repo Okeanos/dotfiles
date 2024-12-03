@@ -222,9 +222,10 @@ elif [[ "${args[0]}" == "link" ]]; then
 	mkdir -v -p "${HOME}/.cache/ruby/gem"
 	mkdir -v -p "${HOME}/.cache/vim/swap"
 	mkdir -v -p "${HOME}/.config/"{bash,git}
+	mkdir -v -p "${HOME}/.config/vim/autoload"
 	mkdir -v -p "${HOME}/.local/"{share,state}
 	mkdir -v -p "${HOME}/.local/share/node"
-	mkdir -v -p "${HOME}/.local/share/vim/bundle"
+	mkdir -v -p "${HOME}/.local/share/vim/"{bundle,plugged}
 	mkdir -v -p "${HOME}/.local/state/vim/"{backup,undo}
 
 	msg "Creating other locations"
