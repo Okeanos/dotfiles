@@ -170,29 +170,24 @@ elif [[ "${args[0]}" == "link" ]]; then
 	fi
 
 	msg ""
-	msg "Installing Brewfile contents"
-	if [[ -f "${repository}/Brewfile.lock.json" ]]; then
-		msg "${YELLOW}A brew bundle lockfile ('${repository}/Brewfile.lock.json') exists, assuming all required tools are installed.${NOFORMAT}"
-	else
-		read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
-		msg ""
-		if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-			msg "Brewfile contents:"
-			msg "---"
-			echo "$(<"${repository}/Brewfile")"
-			msg "---"
-		fi
+	msg "Installing Brewfile ('${repository}/Brewfile') contents"
+	read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
+	msg ""
+	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+		msg "Brewfile contents:"
+		msg "---"
+		echo "$(<"${repository}/Brewfile")"
+		msg "---"
+	fi
 
-		read -rp "Do you want to install the Brewfile contents (y/n)? " -n 1
-		msg ""
-		if [[ ${REPLY} =~ ^[Yy]$ ]]; then
-			# Upgrade any already-installed formulae.
-			brew upgrade
-			# Install everything inside Brewfile
-			brew bundle install --file "${repository}/Brewfile"
-		else
-			die "${RED}Aborting. The dotfiles require a number of tools from the Brewfile to work. Please update the Brewfile to your liking and run the installer again.${NOFORMAT}"
-		fi
+	msg "${RED}The dotfiles require a number of tools from the Brewfile to work. You can skip installing them here if you are sure everything is already set up as expected.${NOFORMAT}"
+	read -rp "Do you want to install the Brewfile contents (y/n)? " -n 1
+	msg ""
+	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+		# Upgrade any already-installed formulae.
+		brew upgrade
+		# Install everything inside Brewfile
+		brew bundle install --file "${repository}/Brewfile"
 	fi
 
 	msg ""
