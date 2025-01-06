@@ -58,5 +58,11 @@
 		"latex",
 		"plaintext"
 	],
-	"spellright.notificationClass": "warning"
+	"spellright.notificationClass": "warning",
+	"[typst]": {
+		"editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+	},
+	"[typst-code]": {
+		"editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+	}
 }
