@@ -234,16 +234,16 @@ defaults write com.apple.menuextra.clock IsAnalog -bool false
 defaults write com.apple.menuextra.clock FlashDateSeparators -bool false
 
 # Show AM / PM when the time format allows
-defauls write com.apple.menuextra.clock ShowAMPM -bool true
+defaults write com.apple.menuextra.clock ShowAMPM -bool true
 
 # Change the Clock in the Menu Bar to show
 # Show the Date
 # 0 = when space allows (default)
 # 1 = always
 # 2 = never
-defauls write com.apple.menuextra.clock ShowDate -int 0
-defauls write com.apple.menuextra.clock ShowDayOfWeek -bool true
-defauls write com.apple.menuextra.clock ShowSeconds -bool true
+defaults write com.apple.menuextra.clock ShowDate -int 0
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+defaults write com.apple.menuextra.clock ShowSeconds -bool true
 
 ##############################################################################
 # Security                                                                   #
