@@ -128,8 +128,9 @@ msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 #sudo scutil --set LocalHostName "0x6D746873"
 #sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
 
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
+# Disable the sound effect / chime on boot / startup
+# TODO find out how to automate "System Settings -> Sound -> Play sound on startup" setting instead
+#sudo nvram SystemAudioVolume=" "
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 # cannot be enabled anymore this way on macOS Ventura, see https://github.com/mathiasbynens/dotfiles/issues/1027
