@@ -130,7 +130,20 @@ msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 
 # Disable the sound effect / chime on boot / startup
 # TODO find out how to automate "System Settings -> Sound -> Play sound on startup" setting instead
+# See also https://discussions.apple.com/thread/253124369
 #sudo nvram SystemAudioVolume=" "
+
+# Change what happens when you open the lid of your MacBook
+# See:
+# - https://support.apple.com/en-us/120622
+# - https://www.macrumors.com/2025/01/30/apple-keep-mac-turning-on-lid-open/
+# - https://blog.fefe.de/?ts=99620db9
+# %00 = To prevent startup when opening the lid or connecting to power
+# %01 = To prevent startup only when opening the lid
+# %02 = To prevent startup only when connecting to power
+# Run sudo nvram -d BootPreference to reset to default behavior
+#sudo nvram BootPreference=%01
+#sudo nvramn AutoBoot=%00
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
 # cannot be enabled anymore this way on macOS Ventura, see https://github.com/mathiasbynens/dotfiles/issues/1027
