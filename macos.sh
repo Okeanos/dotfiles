@@ -136,6 +136,7 @@ msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 # Change what happens when you open the lid of your MacBook
 # See:
 # - https://support.apple.com/en-us/120622
+# - https://eclecticlight.co/2025/02/03/how-to-change-lid-behaviour-on-macbook-air-and-pro/
 # - https://www.macrumors.com/2025/01/30/apple-keep-mac-turning-on-lid-open/
 # - https://blog.fefe.de/?ts=99620db9
 # %00 = To prevent startup when opening the lid or connecting to power
@@ -143,6 +144,9 @@ msg "${GREEN}Configuring General UI/UX.${NOFORMAT}"
 # %02 = To prevent startup only when connecting to power
 # Run sudo nvram -d BootPreference to reset to default behavior
 #sudo nvram BootPreference=%01
+# Intel Only, do not use on Apple Silicon
+# %00 = To prevent startup only when opening the lid
+# %03 = Restore default behavior
 #sudo nvramn AutoBoot=%00
 
 # Disable transparency in the menu bar and elsewhere on Yosemite
