@@ -178,3 +178,8 @@ These dotfiles are a largely rewritten/updated [fork](https://github.com/mathias
 - [Yann Bertrand's macOS defaults list](https://github.com/yannbertrand/macos-defaults)
 - Anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors)
   or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
+
+## Useful Links
+
+- [Vim Cheat Sheet](https://vim.rtorr.com)
+- [Welcome to Linux command line for you and me!](https://lym.readthedocs.io/en/latest/index.html)
