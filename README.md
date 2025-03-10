@@ -9,12 +9,12 @@ remove things you don’t want or need. Don’t blindly use my settings unless y
 risk!
 
 **Warning:** For this to work properly on macOS Mojave and later read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849)
-carefully and add all necessary binaries (e.g. `iTerm`, `Terminal`, and possibly `bash` as listed in `/etc/shells`) to the
-`System Settings > Privacy & Security > Full Disk Access` list.
+carefully and add all necessary binaries (e.g. `Ghostty`, `iTerm`, `Terminal`, and possibly `bash` as listed in
+`/etc/shells`) to the `System Settings > Privacy & Security > Full Disk Access` list.
 
-**Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `iTerm`,
-and `Terminal` may have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
-install and Homebrew casks.
+**Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `Ghostty`,
+`iTerm`, and `Terminal` may have to be added to the list in `System Settings > Privacy & Security > App Management` to
+be able to install and Homebrew casks.
 
 ### Getting Started
 
@@ -41,23 +41,33 @@ probably manually open each application from within the `/Applications` folder m
 as expected. Mainly because macOS will, in some cases (depending on how the apps were signed for example) ask for
 additional confirmation once and prevent e.g. auto-start of these apps until then.
 
-#### iTerm/Terminal Theming
+#### Ghotty/iTerm/Terminal Theming
 
 These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever-popular [Solarized](https://github.com/altercation/solarized).
 
-iTerm, Terminal, etc. do not ship with that theme out of the box. If you use the `macos.sh` script, both themes will be
-imported as color profiles into iTerm (but not Terminal for reasons explained [here](https://github.com/jan-warchol/selenized/tree/master/terminals/terminal-app)
-and [here](https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized)). You can then choose
-whichever you want for your profile. To do so select it in
+[Ghostty](https://ghostty.org), [iTerm](https://iterm2.com), [Terminal](https://support.apple.com/en-gb/guide/terminal/welcome/mac),
+etc. do not ship with that theme out of the box.
+
+Why the theme is not imported into Terminal is explained [here](https://github.com/jan-warchol/selenized/tree/master/terminals/terminal-app)
+and [here](https://github.com/altercation/solarized/tree/master/osx-terminal.app-colors-solarized).
+
+For Ghostty this is handled via the dotfiles directly.
+
+##### iTerm
+
+If you use the `macos.sh` script, both themes will be imported as color profiles into iTerm.
+You can then choose whichever you want for your profile. To do so select it in
 `Settings > Profiles > [Profile Name] > Colors > Color Presets…` within iTerm (or manually import it from there if you
 did not run `macos.sh`).
+
+##### Dark Mode
 
 If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to pass the appropriate
 flag when running `do link`.
 
 Alternatively, set the following for individual tools beyond iTerm:
 
-- [bat](https://github.com/sharkdp/bat): `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in
+- [`bat`](https://github.com/sharkdp/bat): `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in
   `stow/shell/dot-config/bat/config`
   - also applicable for [`delta`](https://github.com/dandavison/delta) (used for git diffs)
 - Vim: `background=light` to `background=dark` in `stow/shell/dot-config/vim/vimrc`
