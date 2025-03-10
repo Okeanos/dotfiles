@@ -10,6 +10,18 @@ trap cleanup SIGINT SIGTERM ERR EXIT
 # shellcheck disable=SC2034
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
+# This ensures that on Mac with ARMs / Apple Silicon the do script can do its job
+# and refer to things like brew without reloading or absolute paths as they are
+# typically not available on the $PATH on a blank/stock macOS installation.
+BREW_PREFIX=""
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	BREW_PREFIX="/usr/local"
+else
+	BREW_PREFIX="/opt/homebrew"
+fi
+
+export PATH="${BREW_PREFIX}/bin:${PATH:-}"
+
 usage() {
 	cat <<EOF
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-d list,of,dotfiles] [-s https://example.org/dotfiles.git] -t local_repository_location [-r install_rosetta] show|link|unlink
@@ -147,9 +159,6 @@ elif [[ "${args[0]}" == "link" ]]; then
 		msg "Installing Homebrew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	fi
-
-	# Save Homebrew’s installed location.
-	BREW_PREFIX=$(brew --prefix)
 
 	msg ""
 	msg "Setting up dotfiles repository in ${repository}"
