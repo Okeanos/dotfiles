@@ -156,7 +156,8 @@ running `do link`.
 
 ## Original Author
 
-These dotfiles are a largely rewritten/updated [fork](https://github.com/mathiasbynens/dotfiles) based on the work of: [Mathias Bynens](https://mathiasbynens.be/)
+These dotfiles are a largely rewritten/updated [fork](https://github.com/mathiasbynens/dotfiles) based on the work of
+[Mathias Bynens](https://mathiasbynens.be/).
 
 ## Thanks to…
 
