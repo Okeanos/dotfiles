@@ -56,12 +56,10 @@ msg() {
 }
 
 die() {
-	local msg=$1
+	local msg=${1}
 	local code=${2-1} # default exit status 1
-	msg "$msg"
-	msg ""
-	usage
-	exit "$code"
+	msg "${msg}"
+	exit "${code}"
 }
 
 parse_params() {
