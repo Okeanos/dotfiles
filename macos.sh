@@ -10,6 +10,18 @@ trap cleanup SIGINT SIGTERM ERR EXIT
 # shellcheck disable=SC2034
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 
+# This ensures that on Mac with ARMs / Apple Silicon the do script can do its job
+# and refer to things like brew without reloading or absolute paths as they are
+# typically not available on the $PATH on a blank/stock macOS installation.
+BREW_PREFIX=""
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	BREW_PREFIX="/usr/local"
+else
+	BREW_PREFIX="/opt/homebrew"
+fi
+
+export PATH="${BREW_PREFIX}/bin:${PATH:-}"
+
 usage() {
 	cat <<EOF
 Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-f] -p param_value arg1 [arg2...]
@@ -31,6 +43,7 @@ cleanup() {
 
 setup_colors() {
 	if [[ -t 2 ]] && [[ -z "${NO_COLOR-}" ]] && [[ "${TERM-}" != "dumb" ]]; then
+		# shellcheck disable=SC2034
 		NOFORMAT='\033[0m' RED='\033[0;31m' GREEN='\033[0;32m' ORANGE='\033[0;33m' BLUE='\033[0;34m' PURPLE='\033[0;35m' CYAN='\033[0;36m' YELLOW='\033[1;33m'
 	else
 		# shellcheck disable=SC2034
@@ -46,6 +59,8 @@ die() {
 	local msg=$1
 	local code=${2-1} # default exit status 1
 	msg "$msg"
+	msg ""
+	usage
 	exit "$code"
 }
 
