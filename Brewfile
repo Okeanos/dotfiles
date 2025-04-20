@@ -5,6 +5,7 @@ tap "johanhaleby/kubetail"
 # Configure where our applications go
 cask_args appdir: "/Applications"
 
+brew "atuin"
 brew "bash"
 brew "bash-completion@2"
 brew "bat"

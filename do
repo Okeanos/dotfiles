@@ -24,13 +24,14 @@ export PATH="${BREW_PREFIX}/bin:${PATH:-}"
 
 usage() {
 	cat <<EOF
-Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-d list,of,dotfiles] [-s https://example.org/dotfiles.git] -t local_repository_location [-r install_rosetta] show|link|unlink
+Usage: $(basename "${BASH_SOURCE[0]}") [-h] [-v] [-a] [-b /path/to/custom/Brewfile] [-d list,of,dotfiles] [-s https://example.org/dotfiles.git] -t local_repository_location [-n] show|link|unlink
 Install or uninstall the dotfiles
 Available options:
 -h, --help         Print this help and exit
 -v, --verbose      Print script debug info
 
 -a, --dark-theme   Use Selenized Dark instead of Selenized Light as a theme
+-b, --brewfile     Use a custom Brewfile location, if not specified defaults to the one provided by this repository
 -d, --dotfiles     Comma separated list of dotfiles to link/install, defaults to everything
 -n, --no-rosetta   Skip installing Rosetta on Apple Silicon (ARM)
 -s, --source       The Git remote URL to clone the Dotfiles from, defaults to https://github.com/Okeanos/dotfiles.git
@@ -72,6 +73,7 @@ die() {
 
 parse_params() {
 	# default values of variables set from params
+	brewfile=""
 	rosetta="true"
 	dotfiles="*"
 	source_repository='https://github.com/Okeanos/dotfiles.git'
@@ -85,6 +87,10 @@ parse_params() {
 		--no-color) NO_COLOR=1 ;;
 		-a | --dark-theme) theme="dark" ;;
 		-n | --no-rosetta) rosetta="false" ;;
+		-b | --brewfile)
+			brewfile="${2-}"
+			shift
+			;;
 		-d | --dotfiles)
 			dotfiles="${2-}"
 			shift
@@ -179,13 +185,20 @@ elif [[ "${args[0]}" == "link" ]]; then
 	fi
 
 	msg ""
-	msg "Installing Brewfile ('${repository}/Brewfile') contents"
+	msg "Installing Brewfile contents"
+	if [[ -n "${brewfile}" ]] && [[ -f "${brewfile}" ]]; then
+		msg "Using custom Brewfile located at: ${brewfile}"
+	else
+		msg "Using default Brewfile located at: ${repository}/Brewfile"
+		brewfile="${repository}/Brewfile"
+	fi
+
 	read -rp "Do you want to review the Brewfile now (y/n)? " -n 1
 	msg ""
 	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		msg "Brewfile contents:"
 		msg "---"
-		echo "$(<"${repository}/Brewfile")"
+		echo "$(<"${brewfile}")"
 		msg "---"
 	fi
 
@@ -196,7 +209,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		# Upgrade any already-installed formulae.
 		brew upgrade
 		# Install everything inside Brewfile
-		brew bundle install --file "${repository}/Brewfile"
+		brew bundle install --file "${brewfile}"
 	fi
 
 	msg ""
