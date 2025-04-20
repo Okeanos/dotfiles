@@ -1,1 +1,2 @@
+shell-integration-features = no-cursor
 theme = dark:selenized-dark,light:selenized-light

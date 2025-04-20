@@ -1,0 +1,3 @@
+# https://docs.atuin.sh/configuration/config/
+auto_sync = false
+filter_mode_shell_up_key_binding = "directory"
