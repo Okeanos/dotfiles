@@ -256,7 +256,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		pushd "${temp_dir}" >/dev/null || exit 1
 		curl -fsSLO https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
 		tar xJf ble-nightly.tar.xz
-		bash ble-nightly/ble.sh --install ${HOME}/.local/share
+		bash ble-nightly/ble.sh --install "${HOME}/.local/share"
 		popd >/dev/null
 	fi
 
