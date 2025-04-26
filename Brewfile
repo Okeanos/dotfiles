@@ -2,6 +2,7 @@
 #tap "CtrlSpice/homebrew-otel-desktop-viewer" # is not up to date with source https://github.com/CtrlSpice/homebrew-otel-desktop-viewer/blob/main/otel-desktop-viewer.rb (v0.1.2 vs v0.1.4 latest releases)
 #tap "equinix-labs/otel-cli"
 tap "johanhaleby/kubetail"
+tap "okeanos/tap"
 # Configure where our applications go
 cask_args appdir: "/Applications"
 
@@ -10,6 +11,7 @@ brew "bash"
 brew "bash-completion@2"
 brew "bat"
 #brew "bats-core"
+brew "okeanos/tap/blesh", args: ['HEAD']
 brew "coreutils"
 brew "csvlens"
 brew "curl"

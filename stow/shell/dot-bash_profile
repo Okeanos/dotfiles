@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
 # the shebang statement above is only here to allow linting this file
 
-# Add ble.sha as Bash line editor: https://github.com/akinomyoga/ble.sh
-if [[ -f "${HOME}/.local/share/blesh/ble.sh" ]]; then
-	[[ $- == *i* ]] && source "${HOME}/.local/share/blesh/ble.sh" --attach=none
+# This ensures that on Mac with ARMs / Apple Silicon the ble.sh integration
+# works as expected because we install it from brew
+# loading path & exports first doesn't work because coreutils are being used
+# and that will overwrite /bin/stty as well
+# See https://github.com/akinomyoga/ble.sh/issues/63
+BREW_PREFIX="/opt/homebrew"
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+	BREW_PREFIX="/usr/local"
 fi
+
+# Add ble.sha as Bash line editor: https://github.com/akinomyoga/ble.sh
+if [[ -f "${BREW_PREFIX}/opt/blesh/bin/ble.sh" ]]; then
+	[[ $- == *i* ]] && source "${BREW_PREFIX}/opt/blesh/bin/ble.sh" --attach=none
+fi
+unset BREW_PREFIX
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -41,7 +52,7 @@ fi
 
 # Launch Starship as prompt: https://starship.rs/
 eval "$(starship init bash)"
-if [[ -f "${HOME}/.local/share/blesh/ble.sh" ]]; then
+if [[ -f "${BREW_PREFIX}/opt/blesh/bin/ble.sh" ]]; then
 	# Add Atuin as history replacement: https://atuin.sh/
 	eval "$(atuin init bash)"
 	# Add ble.sha as Bash line editor: https://github.com/akinomyoga/ble.sh

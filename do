@@ -13,11 +13,9 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 # This ensures that on Mac with ARMs / Apple Silicon the do script can do its job
 # and refer to things like brew without reloading or absolute paths as they are
 # typically not available on the $PATH on a blank/stock macOS installation.
-BREW_PREFIX=""
+BREW_PREFIX="/opt/homebrew"
 if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
 	BREW_PREFIX="/usr/local"
-else
-	BREW_PREFIX="/opt/homebrew"
 fi
 
 export PATH="${BREW_PREFIX}/bin:${PATH:-}"
@@ -249,16 +247,6 @@ elif [[ "${args[0]}" == "link" ]]; then
 	mkdir -v -p "${HOME}/."{gradle,m2}
 	mkdir -v -p "${HOME}/.ssh/config.d"
 	mkdir -v -p "${HOME}/Library/Application Support/Code/User"
-
-	if [[ ! -d "${HOME}/.local/share/blesh" ]]; then
-		msg "Installing ble.sh (https://github.com/akinomyoga/ble.sh) for atuin (atuin.sh) to work"
-		temp_dir=$(mktemp -d)
-		pushd "${temp_dir}" >/dev/null || exit 1
-		curl -fsSLO https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz
-		tar xJf ble-nightly.tar.xz
-		bash ble-nightly/ble.sh --install "${HOME}/.local/share"
-		popd >/dev/null
-	fi
 
 	if [[ "${theme}" == "dark" ]]; then
 		msg "${YELLOW}Converting dotfiles to Selenized Dark${NOFORMAT}"

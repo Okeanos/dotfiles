@@ -13,11 +13,9 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 # This ensures that on Mac with ARMs / Apple Silicon the do script can do its job
 # and refer to things like brew without reloading or absolute paths as they are
 # typically not available on the $PATH on a blank/stock macOS installation.
-BREW_PREFIX=""
+BREW_PREFIX="/opt/homebrew"
 if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
 	BREW_PREFIX="/usr/local"
-else
-	BREW_PREFIX="/opt/homebrew"
 fi
 
 export PATH="${BREW_PREFIX}/bin:${PATH:-}"
