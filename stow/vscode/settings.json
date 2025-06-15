@@ -64,5 +64,6 @@
 	},
 	"[typst-code]": {
 		"editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
-	}
+	},
+	"tinymist.formatterMode": "typstyle"
 }
