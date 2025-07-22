@@ -55,6 +55,8 @@ if command -v go >/dev/null; then
 	new_path+="$(go env GOPATH)/bin:"
 fi
 
+new_path+="${HOME}/.local/bin:"
+
 new_man_path+="${brew_prefix}/opt/coreutils/libexec/gnuman:"
 new_man_path+="${brew_prefix}/opt/curl/share/man:"
 new_man_path+="${brew_prefix}/opt/findutils/libexec/gnuman:"
