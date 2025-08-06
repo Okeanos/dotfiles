@@ -217,6 +217,15 @@
 
 	autoStash = true
 
+# Git Credential Manager (GCM)
+# More info: https://github.com/git-ecosystem/git-credential-manager
+[credential]
+	# For $(prefix)-syntax see https://git-scm.com/docs/git-config#Documentation/git-config.txt-pathname
+	# Git Credential Manager & Git are available at `/usr/local/bin/` on Intel and `` on ARM
+	helper = %(prefix)/git-credential-manager
+	# default path (non-symlinked) on Intel is:
+#	helper = /usr/local/share/gcm-core/git-credential-manager
+
 # URL shorthands
 
 [url "git@github.com:"]

@@ -41,6 +41,15 @@ probably manually open each application from within the `/Applications` folder m
 as expected. Mainly because macOS will, in some cases (depending on how the apps were signed for example) ask for
 additional confirmation once and prevent e.g. auto-start of these apps until then.
 
+- [Git Credential Manager](https://github.com/git-ecosystem/git-credential-manager) (GCM)
+
+When GCM is installed, it will modify the global Git config and minimally configure itself. This is contrary to what is
+expected with these dotfiles (see [this issue](https://github.com/git-ecosystem/git-credential-manager/issues/2010)
+for some context as well as [this one](https://github.com/git-ecosystem/git-credential-manager/issues/1696)).
+
+After installation of everything: remove the duplicate GCM settings from the Git config and place any
+personal/additional GCM config e.g. in an untracked Git user config (as described at the end of the Git config).
+
 #### Ghotty/iTerm/Terminal Theming
 
 These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever-popular [Solarized](https://github.com/altercation/solarized).
