@@ -246,9 +246,9 @@
 	path = ./user
 
 # Use the following if you need multiple user configs
-# [includeIf "gitdir:~/Workspace/personal/"]
+# [includeIf "gitdir:~/Developer/personal/"]
 #	path = .gituser-personal
-# [includeIf "gitdir:~/Workspace/professional/"]
+# [includeIf "gitdir:~/Developer/professional/"]
 #	path = .gituser-professional
 
 # .gituser-* files look like the following and contain regular git config commands:
