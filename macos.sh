@@ -14,7 +14,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 # and refer to things like brew without reloading or absolute paths as they are
 # typically not available on the $PATH on a blank/stock macOS installation.
 BREW_PREFIX="/opt/homebrew"
-if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 	BREW_PREFIX="/usr/local"
 fi
 
@@ -548,7 +548,6 @@ defaults write com.apple.screencapture "show-thumbnail" -bool true
 
 # Include date and time in screenshot filenames.
 defaults write com.apple.screencapture "include-date" -bool true
-
 
 ###############################################################################
 # Finder                                                                      #

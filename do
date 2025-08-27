@@ -14,7 +14,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 # and refer to things like brew without reloading or absolute paths as they are
 # typically not available on the $PATH on a blank/stock macOS installation.
 BREW_PREFIX="/opt/homebrew"
-if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 	BREW_PREFIX="/usr/local"
 fi
 
@@ -339,24 +339,24 @@ elif [[ "${args[0]}" == "link" ]]; then
 		fi
 
 		printf '%s\n' \
-				"[user]" \
-				"" \
-				"	name = ${username}" \
-				"	email = ${email}" \
-				"	signingKey = ${signing_key}" \
-				"" \
-				"[gpg]" \
-				"" \
-				"	format = ${signing_format}" \
-				"" \
-				"[gpg \"ssh\"]" \
-				"" \
-				"	allowedSignersFile = ~/.ssh/allowed_signers" \
-				"" \
-				"[commit]" \
-				"" \
-				"	gpgsign = ${signing_enabled}" \
-		>"${HOME}/.config/git/user"
+			"[user]" \
+			"" \
+			"	name = ${username}" \
+			"	email = ${email}" \
+			"	signingKey = ${signing_key}" \
+			"" \
+			"[gpg]" \
+			"" \
+			"	format = ${signing_format}" \
+			"" \
+			"[gpg \"ssh\"]" \
+			"" \
+			"	allowedSignersFile = ~/.ssh/allowed_signers" \
+			"" \
+			"[commit]" \
+			"" \
+			"	gpgsign = ${signing_enabled}" \
+			>"${HOME}/.config/git/user"
 	fi
 
 	msg ""
@@ -387,7 +387,6 @@ elif [[ "${args[0]}" == "unlink" ]]; then
 		msg "Unlinking 'vscode' from '${HOME}/Library/Application Support/Code/User'"
 		stow --dotfiles --dir "stow" "vscode" --target "${HOME}/Library/Application Support/Code/User"
 	fi
-
 
 	msg ""
 	msg "${GREEN}Done unlinking the dotfiles. You probably want to restart your shell now (type 'exit' or Ctrl+D).${NOFORMAT}"

@@ -7,7 +7,7 @@
 # and that will overwrite /bin/stty as well
 # See https://github.com/akinomyoga/ble.sh/issues/63
 BREW_PREFIX="/opt/homebrew"
-if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 	BREW_PREFIX="/usr/local"
 fi
 

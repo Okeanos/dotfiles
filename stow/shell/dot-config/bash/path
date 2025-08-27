@@ -34,7 +34,7 @@ new_path=""
 new_man_path=""
 brew_prefix=""
 
-if sysctl -n machdep.cpu.brand_string | grep -q 'Intel' ; then
+if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 	brew_prefix="/usr/local"
 	new_path+=""
 	new_man_path+=""
