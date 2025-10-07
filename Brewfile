@@ -81,6 +81,7 @@ cask "sourcetree"
 cask "syntax-highlight", args: { no_quarantine: true }
 cask "temurin@17"
 cask "temurin@21"
+cask "temurin@25"
 cask "the-unarchiver"
 cask "visual-studio-code"
 cask "xattred"

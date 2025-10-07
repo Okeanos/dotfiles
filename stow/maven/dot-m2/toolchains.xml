@@ -51,4 +51,14 @@
 			<jdkHome>/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home</jdkHome>
 		</configuration>
 	</toolchain>
+	<toolchain>
+		<type>jdk</type>
+		<provides>
+			<version>25</version>
+			<vendor>Adoptium</vendor>
+		</provides>
+		<configuration>
+			<jdkHome>/Library/Java/JavaVirtualMachines/temurin-25.jdk/Contents/Home</jdkHome>
+		</configuration>
+	</toolchain>
 </toolchains>
