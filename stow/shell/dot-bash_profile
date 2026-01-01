@@ -15,7 +15,6 @@ fi
 if [[ -f "${BREW_PREFIX}/opt/blesh/share/blesh/ble.sh" ]]; then
 	[[ $- == *i* ]] && source "${BREW_PREFIX}/opt/blesh/share/blesh/ble.sh" --attach=none
 fi
-unset BREW_PREFIX
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
@@ -58,3 +57,5 @@ if [[ -f "${BREW_PREFIX}/opt/blesh/share/blesh/ble.sh" ]]; then
 	# Add ble.sha as Bash line editor: https://github.com/akinomyoga/ble.sh
 	[[ ! ${BLE_VERSION-} ]] || ble-attach
 fi
+
+unset BREW_PREFIX
