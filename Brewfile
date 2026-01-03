@@ -66,11 +66,11 @@ cask "gpg-suite-no-mail"
 cask "jetbrains-toolbox"
 cask "keepassxc"
 #cask "powershell"
-cask "qlmarkdown", args: { no_quarantine: true }
+cask "qlmarkdown" # see https://github.com/sbarex/QLMarkdown/issues/165
 cask "rectangle"
 cask "sourcetree"
 #cask "suspicious-package"
-cask "syntax-highlight", args: { no_quarantine: true }
+cask "syntax-highlight" # see https://github.com/sbarex/SourceCodeSyntaxHighlight/issues/328
 cask "temurin@17"
 cask "temurin@21"
 cask "temurin@25"
