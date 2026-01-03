@@ -55,7 +55,7 @@ brew "wget"
 #brew "yamllint"
 brew "yq"
 
-cask "adobe-acrobat-reader"
+#cask "adobe-acrobat-reader"
 cask "docker-desktop"
 cask "firefox"
 cask "git-credential-manager"
