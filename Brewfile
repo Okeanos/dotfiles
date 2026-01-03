@@ -1,6 +1,4 @@
 # Configure taps
-#tap "CtrlSpice/homebrew-otel-desktop-viewer" # is not up to date with source https://github.com/CtrlSpice/homebrew-otel-desktop-viewer/blob/main/otel-desktop-viewer.rb (v0.1.2 vs v0.1.4 latest releases)
-#tap "equinix-labs/otel-cli"
 tap "johanhaleby/kubetail"
 tap "okeanos/tap"
 # Configure where our applications go
@@ -42,16 +40,12 @@ brew "moreutils"
 brew "netcat"
 brew "node"
 brew "opentofu"
-#brew "equinix-labs/otel-cli/otel-cli"
-#brew "CtrlSpice/homebrew-otel-desktop-viewer/otel-desktop-viewer" # maybe replace with Jaeger-All-In-One? See https://github.com/open-telemetry/community/issues/1515
-brew "pigz" # See https://github.com/moby/moby/pull/35697 (maybe irrelevant for macOS)
 #brew "pnpm"
 brew "ripgrep"
 #brew "shellcheck"
 #brew "shfmt"
 brew "starship"
 brew "stow"
-#brew "talisman"
 #brew "taplo"
 brew "tree"
 #brew "trivy"
