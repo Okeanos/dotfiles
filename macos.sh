@@ -489,6 +489,9 @@ sudo pmset -c sleep 0
 # Set machine sleep to 5 minutes on battery
 sudo pmset -b sleep 5
 
+# Sleep the display after 15 minutes
+#sudo pmset -a displaysleep 15
+
 # Set standby delay to 24 hours (default is 1 hour)
 #sudo pmset -a standbydelay 86400
 
@@ -1258,6 +1261,17 @@ msg "${GREEN}Configuring Google Chrome & Google Chrome Canary.${NOFORMAT}"
 # Expand the print dialog by default
 #defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
 #defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
+###############################################################################
+# Git Credential Manager                                                      #
+###############################################################################
+
+msg "${GREEN}Configuring Git Credential Manager.${NOFORMAT}"
+
+# See
+# - https://github.com/git-ecosystem/git-credential-manager/blob/main/docs/enterprise-config.md#macos
+# - https://github.com/git-ecosystem/git-credential-manager/blob/main/docs/configuration.md
+# defaults write git-credential-manager configuration -dict-add <key> <value>
 
 ###############################################################################
 # Finalize                                                                    #
