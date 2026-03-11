@@ -40,6 +40,7 @@ if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
 	new_man_path+=""
 else
 	brew_prefix="/opt/homebrew"
+	new_path+="/usr/local/bin:" # Docker, GPG Suite/Tools, etc. install here (still)
 	new_path+="${brew_prefix}/bin:"
 	new_man_path+="${brew_prefix}/share/man:"
 fi
