@@ -47,6 +47,9 @@ done
 # Add tab completion for many Bash commands. This will automatically source the bash_completion file in dot-config as well
 if [[ -n "${BREW_PREFIX}" ]] && [[ -f "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
 	source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
+	# any further, custom completions need to go here because the bash completions package is loaded after the ~/config/bash_completion file
+	# this overrides "complete -F" and may cause issues with custom completions
+	#complete -F ...
 fi
 
 # Launch Starship as prompt: https://starship.rs/
