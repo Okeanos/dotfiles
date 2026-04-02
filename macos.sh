@@ -276,6 +276,11 @@ defaults write com.apple.menuextra.clock ShowDate -int 0
 defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
 defaults write com.apple.menuextra.clock ShowSeconds -bool true
 
+# macOS Tahoe introduced "icons for everything". This can be disabled using the
+# following setting.
+# Source: https://mastodon.social/@stroughtonsmith/116262411548746327
+defaults write NSGlobalDomain NSMenuEnableActionImages -bool false
+
 ##############################################################################
 # Security                                                                   #
 ##############################################################################
