@@ -80,7 +80,7 @@ Alternatively, set the following for individual tools beyond iTerm:
   `stow/shell/dot-config/bat/config`
   - also applicable for [`delta`](https://github.com/dandavison/delta) (used for git diffs)
 - Vim: `background=light` to `background=dark` in `stow/shell/dot-config/vim/vimrc`
-- Visual Studio Code: `"workbench.colorTheme": "Default Light+"` to `"workbench.colorTheme": "Default Dark+"` in
+- Visual Studio Code: `"workbench.colorTheme": "Light+"` to `"workbench.colorTheme": "Dark+"` in
   `stow/vscode/setting.json`
 
 #### Lightweight Editor
