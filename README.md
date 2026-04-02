@@ -199,3 +199,5 @@ These dotfiles are a largely rewritten/updated [fork](https://github.com/mathias
 
 - [Vim Cheat Sheet](https://vim.rtorr.com)
 - [Welcome to Linux command line for you and me!](https://lym.readthedocs.io/en/latest/index.html)
+- [macOS Internals & Debugging](https://gist.github.com/kconner/cff08fe3e0bb857ea33b47d965b3e19f)
+- [Advanced macOS Command-Line Tools](https://saurabhs.org/advanced-macos-commands)

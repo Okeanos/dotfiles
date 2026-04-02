@@ -4,6 +4,8 @@
 # MIT License https://gist.github.com/m-radzikowski/d925ac457478db14c2146deadd0020cd
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
+# macOS Preferences primer: https://eclecticlight.co/2025/11/01/explainer-preferences/
+
 set -Eeuo pipefail
 trap cleanup SIGINT SIGTERM ERR EXIT
 
