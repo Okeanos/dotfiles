@@ -14,7 +14,7 @@
 	"powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
 	"powershell.promptToUpdatePowerShell": false,
 	"redhat.telemetry.enabled": false,
-	"terminal.external.osxExec": "iTerm.app",
+	"terminal.external.osxExec": "Ghostty.app",
 	"terminal.integrated.defaultProfile.osx": "bash",
 	"terminal.integrated.profiles.osx": {
 		"bash": {
