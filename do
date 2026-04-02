@@ -319,7 +319,7 @@ elif [[ "${args[0]}" == "link" ]]; then
 		msg ""
 		msg "The Git user config '${HOME}/.config/git/user' can be updated later on if you want to set up commit signing later on."
 		msg ""
-		select signing_type in "GPG (OpenPGP)" "SSH" "Set up later"; do
+		select signing_type in "GPG (OpenPGP)" "SSH", "SMIME" "Set up later"; do
 			[[ -n "${signing_type}" ]] || {
 				echo "Please select how you want to sign your Git commits." >&2
 				continue
@@ -328,13 +328,18 @@ elif [[ "${args[0]}" == "link" ]]; then
 			break
 		done
 		if [[ "${sign_selection}" != "Set up later" ]]; then
+			signing_enabled="true"
 			while [[ -z "${signing_key}" ]]; do
-				read -rp "Enter your GPG or SSH Signing Key ID: " signing_key
+				read -rp "Enter your GPG, SSH, or SMIME Signing Key ID: " signing_key
 			done
 
 			if [[ "${sign_selection}" == "SSH" ]]; then
 				touch "${HOME}/.ssh/allowed_signers"
 				signing_format="ssh"
+			fi
+
+			if [[ "${sign_selection}" == "SMIME" ]]; then
+				signing_format="x509"
 			fi
 		fi
 
@@ -352,6 +357,10 @@ elif [[ "${args[0]}" == "link" ]]; then
 			"[gpg \"ssh\"]" \
 			"" \
 			"	allowedSignersFile = ~/.ssh/allowed_signers" \
+			"" \
+			"[gpg \"x509\"]" \
+			"" \
+			"	program = smimesign" \
 			"" \
 			"[commit]" \
 			"" \
