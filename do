@@ -4,6 +4,8 @@
 # MIT License https://gist.github.com/m-radzikowski/d925ac457478db14c2146deadd0020cd
 # https://betterdev.blog/minimal-safe-bash-script-template/
 
+# See also https://sharats.me/posts/shell-script-best-practices/
+
 set -Eeuo pipefail
 trap cleanup SIGINT SIGTERM ERR EXIT
 
@@ -61,12 +63,12 @@ msg() {
 }
 
 die() {
-	local msg=$1
+	local msg=${1}
 	local code=${2-1} # default exit status 1
-	msg "$msg"
+	msg "${msg}"
 	msg ""
 	usage
-	exit "$code"
+	exit "${code}"
 }
 
 parse_params() {
@@ -107,6 +109,7 @@ parse_params() {
 		shift
 	done
 
+	# shellcheck disable=SC2034
 	args=("$@")
 
 	# check required params and arguments
