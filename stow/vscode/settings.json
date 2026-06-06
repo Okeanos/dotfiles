@@ -69,5 +69,7 @@
 	"[typst-code]": {
 		"editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
 	},
-	"tinymist.formatterMode": "typstyle"
+	"tinymist.formatterMode": "typstyle",
+	"docker.extension.enableComposeLanguageServer": false,
+	"chat.disableAIFeatures": true
 }
