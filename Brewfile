@@ -10,7 +10,7 @@ brew "bash"
 brew "bash-completion@2"
 brew "bat"
 #brew "bats-core"
-brew "okeanos/tap/blesh", args: ['HEAD']
+brew "okeanos/tap/blesh", trusted: true, args: ['HEAD']
 brew "corepack"
 brew "coreutils"
 brew "csvlens"
@@ -34,7 +34,7 @@ brew "htop"
 brew "jq"
 brew "kubectx"
 brew "kubernetes-cli"
-brew "johanhaleby/kubetail/kubetail"
+brew "johanhaleby/kubetail/kubetail", trusted: true
 #brew "lychee"
 #brew "markdownlint-cli2"
 brew "mas"

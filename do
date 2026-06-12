@@ -209,9 +209,6 @@ elif [[ "${args[0]}" == "link" ]]; then
 	if [[ ${REPLY} =~ ^[Yy]$ ]]; then
 		# Upgrade any already-installed formulae.
 		brew upgrade
-		# Trust custom formulae & casks from third party taps (such as my own)
-		brew trust --formula johanhaleby/kubetail/kubetail
-		brew trust --formula okeanos/tap/blesh
 		# Install everything inside Brewfile
 		brew bundle install --file "${brewfile}"
 	fi
