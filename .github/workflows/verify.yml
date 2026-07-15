@@ -90,7 +90,7 @@ jobs:
     if: ${{ ((inputs.betterleaks || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
@@ -113,7 +113,7 @@ jobs:
     if: ${{ ((inputs.editorconfig || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
@@ -136,7 +136,7 @@ jobs:
     if: ${{ ((inputs.lychee || false) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
@@ -161,14 +161,14 @@ jobs:
     if: ${{ ((inputs.markdownlint || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - uses: DavidAnson/markdownlint-cli2-action@ded1f9488f68a970bc66ea5619e13e9b52e601cd # v23.2.0
   shellcheck:
     needs: is-valid-run
     if: ${{ ((inputs.shellcheck || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
@@ -182,7 +182,7 @@ jobs:
     if: ${{ ((inputs.tombi || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
@@ -205,7 +205,7 @@ jobs:
     if: ${{ ((inputs.yamllint || true) == true) && (needs.is-valid-run.outputs.check == 'true') }}
     runs-on: ubuntu-slim
     steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Extract Tool Versions
         id: tool-versions
         run: |
