@@ -3,11 +3,11 @@
 # See https://mise-versions.jdx.dev for what is officially available
 # Everything else is just declared as a reference to keep track of it.
 [tools]
-	betterleaks = { version = "1.7.2", platforms = { linux-arm64 = { checksum = "sha256:b0d89e4a21559df6341a59d3cdcef9a9a58a0b3b33fccb8e020a00f8c2080b97" }, linux-x64 = { checksum = "sha256:ea9ed6a4aa2845ac2e00c0eafbc841057631321d53c061d5a435cf33e6e9ddaf" } } }
-	editorconfig-checker = { version = "3.8.0", platforms = { linux-arm64 = { checksum = "sha256:5676889ac4eed1036180ffbe2aeb2062d985ac50f7e6035fe61160c6b8be2c33" }, linux-x64 = { checksum = "sha256:613bd88f34165a334adcb6b7e92a123c9de0eada65846d31af63613b779ff3be" } } }
+	betterleaks = { version = "1.7.4", platforms = { linux-arm64 = { checksum = "sha256:038d8379935fb6699e12c2c95d0d4901a1ef420cbc553b7c4d4710570d03024e" }, linux-x64 = { checksum = "sha256:9ed7739a39a26a2217f38726bff8a8f4fe079d3b21272caa7959823ccc444d96" } } }
+	editorconfig-checker = { version = "3.11.1", platforms = { linux-arm64 = { checksum = "sha256:073d5263f0c5953f3e847df44a84403ecc284ab77419de56e280ab92bc082e8d" }, linux-x64 = { checksum = "sha256:5a37922963248451e88149251e49f6ae08f69717a3918202a51fe9945e19691e" } } }
 	lychee = { version = "0.24.2" }
 	markdownlint-cli2 = { version = "0.23.2" }
 	shellcheck = { version = "0.11.0" }
 	shfmt = { version = "3.13.1" }
-	tombi = { version = "1.2.4", platforms = { linux-arm64 = { checksum = "sha256:91504ef7e605fca89ef55aea0a428ee58cf3e435f2650a8a9ce8886dd286b874" }, linux-x64 = { checksum = "sha256:a74364d9c27835cefd9d7d9e4fee0487a7f68bc5289650e61050d6b0c395dc4d" } } }
+	tombi = { version = "1.4.0", platforms = { linux-arm64 = { checksum = "sha256:b70750d462954294c354a014bb90399273876b953c21e3a136aafd3d1d41f5e8" }, linux-x64 = { checksum = "sha256:e2dc1190e0590b1fd0581fa8f85017215ed9b05a4d85c1cf18e0979b6cf24fe1" } } }
 	yamllint = { version = "1.38.0" }
