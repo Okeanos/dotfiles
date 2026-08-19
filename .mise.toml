@@ -9,5 +9,5 @@
 	markdownlint-cli2 = { version = "0.23.2" }
 	shellcheck = { version = "0.11.0" }
 	shfmt = { version = "3.13.1" }
-	tombi = { version = "1.4.0", platforms = { linux-arm64 = { checksum = "sha256:b70750d462954294c354a014bb90399273876b953c21e3a136aafd3d1d41f5e8" }, linux-x64 = { checksum = "sha256:e2dc1190e0590b1fd0581fa8f85017215ed9b05a4d85c1cf18e0979b6cf24fe1" } } }
+	tombi = { version = "1.4.1", platforms = { linux-arm64 = { checksum = "sha256:b70750d462954294c354a014bb90399273876b953c21e3a136aafd3d1d41f5e8" }, linux-x64 = { checksum = "sha256:e2dc1190e0590b1fd0581fa8f85017215ed9b05a4d85c1cf18e0979b6cf24fe1" } } }
 	yamllint = { version = "1.38.0" }
