@@ -3,7 +3,7 @@
 # See https://mise-versions.jdx.dev for what is officially available
 # Everything else is just declared as a reference to keep track of it.
 [tools]
-	betterleaks = { version = "1.7.4", platforms = { linux-arm64 = { checksum = "sha256:038d8379935fb6699e12c2c95d0d4901a1ef420cbc553b7c4d4710570d03024e" }, linux-x64 = { checksum = "sha256:9ed7739a39a26a2217f38726bff8a8f4fe079d3b21272caa7959823ccc444d96" } } }
+	betterleaks = { version = "1.8.1", platforms = { linux-arm64 = { checksum = "sha256:bbb578b12a2f65d7082ab436abf37724232bc71d8a078e3c41336574420f1b48" }, linux-x64 = { checksum = "sha256:efa407244e1ea8e35f582b8a42becdeac08bdead04f68eb752adda722d583c2a" } } }
 	editorconfig-checker = { version = "3.11.1", platforms = { linux-arm64 = { checksum = "sha256:073d5263f0c5953f3e847df44a84403ecc284ab77419de56e280ab92bc082e8d" }, linux-x64 = { checksum = "sha256:5a37922963248451e88149251e49f6ae08f69717a3918202a51fe9945e19691e" } } }
 	lychee = { version = "0.24.2" }
 	markdownlint-cli2 = { version = "0.23.2" }
