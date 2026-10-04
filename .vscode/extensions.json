@@ -5,8 +5,8 @@
 		"mkhl.shfmt",
 		"redhat.vscode-xml",
 		"redhat.vscode-yaml",
-		"tombi-toml.tombi",
 		"timonwong.shellcheck",
+		"tombi-toml.tombi",
 		"yzhang.markdown-all-in-one"
 	]
 }
