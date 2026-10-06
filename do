@@ -16,7 +16,7 @@ script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd -P)
 # and refer to things like brew without reloading or absolute paths as they are
 # typically not available on the $PATH on a blank/stock macOS installation.
 BREW_PREFIX="/opt/homebrew"
-if sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
+if [[ "$(uname -m)" == "x86_64" ]]; then
 	BREW_PREFIX="/usr/local"
 fi
 
@@ -155,11 +155,9 @@ elif [[ "${args[0]}" == "link" ]]; then
 	msg ""
 	msg "Installing prerequisites"
 
-	if [[ "${rosetta}" == "true" ]] && ! sysctl -n machdep.cpu.brand_string | grep -q 'Intel'; then
+	if [[ "${rosetta}" == "true" ]] && [[ "$(uname -m)" == "arm64" ]]; then
 		msg "Installing Rosetta"
 		sudo softwareupdate --install-rosetta --agree-to-license
-	else
-		msg "${YELLOW}Skip installing Rosetta on Intel machines${NOFORMAT}"
 	fi
 
 	if ! which brew >/dev/null; then
