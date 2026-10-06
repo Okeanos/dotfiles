@@ -47,8 +47,8 @@ alias sudo='sudo '
 # Get week number
 alias week='date +%V'
 
-# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; npm install npm -g; npm update -g' # gem updating is problematic on Mojave; sudo gem update --system; sudo gem update; sudo gem cleanup'
+# Get macOS Software Updates and Homebrew with their installed apps
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade'
 
 # IP addresses
 alias ip{4,}='dig @resolver4.opendns.com myip.opendns.com +short -4'  #you can use ip4 or ip to get your ipv4
@@ -57,7 +57,7 @@ alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # Show active network interfaces
-alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+alias ifactive="ifconfig | rg -U -e '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Flush Directory Service cache
 alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
@@ -73,11 +73,6 @@ command -v md5sum >/dev/null || alias md5sum="md5"
 
 # macOS has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum >/dev/null || alias sha1sum="shasum"
-
-# JavaScriptCore REPL
-jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
-[[ -e "${jscbin}" ]] && alias jsc="${jscbin}"
-unset jscbin
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
@@ -98,10 +93,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# Merge PDF files, preserving hyperlinks
-# Usage: `mergepdf input{1,2,3}.pdf`
-alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
-
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"
 # Enable Spotlight
@@ -110,9 +101,6 @@ alias spoton="sudo mdutil -a -i on"
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 alias plistbuddy="/usr/libexec/PlistBuddy"
 
-# Airport CLI alias
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport'
-
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
@@ -120,7 +108,7 @@ alias map="xargs -n1"
 
 # One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "${method}=lwp-request -m '${method}'"
+	alias "${method}=curl -X '${method}'"
 done
 
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
