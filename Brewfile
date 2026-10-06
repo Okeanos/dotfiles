@@ -46,7 +46,7 @@ brew "netcat"
 brew "node", link: false # otherwise overrides to the PATH are not possible
 brew "opentofu"
 brew "ripgrep"
-#brew "shellcheck"
+brew "shellcheck"
 brew "shfmt"
 #brew "smimesign"
 brew "sops"
