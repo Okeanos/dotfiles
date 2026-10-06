@@ -88,9 +88,9 @@ cask "xattred"
 # requires an Apple ID
 mas "AdGuard for Safari", id: 1440147259
 mas "Consent-O-Matic", id: 1606897889
-mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
+mas "Keynote", id: 361285480
+mas "Numbers", id: 361304891
+mas "Pages", id: 361309726
 mas "uBlacklist for Safari", id: 1547912640 # can be covered by AdGuard instead using a Custom Filter
 
 # Install Visual Studio Code extensions
