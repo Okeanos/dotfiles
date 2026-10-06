@@ -9,12 +9,12 @@ remove things you don’t want or need. Don’t blindly use my settings unless y
 risk!
 
 **Warning:** For this to work properly on macOS Mojave and later read [this issue](https://github.com/mathiasbynens/dotfiles/issues/849)
-carefully and add all necessary binaries (e.g. `Ghostty`, `iTerm`, `Terminal`, and possibly `bash` as listed in
-`/etc/shells`) to the `System Settings > Privacy & Security > Full Disk Access` list.
+carefully and add all necessary binaries (e.g. `Ghostty`, `Terminal`, and possibly `bash` as listed in `/etc/shells`) to
+the `System Settings > Privacy & Security > Full Disk Access` list.
 
 **Warning:** On macOS Ventura and later there exists an additional security setting called `App Management`. `Ghostty`,
-`iTerm`, and `Terminal` may have to be added to the list in `System Settings > Privacy & Security > App Management` to
-be able to install and Homebrew casks.
+and `Terminal` may have to be added to the list in `System Settings > Privacy & Security > App Management` to be able to
+install and Homebrew casks.
 
 ### Getting Started
 
@@ -50,11 +50,11 @@ for some context as well as [this one](https://github.com/git-ecosystem/git-cred
 After installation of everything: remove the duplicate GCM settings from the Git config and place any
 personal/additional GCM config e.g. in an untracked Git user config (as described at the end of the Git config).
 
-#### Ghotty/iTerm/Terminal Theming
+#### Ghotty/Terminal Theming
 
 These dotfiles use [Selenized](https://github.com/jan-warchol/selenized) as an alternative to the ever-popular [Solarized](https://github.com/altercation/solarized).
 
-[Ghostty](https://ghostty.org), [iTerm](https://iterm2.com), [Terminal](https://support.apple.com/en-gb/guide/terminal/welcome/mac),
+[Ghostty](https://ghostty.org), [Terminal](https://support.apple.com/en-gb/guide/terminal/welcome/mac),
 etc. do not ship with that theme out of the box.
 
 Why the theme is not imported into Terminal is explained [here](https://github.com/jan-warchol/selenized/tree/master/terminals/terminal-app)
@@ -62,19 +62,12 @@ and [here](https://github.com/altercation/solarized/tree/master/osx-terminal.app
 
 For Ghostty this is handled via the dotfiles directly.
 
-##### iTerm
-
-If you use the `macos.sh` script, both themes will be imported as color profiles into iTerm.
-You can then choose whichever you want for your profile. To do so select it in
-`Settings > Profiles > [Profile Name] > Colors > Color Presets…` within iTerm (or manually import it from there if you
-did not run `macos.sh`).
-
 ##### Dark Mode
 
 If you want a dark theme or different color set (e.g. `white` instead of `light`) don't forget to pass the appropriate
 flag when running `do link`.
 
-Alternatively, set the following for individual tools beyond iTerm:
+Alternatively, set the following for individual tools beyond your Terminal of choice:
 
 - [`bat`](https://github.com/sharkdp/bat): `--theme="Selenized-Light"` to `--theme="Selenized-Dark"` in
   `stow/shell/dot-config/bat/config`

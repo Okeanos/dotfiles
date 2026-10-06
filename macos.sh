@@ -110,7 +110,7 @@ fi
 # requires the Terminal to have access upfront.
 if ! sqlite3 "/Library/Application Support/com.apple.TCC/TCC.db" \
 	'select client from access where auth_value and service = "kTCCServiceSystemPolicyAllFiles"' &>/dev/null; then
-	die "Full Disk Access not granted to Terminal.app or iTerm; cannot continue setting preferences"
+	die "Full Disk Access not granted to Terminal.app or Ghostty; cannot continue setting preferences"
 fi
 
 msg "${GREEN}Prepare configuration. Will ask for sudo password to make necessary changes.${NOFORMAT}"
@@ -722,7 +722,7 @@ dock_items=(
 	/System/Applications/{Mail,Calendar,Notes}.app
 	/System/Applications/Music.app
 	/System/Applications/System\ Settings.app
-	/Applications/{KeePassXC,Souretree,iTerm}.app
+	/Applications/{KeePassXC,Souretree,Ghostty}.app
 )
 for dock_item in "${dock_items[@]}"; do
 	if [[ -r "${dock_item}" ]]; then
@@ -1046,10 +1046,10 @@ msg "${GREEN}Configuring Spotlight.${NOFORMAT}"
 #sudo mdutil -E / >/dev/null
 
 ###############################################################################
-# Terminal & iTerm 2                                                          #
+# Terminal                                                          #
 ###############################################################################
 
-msg "${GREEN}Configuring Terminal & iTerm 2.${NOFORMAT}"
+msg "${GREEN}Configuring Terminal.${NOFORMAT}"
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
@@ -1114,25 +1114,6 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 
 # Disable the annoying line marks
 defaults write com.apple.Terminal ShowLineMarks -int 0
-
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
-
-# Configure Selenized Themes
-set +e
-selenized_light_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist 2>&1 | grep -Fc "Does Not Exist")
-selenized_dark_exists=$(/usr/libexec/PlistBuddy -c "Print :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist 2>&1 | grep -Fc "Does Not Exist")
-set -e
-
-if [[ ${selenized_light_exists} == 1 ]]; then
-	/usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':selenized-light dict" ~/Library/Preferences/com.googlecode.iterm2.plist
-	/usr/libexec/PlistBuddy -c "Merge ${script_dir}/init/selenized-light.itermcolors :'Custom Color Presets':selenized-light" ~/Library/Preferences/com.googlecode.iterm2.plist
-fi
-
-if [[ ${selenized_dark_exists} == 1 ]]; then
-	/usr/libexec/PlistBuddy -c "Add :'Custom Color Presets':selenized-dark dict" ~/Library/Preferences/com.googlecode.iterm2.plist
-	/usr/libexec/PlistBuddy -c "Merge ${script_dir}/init/selenized-dark.itermcolors :'Custom Color Presets':selenized-dark" ~/Library/Preferences/com.googlecode.iterm2.plist
-fi
 
 ###############################################################################
 # Time Machine                                                                #
