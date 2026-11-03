@@ -244,7 +244,7 @@
 	# - https://github.com/git-ecosystem/git-credential-manager/issues/2010
 	# - https://github.com/git-ecosystem/git-credential-manager/issues/1696
 	helper =
-	helper = git-credential-manager
+	helper = manager
 
 # TODO get rid of this autoinjected config value from GCM
 [credential "https://dev.azure.com"]
